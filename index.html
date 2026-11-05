@@ -1,0 +1,860 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1f3440">
+<title>Nagano &amp; Tokyo 2026</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+/* Single offline file. Five pages on a bottom tab bar; a sticky chip bar jumps within each page. */
+:root{
+  --bg:#f5f1ea; --card:#fffdf9; --ink:#1f2a2e; --muted:#676d69; --line:#e3dccf;
+  --out:#b8521f; --back:#2a6b86; --gold:#a97a12; --warn:#a8321f; --ok:#3d7a4f;
+  --water:#b9d6e2; --ground:#ebeee6; --park:#d3e3c6; --chip:#efe8dc; --bar:#fffdf9;
+  --hero1:#1f3440; --hero2:#3b5562; --btn:#2a6b86;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Hiragino Sans","Noto Sans JP",sans-serif;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Hiragino Mincho ProN","Yu Mincho",Georgia,serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#111614; --card:#1a211f; --ink:#ece7de; --muted:#a2a79e; --line:#2d3632;
+  --out:#f0965a; --back:#74c1dd; --gold:#e3b653; --warn:#ff8a74; --ok:#7bd09a;
+  --water:#27434f; --ground:#1b2521; --park:#22372a; --chip:#25302b; --bar:#151c1a;
+  --hero1:#0d1a20; --hero2:#203440; --btn:#2f7391; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111614; --card:#1a211f; --ink:#ece7de; --muted:#a2a79e; --line:#2d3632;
+  --out:#f0965a; --back:#74c1dd; --gold:#e3b653; --warn:#ff8a74; --ok:#7bd09a;
+  --water:#27434f; --ground:#1b2521; --park:#22372a; --chip:#25302b; --bar:#151c1a;
+  --hero1:#0d1a20; --hero2:#203440; --btn:#2f7391; color-scheme:dark}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;overflow-x:hidden}
+img{max-width:100%}
+
+/* hero */
+.hero{position:relative;color:#f6f1e7;background:linear-gradient(180deg,var(--hero1),var(--hero2));padding:22px 16px 0;padding-top:max(22px,env(safe-area-inset-top));overflow:hidden}
+.hero .kick{font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.75;margin:0}
+.hero h1{font-family:var(--serif);font-weight:600;font-size:30px;line-height:1.1;margin:6px 0 4px;letter-spacing:-.01em}
+.hero p.sub{margin:0;font-size:14px;opacity:.85}
+.hero .route{display:flex;flex-wrap:wrap;gap:4px 6px;margin:12px 0 0;font-size:12.5px;opacity:.92;position:relative;z-index:1}
+.hero .route span{white-space:nowrap}
+.hero .route i{font-style:normal;opacity:.55}
+.hero svg.mtn{display:block;width:calc(100% + 32px);margin:6px -16px 0;height:70px}
+
+.chips{position:sticky;top:0;z-index:5;background:var(--bar);border-bottom:1px solid var(--line);display:flex;gap:8px;overflow-x:auto;padding:9px 16px;margin:0 -16px 18px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chips a{flex:0 0 auto;padding:7px 13px;border-radius:999px;background:var(--chip);color:var(--ink);text-decoration:none;font-size:14px;font-weight:500;white-space:nowrap}
+main{padding:0 16px 110px;max-width:760px;margin:0 auto}
+.page>section{margin-bottom:34px;scroll-margin-top:64px}
+.page>.lead{margin:0 0 18px}
+h2{font-family:var(--serif);font-weight:600;font-size:25px;line-height:1.15;margin:0 0 10px;letter-spacing:-.005em}
+h3{font-size:16px;margin:16px 0 6px}
+p{margin:0 0 10px}
+small,.muted{color:var(--muted)}
+a{color:var(--back)}
+ul,ol{margin:0;padding-left:20px}
+li{margin:4px 0}
+.mono{font-family:var(--mono)}
+.jp{font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic",var(--sans)}
+
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fact{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-width:0}
+.fact b{display:block;font-family:var(--mono);font-size:17px}
+.fact span{font-size:13px;color:var(--muted)}
+figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{font-size:13px;color:var(--muted);padding:6px 4px 2px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;padding:4px 4px 0}
+.legend i{display:inline-block;width:24px;border-top:3px solid;vertical-align:middle;margin-right:6px}
+.tl{list-style:none;margin:0;padding:0;background:var(--card);border:1px solid var(--line);border-radius:12px}
+.tl li{display:grid;grid-template-columns:64px 1fr;gap:10px;padding:12px;margin:0;border-top:1px solid var(--line)}
+.tl li:first-child{border-top:0}
+.t{font-family:var(--mono);font-size:14px;color:var(--out);font-weight:600}
+.tl b{font-weight:600}
+.tl small{display:block;margin-top:2px;font-size:14px}
+.rule{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--warn);border-radius:8px;padding:12px 14px;margin-top:14px}
+.rule b{color:var(--warn)}
+.note{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--gold);border-radius:8px;padding:11px 14px;margin:12px 0;font-size:15px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 14px;margin-bottom:10px}
+.card h3{margin-top:0}
+.tbl{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{text-align:left;padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
+tr:first-child th{border-top:0}
+th{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+td.n{font-family:var(--mono);white-space:nowrap}
+td.r{text-align:right;font-family:var(--mono);white-space:nowrap}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px;background:var(--chip);color:var(--ink);white-space:nowrap;vertical-align:middle}
+.pill.urgent{background:var(--warn);color:#fff}
+.pill.ok{background:var(--ok);color:#fff}
+.pill.now{background:var(--out);color:#fff}
+.pill[hidden]{display:none}
+.chk{display:grid;grid-template-columns:28px 1fr;gap:10px;padding:12px;border-top:1px solid var(--line);align-items:start;cursor:pointer}
+.chk:first-child{border-top:0}
+.chk input{width:22px;height:22px;margin:1px 0 0;accent-color:var(--ok)}
+.chk span b{font-weight:600}
+.chk small{display:block;font-size:14px}
+.chk input:checked + span{opacity:.55;text-decoration:line-through}
+.group{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+
+/* day cards */
+.day{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:14px;overflow:hidden;scroll-margin-top:64px}
+.day.today{border-color:var(--out);box-shadow:0 0 0 2px var(--out) inset}
+.day-h{display:grid;grid-template-columns:58px 1fr;gap:12px;padding:14px 14px 10px;align-items:start}
+.date{background:var(--chip);border-radius:10px;text-align:center;padding:6px 0 5px;line-height:1.1}
+.date b{display:block;font-family:var(--serif);font-size:24px}
+.date span{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.day-h h3{margin:2px 0 2px;font-family:var(--serif);font-size:20px;font-weight:600;line-height:1.2}
+.day-h .stay{font-size:13.5px;color:var(--muted)}
+.day-b{padding:0 14px 14px}
+.day-b ul{margin-bottom:8px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:14.5px;margin-top:8px;padding-top:10px;border-top:1px dashed var(--line)}
+.kv dt{font-size:11.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--gold);padding-top:3px}
+.kv dd{margin:0}
+.steps{counter-reset:s;list-style:none;padding:0;margin:8px 0}
+.steps li{counter-increment:s;position:relative;padding:0 0 10px 36px;margin:0}
+.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:24px;height:24px;border-radius:50%;background:var(--btn);color:#fff;font-size:13px;font-weight:700;display:grid;place-items:center}
+.steps li b{display:block}
+.steps li small{font-size:14px}
+
+/* stays */
+.stay-card{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:18px;overflow:hidden;scroll-margin-top:64px}
+.stay-card.tonight{border-color:var(--out);box-shadow:0 0 0 2px var(--out) inset}
+.stay-top{padding:14px 16px 12px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,var(--chip),transparent)}
+.stay-top .when{font-size:12.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--out)}
+.stay-top h3{font-family:var(--serif);font-size:23px;font-weight:600;margin:4px 0 0;line-height:1.15}
+.stay-top .jpname{font-size:21px;font-weight:600;margin:2px 0 0}
+.stay-body{padding:12px 16px 14px}
+.ref{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;background:var(--bg);border:1px dashed var(--line);border-radius:10px;padding:10px 12px;margin-bottom:10px}
+.ref span{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.ref b{font-family:var(--mono);font-size:19px;letter-spacing:.02em;word-break:break-all}
+.io{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.io div{background:var(--bg);border-radius:10px;padding:8px 10px}
+.io span{display:block;font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.io b{font-size:15px}
+.addr{font-size:15px;margin:0 0 8px}
+.addr .jp{display:block;font-size:17px;font-weight:600}
+.shots{display:flex;gap:10px;overflow-x:auto;padding:4px 0 2px;scroll-snap-type:x mandatory}
+.shots button{flex:0 0 auto;border:1px solid var(--line);border-radius:10px;padding:0;background:#fff;cursor:zoom-in;scroll-snap-align:start;overflow:hidden}
+.shots img{display:block;height:190px;width:auto}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.btn{display:inline-block;padding:8px 13px;border-radius:999px;background:var(--btn);color:#fff;text-decoration:none;font-size:14px;font-weight:600}
+.btn.ghost{background:var(--chip);color:var(--ink)}
+.lb{position:fixed;inset:0;z-index:50;background:rgba(10,14,13,.92);display:none;overflow:auto;-webkit-overflow-scrolling:touch}
+.lb.open{display:block}
+.lb img{display:block;width:100%;max-width:900px;margin:56px auto 24px;background:#fff}
+.lb button{position:fixed;top:max(12px,env(safe-area-inset-top));right:12px;z-index:51;font:inherit;font-weight:700;border:0;border-radius:999px;padding:9px 16px;background:#fff;color:#111}
+
+/* runs */
+.run-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.run-h h2{margin-bottom:4px}
+
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:10;display:grid;grid-template-columns:repeat(5,1fr);background:var(--bar);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+nav.tabs button{font:inherit;background:none;border:0;color:var(--muted);padding:8px 2px 8px;font-size:11.5px;font-weight:600;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px}
+nav.tabs svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+nav.tabs button[aria-current="page"]{color:var(--out)}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--back);outline-offset:2px}
+.theme{position:absolute;top:max(14px,env(safe-area-inset-top));right:14px;z-index:2;font:inherit;font-size:12px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#f6f1e7;border-radius:999px;padding:5px 11px;cursor:pointer}
+
+/* map styles */
+svg text{font-family:var(--sans)}
+.s-ground{fill:var(--ground)} .s-river{fill:none;stroke:var(--water);stroke-width:14;stroke-linecap:round;stroke-linejoin:round}
+.s-park{fill:var(--park)}
+.s-out{fill:none;stroke:var(--out);stroke-width:3.5;stroke-linejoin:round;stroke-linecap:round}
+.s-back{fill:none;stroke:var(--back);stroke-width:3.5;stroke-linejoin:round;stroke-dasharray:9 5}
+.s-arrow{fill:none;stroke:none}
+.s-node{fill:var(--card);stroke:var(--ink);stroke-width:2}
+.s-end{fill:var(--out);stroke:var(--ink);stroke-width:2}
+.s-km{fill:var(--gold);stroke:var(--card);stroke-width:1.5}
+.s-l{font-size:13px;font-weight:600;fill:var(--ink);paint-order:stroke;stroke:var(--ground);stroke-width:3px;stroke-linejoin:round}
+.s-m{font-size:11.5px;fill:var(--muted);paint-order:stroke;stroke:var(--ground);stroke-width:3px;stroke-linejoin:round}
+.s-mo{font-family:var(--mono);font-size:11.5px;fill:var(--muted);paint-order:stroke;stroke:var(--ground);stroke-width:3px}
+.s-so{font-family:var(--mono);font-size:11px;font-weight:600;fill:var(--out);paint-order:stroke;stroke:var(--ground);stroke-width:3px}
+.s-sb{font-family:var(--mono);font-size:11px;font-weight:600;fill:var(--back)}
+.s-road{fill:none;stroke:var(--line);stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
+.s-rail{fill:none;stroke:var(--muted);stroke-width:2;stroke-dasharray:2 4;opacity:.7}
+.mo{fill:var(--out)} .mb{fill:var(--back)}
+@media (min-width:600px){.facts{grid-template-columns:repeat(4,1fr)} .hero h1{font-size:38px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{nav.tabs,.chips,.theme{display:none}.page{display:block!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <button class="theme" id="themeBtn" type="button">Theme</button>
+  <p class="kick">Road trip · 3 friends · 7–15 Nov 2026</p>
+  <h1>Nagano &amp; Tokyo</h1>
+  <p class="sub">Shareable version. Map links need signal.</p>
+  <div class="route"><span>Karuizawa</span><i>→</i><span>Kusatsu</span><i>→</i><span>Hakuba ×2</span><i>→</i><span>Hirayu ×2</span><i>→</i><span>Tokyo ×2</span></div>
+  <svg class="mtn" viewBox="0 0 400 70" preserveAspectRatio="none" aria-hidden="true">
+    <circle cx="318" cy="30" r="13" fill="#e3b653" opacity=".9"/>
+    <path d="M0,70 L0,48 L40,30 L70,42 L110,14 L140,34 L170,22 L205,40 L240,12 L272,34 L300,26 L340,44 L372,28 L400,38 L400,70Z" fill="#ffffff" opacity=".13"/>
+    <path d="M110,14 L122,22 L114,22 L118,27 L104,20Z M240,12 L252,21 L244,20 L248,26 L234,19Z" fill="#fff" opacity=".55"/>
+    <path d="M0,70 L0,58 L50,46 L90,56 L140,40 L190,54 L230,44 L280,58 L330,46 L370,56 L400,50 L400,70Z" fill="var(--bg)"/>
+  </svg>
+</header>
+
+<main>
+
+<!-- ===================== PAGE: TRIP ===================== -->
+<div class="page" id="trip">
+  <div class="chips" aria-label="Jump to day">
+    <a href="#d1">D1 Sat 7</a><a href="#d2">D2 Sun 8</a><a href="#d3">D3 Mon 9</a><a href="#d4">D4 Tue 10</a><a href="#d5">D5 Wed 11</a><a href="#d6">D6 Thu 12</a><a href="#d7">D7 Fri 13</a><a href="#d8">D8 Sat 14</a><a href="#d9">D9 Sun 15</a>
+  </div>
+
+  <article class="day" id="d1" data-date="2026-11-07">
+    <div class="day-h"><div class="date"><span>Sat</span><b>7</b><span>Nov</span></div>
+      <div><h3>Narita → Ueno → Karuizawa</h3><div class="stay">Stay: Karuizawa Tsuruya Ryokan · check-in 15:00</div></div></div>
+    <div class="day-b">
+      <ol class="steps">
+        <li><b>08:40 · Land at Narita</b><small>SQ5926 (operated by ANA). Immigration and bags take 30–45 min, so expect to be out about 09:15–09:30. Have the Visit Japan Web QR ready.</small></li>
+        <li><b>~09:40 · Keisei Skyliner to Keisei Ueno</b><small>41–45 min, about ¥2,580. Buy at the Keisei counter or machines in the airport station (B1). While you ride, book reserved seats for 3 on the JR-EAST Train Reservation site.</small></li>
+        <li><b>~10:30 · Walk to JR Ueno, 5–8 min</b><small>Keisei Ueno and JR Ueno are separate stations. Follow signs for JR, then the Shinkansen. The Hokuriku platforms (19–20) are deep underground, so allow 15 min with bags.</small></li>
+        <li><b>~11:00 · Shinkansen to Karuizawa</b><small>Asama or Hakutaka only. <b>Kagayaki does not stop at Karuizawa.</b> 60–70 min, reserved about ¥5,800.</small></li>
+        <li><b>~12:45–13:30 · Karuizawa</b><small>Lunch at Suju Masayuki (200-year-old miso specialist, English menu). Pick up the car at 13:30 from Nissan Rent a Car by the station.</small></li>
+        <li><b>15:00 · Check in, then Kyu-Karuizawa Ginza</b><small>Evening stroll on the stone-paved street, which is quieter once the day-trippers leave. Onsen before dinner.</small></li>
+      </ol>
+      <div class="note" style="margin-bottom:0"><b>Car: pick up at 13:30</b> at Nissan Rent a Car by Karuizawa Station, winter tyres confirmed. Store: <a href="tel:+81267411223">0267-41-1223</a>.</div>
+    </div>
+  </article>
+
+  <article class="day" id="d2" data-date="2026-11-08">
+    <div class="day-h"><div class="date"><span>Sun</span><b>8</b><span>Nov</span></div>
+      <div><h3>Karuizawa → Kusatsu Onsen</h3><div class="stay">Stay: Kusatsu Onsen Futabaya · check-in 15:00 · 1 night</div></div></div>
+    <div class="day-b">
+      <ul>
+        <li><b>06:45 run:</b> Tsuruya to Kumoba Pond and up the larch avenue, 7 km (see Runs). Or walk just the pond loop, 1 km.</li>
+        <li>Check out by 11:00. Optional: Prince Shopping Plaza.</li>
+        <li>Drive to Kusatsu, about 45 min, or the long way via Mount Haruna (Initial D's mountain).</li>
+        <li>Coffee: Morita Coffee, siphon brew, English-speaking owner, closes 18:00.</li>
+        <li>Day-use onsen: Ōtaki no Yu.</li>
+        <li>Evening: the Yubatake lit up and steaming. Free footbaths, wander in a yukata.</li>
+      </ul>
+      <dl class="kv"><dt>Dinner</dt><dd>Wagyu Sukiyaki Soshiji. 4.9★, ¥8,800 course, good English service.</dd></dl>
+    </div>
+  </article>
+
+  <article class="day" id="d3" data-date="2026-11-09">
+    <div class="day-h"><div class="date"><span>Mon</span><b>9</b><span>Nov</span></div>
+      <div><h3>Kusatsu → Jigokudani → Zenkoji → Hakuba</h3><div class="stay">Stay: Hotel La Vigne Hakuba · night 1 of 2</div></div></div>
+    <div class="day-b">
+      <ul>
+        <li><b>Check Route 292 first</b> (Shibu Pass, 2,172 m). Ask Futabaya's front desk in the morning. If it's closed, see Info › Plan B.</li>
+        <li>Jigokudani Monkey Park, about 1 hr 10 min. 1.6 km forest walk each way, ¥800.</li>
+        <li>Zenkoji Temple, Nagano city, about 40 min on. Pitch-black tunnel walk under the altar, ¥500.</li>
+        <li>On to Hakuba and check in from 15:00.</li>
+      </ul>
+      <dl class="kv"><dt>Dinner</dt><dd><b>Denenshi, 18:30</b> <span class="pill ok">booked</span><br>3 people, about ¥5,980 each. 100% cancellation fee on the day.</dd></dl>
+    </div>
+  </article>
+
+  <article class="day" id="d4" data-date="2026-11-10">
+    <div class="day-h"><div class="date"><span>Tue</span><b>10</b><span>Nov</span></div>
+      <div><h3>Hakuba, full chill day</h3><div class="stay">Stay: Hotel La Vigne Hakuba · night 2 of 2</div></div></div>
+    <div class="day-b">
+      <ul>
+        <li><b>07:00 run:</b> La Vigne to Hakuba Ohashi bridge and Hakuba Station, 6.3 km (see Runs).</li>
+        <li>Hakuba Iwatake: Noah gondola, 8 min, ¥2,900 return, up to 1,289 m. Runs until 15 Nov.</li>
+        <li>Hakuba Mountain Harbor terrace for the Hakuba Sanzan view. Lunch at The City Bakery (Hakuba pork sandwich, ¥1,300); go before 14:30 because sandwiches sell out.</li>
+        <li>Nezuko Forest loop at the summit, about 1.5 hr, gentle.</li>
+        <li>Happo village wander and Happo Onsen day use, ¥650–1,000. Some of the purest alkaline water in Japan.</li>
+      </ul>
+      <dl class="kv"><dt>Dinner</dt><dd>Echoland: B.O.S okonomiyaki, or Yamanami steakhouse.</dd></dl>
+    </div>
+  </article>
+
+  <article class="day" id="d5" data-date="2026-11-11">
+    <div class="day-h"><div class="date"><span>Wed</span><b>11</b><span>Nov</span></div>
+      <div><h3>Hakuba → Hirayu Onsen</h3><div class="stay">Stay: Miyama Ouan · check-in 15:00 · night 1 of 2</div></div></div>
+    <div class="day-b">
+      <ul>
+        <li>Slow morning, check out by 11:00.</li>
+        <li>Drive about 2 hr on the lowland Route 148/158 via the Abo Tunnel.</li>
+        <li>Afternoon: Shinhotaka Ropeway, 35–45 min away. Double-decker gondola to 2,156 m and a 360° deck. Last ascent 16:00, about ¥3,000 return.</li>
+        <li>Evening: work through Miyama Ouan's baths.</li>
+      </ul>
+      <dl class="kv"><dt>Tonight</dt><dd>Ask the front desk for <b>07:00 breakfast</b> and a <b>packed lunch</b> tomorrow.</dd></dl>
+    </div>
+  </article>
+
+  <article class="day" id="d6" data-date="2026-11-12">
+    <div class="day-h"><div class="date"><span>Thu</span><b>12</b><span>Nov</span></div>
+      <div><h3>Kamikochi, the 5-hour loop</h3><div class="stay">Stay: Miyama Ouan · night 2 of 2</div></div></div>
+    <div class="day-b">
+      <ul>
+        <li>07:45 walk to Hirayu Bus Terminal (7 min). The car stays at the hotel.</li>
+        <li>08:40 start. Out on the left bank to Shinmura Bridge, back past Myojin Pond. About 16 km, flat.</li>
+        <li>15:30 back at the terminal. Onsen, bonfire, late-night ramen.</li>
+      </ul>
+      <p style="margin:6px 0 0"><a href="#" data-goto="kamikochi" class="btn">Open the Kamikochi guide</a></p>
+    </div>
+  </article>
+
+  <article class="day" id="d7" data-date="2026-11-13">
+    <div class="day-h"><div class="date"><span>Fri</span><b>13</b><span>Nov</span></div>
+      <div><h3>Hirayu → Matsumoto → Shinjuku</h3><div class="stay">Stay: Tomori, Shin-Okubo · self check-in from 15:00</div></div></div>
+    <div class="day-b">
+      <ul>
+        <li>Morning walk: Hirayu Otaki waterfall, 3.75 km loop, about 1 hr 10 min, 130 m climb.</li>
+        <li>Check out by 11:00. Drive about 1 hr to Matsumoto.</li>
+        <li>Lunch and a wander on Nakamachi Street. Refuel, then <b>return the car at Matsumoto Station by 14:00</b>.</li>
+        <li><b>Azusa 38, 14:50 → Shinjuku 17:26</b> <span class="pill ok">booked</span> Klook QR. Collect the tickets before boarding.</li>
+        <li>Check in at Tomori, then head to Shibuya.</li>
+      </ul>
+      <dl class="kv"><dt>Dinner</dt><dd><b>Sushi Hanaoka, 20:30</b> <span class="pill ok">booked</span><br>Omakase counter, ¥16,500 each, pay at the venue. 7-2 Sakuragaokacho, La Colline Shibuya 1F. <a href="tel:+81334618881">03-3461-8881</a></dd></dl>
+    </div>
+  </article>
+
+  <article class="day" id="d8" data-date="2026-11-14">
+    <div class="day-h"><div class="date"><span>Sat</span><b>14</b><span>Nov</span></div>
+      <div><h3>Tokyo, full shopping day</h3><div class="stay">Stay: Tomori · night 2 of 2</div></div></div>
+    <div class="day-b">
+      <ul>
+        <li><b>07:00 run:</b> Shinjuku to Yoyogi Park loop, about 9 km (see Runs).</li>
+        <li>Shibuya and Harajuku in the morning, Ginza or Shinjuku in the afternoon.</li>
+        <li>Beer: Uchu Brewing Toranomon, or Tower Records Beer (Shibuya 6F) for Teenage Brewing collabs.</li>
+        <li>Pack tonight.</li>
+      </ul>
+      <dl class="kv"><dt>Dinner</dt><dd><b>Yoroniku, 17:45</b> <span class="pill ok">booked</span><br>Truffle sukiyaki course, 2-hour limit. Near Omotesando, 25–30 min from Tomori, so leave at 17:00.</dd></dl>
+    </div>
+  </article>
+
+  <article class="day" id="d9" data-date="2026-11-15">
+    <div class="day-h"><div class="date"><span>Sun</span><b>15</b><span>Nov</span></div>
+      <div><h3>Tokyo → Singapore</h3><div class="stay">Check out of Tomori by 10:00</div></div></div>
+    <div class="day-b">
+      <ul>
+        <li>Slow morning and last-minute shopping. Store bags, or carry them light.</li>
+        <li><b>~12:30 Narita Express from Shinjuku</b>, 80–90 min. Book seats in advance for this leg.</li>
+        <li>SQ5925 (operated by ANA) departs Narita 17:00, lands Singapore 23:40.</li>
+      </ul>
+    </div>
+  </article>
+</div>
+
+<!-- ===================== PAGE: CHECK-IN ===================== -->
+<div class="page" id="stays" hidden>
+  <div class="chips" aria-label="Jump to stay">
+    <a href="#st1">Tsuruya</a><a href="#st2">Futabaya</a><a href="#st3">La Vigne</a><a href="#st4">Miyama Ouan</a><a href="#st5">Tomori</a><a href="#st6">Car</a>
+  </div>
+  <p class="lead">In order of the trip. Booking numbers and confirmation screenshots are in the offline copy only.</p>
+
+  <section class="stay-card" id="st1" data-from="2026-11-07" data-to="2026-11-08">
+    <div class="stay-top"><div class="when">Night 1 · Sat 7 → Sun 8 Nov <span class="pill now tn" hidden>Tonight</span></div>
+      <h3>Karuizawa Tsuruya Ryokan</h3><div class="jpname jp">つるや旅館</div></div>
+    <div class="stay-body">
+      <div class="io"><div><span>Check-in</span><b>Sat 7 Nov, 15:00</b></div><div><span>Check-out</span><b>Sun 8 Nov, 11:00</b></div></div>
+      <p class="addr"><span class="jp">長野県北佐久郡軽井沢町旧軽井沢678</span>678 Kyu-Karuizawa, Karuizawa, Nagano</p>
+      <p><small>Japanese-style room, 3 single futons, sleeps 3. Spa (onsen), breakfast available, free self parking, laundry.</small></p>
+      <div class="links"><a class="btn" href="https://maps.app.goo.gl/gVTJAGgL8yYpaqjR7" target="_blank" rel="noopener">Map</a><a class="btn ghost" href="https://www.tsuruyaryokan.jp/ig.html" target="_blank" rel="noopener">Website</a></div>
+    </div>
+  </section>
+
+  <section class="stay-card" id="st2" data-from="2026-11-08" data-to="2026-11-09">
+    <div class="stay-top"><div class="when">Night 2 · Sun 8 → Mon 9 Nov <span class="pill now tn" hidden>Tonight</span></div>
+      <h3>Kusatsu Onsen Futabaya</h3><div class="jpname jp">草津温泉 ふたばや</div></div>
+    <div class="stay-body">
+      <div class="io"><div><span>Check-in</span><b>Sun 8 Nov, after 15:00</b></div><div><span>Check-out</span><b>Mon 9 Nov, by 10:00</b></div></div>
+      <p class="addr"><span class="jp">群馬県吾妻郡草津町草津1421</span>1421 Kusatsu, Gunma 377-1711 · <a href="tel:+81279885403">+81-279-88-5403</a></p>
+      <p><small>Triple room, non-smoking, 3 single beds, 16 m². No meals. Note the early 10:00 check-out.</small></p>
+      <div class="links"><a class="btn" href="https://maps.app.goo.gl/c6CQJQRFeQYrzz7G8" target="_blank" rel="noopener">Map</a></div>
+    </div>
+  </section>
+
+  <section class="stay-card" id="st3" data-from="2026-11-09" data-to="2026-11-11">
+    <div class="stay-top"><div class="when">Nights 3–4 · Mon 9 → Wed 11 Nov <span class="pill now tn" hidden>Tonight</span></div>
+      <h3>Hotel La Vigne Hakuba by Onko Chishin</h3><div class="jpname jp">ホテル ラ・ヴィーニュ 白馬</div></div>
+    <div class="stay-body">
+      <div class="io"><div><span>Check-in</span><b>Mon 9 Nov, 15:00</b><br><small>latest 20:00</small></div><div><span>Check-out</span><b>Wed 11 Nov, 11:00</b></div></div>
+      <p class="addr"><span class="jp">長野県北安曇郡白馬村北城3020-1116</span>3020-1116 Hokujo, Hakuba, Nagano 399-9301 · <a href="tel:+81261855166">0261-85-5166</a></p>
+      <p><small>Free parking, no reservation needed. No onsen, so use Happo Onsen. Near the Echoland restaurants.</small></p>
+      <div class="links"><a class="btn" href="https://maps.app.goo.gl/MMKW9EG22pvtFFsE6" target="_blank" rel="noopener">Map</a></div>
+    </div>
+  </section>
+
+  <section class="stay-card" id="st4" data-from="2026-11-11" data-to="2026-11-13">
+    <div class="stay-top"><div class="when">Nights 5–6 · Wed 11 → Fri 13 Nov <span class="pill now tn" hidden>Tonight</span></div>
+      <h3>Miyama Ouan, Hirayu Onsen</h3><div class="jpname jp">深山桜庵（みやまおうあん）</div></div>
+    <div class="stay-body">
+      <div class="io"><div><span>Check-in</span><b>Wed 11 Nov, 15:00</b><br><small>15:00–20:00</small></div><div><span>Check-out</span><b>Fri 13 Nov, 11:00</b></div></div>
+      <p class="addr"><span class="jp">岐阜県高山市奥飛騨温泉郷平湯229</span>229 Okuhida Onsengo Hirayu, Takayama, Gifu · <a href="tel:+81578892799">+81 578-89-2799</a></p>
+      <p><small>Renovated Japanese-Western room with private bath, 45 m², for 4 people, booked for 3 adults. The bus terminal is a 7-minute walk away.</small></p>
+      <div class="links"><a class="btn" href="https://maps.app.goo.gl/uQXEGsxNgY3ivAc69" target="_blank" rel="noopener">Map</a><a class="btn ghost" href="https://www.miyama-onsen.com/en/" target="_blank" rel="noopener">Website</a></div>
+    </div>
+  </section>
+
+  <section class="stay-card" id="st5" data-from="2026-11-13" data-to="2026-11-15">
+    <div class="stay-top"><div class="when">Nights 7–8 · Fri 13 → Sun 15 Nov <span class="pill now tn" hidden>Tonight</span></div>
+      <h3>Tomori, Shinjuku (Airbnb)</h3><div class="jpname" style="font-size:16px;color:var(--muted)">Host: Fuji Tokyo · 4 min from Higashi-Shinjuku Stn</div></div>
+    <div class="stay-body">
+      <div class="io"><div><span>Check-in</span><b>Fri 13 Nov, 15:00</b></div><div><span>Check-out</span><b>Sun 15 Nov, 10:00</b></div></div>
+      <p class="addr">Okubo, Shinjuku · 4 min walk from Higashi-Shinjuku Station</p>
+      <p><small><b>Self check-in with a keypad.</b> The code and house manual are in the Airbnb app, so screenshot them before you fly. Triple room, 2-tier bunk (D type), 17.9 m², max 5.</small></p>
+      <div class="links"><a class="btn" href="https://maps.app.goo.gl/8gnPkMYdUsXcV3nj7" target="_blank" rel="noopener">Map</a></div>
+    </div>
+  </section>
+
+  <section class="stay-card" id="st6">
+    <div class="stay-top"><div class="when">Car · Sat 7 → Fri 13 Nov</div>
+      <h3>Nissan Rent a Car · Nissan Kicks e-Power (SUV)</h3><div class="jpname jp">日産レンタカー 軽井沢駅前店</div></div>
+    <div class="stay-body">
+      <div class="io"><div><span>Pick-up</span><b>Sat 7 Nov, 13:30</b><br><small>Karuizawa Station store</small></div><div><span>Drop-off</span><b>Fri 13 Nov, ~14:00</b><br><small>Matsumoto Station store</small></div></div>
+      <p style="margin:0 0 10px"><span class="pill ok">Winter tyres confirmed</span> <span class="pill ok">Pick-up moved to 13:30</span></p>
+      <p class="addr">Pick-up: <a href="tel:+81267411223">0267-41-1223</a> · Drop-off: <a href="tel:+81263394123">0263-39-4123</a><br><small>Balance is paid at pick-up. 5 seats, 2 suitcases, auto. Bring the passport, Singapore licence and IDP for every driver.</small></p>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== PAGE: KAMIKOCHI ===================== -->
+<div class="page" id="kamikochi" hidden>
+  <div class="chips" aria-label="Jump to section">
+    <a href="#d6-glance">At a glance</a><a href="#d6-walk">Walk to bus</a><a href="#d6-route">Route map</a><a href="#d6-time">Timeline</a><a href="#d6-wx">Weather</a><a href="#d6-gear">Gear</a><a href="#d6-bears">Bears</a><a href="#d6-check">Check first</a>
+  </div>
+  <section id="d6-glance">
+    <h2>Day 6: Kamikochi, Thu 12 Nov</h2>
+    <p>The park's 5-hour walking course, out along the left bank to Shinmura Bridge and back by Myojin Pond. Flat, about 16 km, at about 1,500 m. No car needed: the hotel is a 7-minute walk from the bus.</p>
+    <div class="facts">
+      <div class="fact"><b>07:45</b><span>Walk to bus terminal</span></div>
+      <div class="fact"><b>~08:00</b><span>Bus, about 25 min</span></div>
+      <div class="fact"><b>08:40</b><span>Start walking</span></div>
+      <div class="fact"><b>15:30</b><span>Target back at terminal</span></div>
+    </div>
+  </section>
+
+  <section id="d6-walk">
+    <h2>Walk: Miyama Ouan to the bus</h2>
+    <figure>
+      <svg viewBox="0 0 360 330" role="img" aria-label="Schematic walking route, 500 metres, from Miyama Ouan at the top to Hirayu Bus Terminal at the bottom, along Route 158">
+        <rect class="s-ground" x="0" y="0" width="360" height="330" rx="8"/>
+        <!-- Route 158 -->
+        <path class="s-road" d="M205,70 C198,110 198,150 206,190 C214,225 226,245 228,282"/>
+        <path class="s-out" d="M298,36 C270,40 236,52 212,70 C196,92 196,130 202,168 C208,206 222,236 226,270"/>
+        <!-- landmarks east -->
+        <g class="s-m">
+          <text x="256" y="102">Hirayu</text><text x="256" y="115">Community Ctr</text>
+          <text x="236" y="156">Yumeguri no yado</text>
+          <text x="236" y="212">Hirayu-no-Yu</text>
+          <text x="236" y="302">Tourist Info Center</text>
+        </g>
+        <!-- landmarks west -->
+        <g class="s-m" text-anchor="end">
+          <text x="186" y="112">Okada Ryokan</text>
+          <text x="186" y="150">Tabist</text>
+          <text x="186" y="198">Ryoso Tsuyukusa</text>
+        </g>
+        <circle class="s-end" cx="298" cy="36" r="8"/>
+        <circle class="s-end" cx="226" cy="272" r="8"/>
+        <text class="s-l" x="286" y="24" text-anchor="end">Miyama Ouan</text>
+        <text class="s-l" x="14" y="300">Hirayu Bus Terminal</text>
+        <text class="s-so" x="14" y="316">7 min · 500 m · flat</text>
+        <g transform="translate(30,60)" fill="none" stroke="var(--muted)" stroke-width="1.5"><path d="M0,14 L0,-10 M-5,-4 L0,-12 L5,-4"/></g>
+        <text class="s-m" x="24" y="84">N</text>
+      </svg>
+      <figcaption>Schematic, not to scale, from the Google Maps walking route. Landmarks are the ones on that map.</figcaption>
+    </figure>
+    <ol style="margin:12px 0 0;padding-left:22px">
+      <li>Leave the hotel and head west, then follow the road south. Google Maps names it the Azusa Shirakaba Kaido, Route 158.</li>
+      <li>You pass Okada Ryokan, Tabist and Ryoso Tsuyukusa on the west side. Keep going south.</li>
+      <li>The bus terminal is at the south end of the road, just above the Hirayu Onsen Tourist Information Center.</li>
+    </ol>
+    <p style="margin-top:10px">Tickets are sold at the terminal counter. Ask for <b>Kamikochi</b>. Taxi phrase: <b>平湯バスターミナル</b> (Hirayu Basu Taaminaru).</p>
+    <p><a href="https://www.google.com/maps/dir/?api=1&origin=Hirayu+Bus+Terminal&destination=Miyama+Ouan+Hirayu&travelmode=walking" target="_blank" rel="noopener">Open the walk in Google Maps</a> <small>(needs signal. Download the Hirayu area for offline use at the hotel Wi-Fi.)</small></p>
+  </section>
+
+  <section id="d6-route">
+    <h2>The loop</h2>
+    <figure>
+      <svg viewBox="0 0 380 620" role="img" aria-label="Schematic map of the Kamikochi loop. Out along the left bank from the Bus Terminal to Shinmura Bridge, back along the right bank via Myojin Pond and the Weston Monument">
+        <defs>
+          <marker id="aOut" viewBox="0 0 10 10" refX="8" refY="5" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" orient="auto"><path class="mo" d="M0,0 L10,5 L0,10 z"/></marker>
+          <marker id="aBack" viewBox="0 0 10 10" refX="8" refY="5" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" orient="auto"><path class="mb" d="M0,0 L10,5 L0,10 z"/></marker>
+        </defs>
+        <rect class="s-ground" x="0" y="0" width="380" height="620" rx="8"/>
+        <path class="s-river" d="M125,610 C135,580 140,545 150,505 C160,470 190,420 212,390 C232,360 246,330 255,300 C262,278 264,268 268,255 C276,225 284,190 285,170 C288,130 291,100 292,60"/>
+        <text class="s-m" x="302" y="420" style="font-style:italic">left bank</text>
+        <text class="s-m" x="12" y="410" style="font-style:italic">right bank</text>
+        <path class="s-out" d="M176,556 L165,520 L160,506 C175,470 195,430 218,392 C236,360 248,330 262,300 L276,256 L282,236" marker-end="url(#aOut)"/>
+        <path class="s-back" d="M268,250 L254,296 C238,330 226,360 206,386 L188,362 C176,390 162,430 146,470 L142,503 L116,520 L112,556 L128,566 L170,562" marker-end="url(#aBack)"/>
+        <circle class="s-node" cx="176" cy="558" r="7"/><circle class="s-node" cx="152" cy="505" r="6"/><circle class="s-node" cx="218" cy="391" r="6"/>
+        <circle class="s-node" cx="262" cy="300" r="6"/><circle class="s-node" cx="280" cy="244" r="6"/><circle class="s-node" cx="188" cy="362" r="6"/>
+        <circle class="s-node" cx="116" cy="520" r="6"/><circle class="s-node" cx="112" cy="556" r="6"/>
+        <text class="s-l" x="190" y="584">Bus Terminal</text>
+        <text class="s-l" x="172" y="516">Kappa Bridge</text>
+        <text class="s-l" x="232" y="395">Myojin Bridge</text>
+        <text class="s-l" x="276" y="304">Tokusawa</text>
+        <text class="s-l" x="264" y="226" text-anchor="end">Shinmura Br.</text>
+        <text class="s-l" x="176" y="350" text-anchor="end">Myojin Pond</text>
+        <text class="s-l" x="104" y="518" text-anchor="end">Weston</text>
+        <text class="s-m" x="104" y="533" text-anchor="end">Monument</text>
+        <text class="s-l" x="98" y="560" text-anchor="end">Tashiro Br.</text>
+        <text class="s-mo" x="190" y="600">08:40 start · 15:25 end</text>
+        <text class="s-mo" x="232" y="410">09:36</text>
+        <text class="s-mo" x="276" y="318">10:36</text>
+        <text class="s-mo" x="264" y="240" text-anchor="end">11:05</text>
+        <text class="s-mo" x="176" y="366" text-anchor="end">13:20</text>
+        <text class="s-mo" x="172" y="531">08:46 · 14:40</text>
+        <text class="s-so" x="208" y="454">50 min</text>
+        <text class="s-so" x="258" y="352">60 min</text>
+        <text class="s-so" x="296" y="270">20 min</text>
+        <text class="s-sb" x="100" y="448">60 min</text>
+        <g transform="translate(340,40)" fill="none" stroke="var(--muted)" stroke-width="1.5"><path d="M0,16 L0,-10 M-5,-4 L0,-12 L5,-4"/></g>
+        <text class="s-m" x="334" y="64">N</text>
+      </svg>
+      <div class="legend"><span><i style="border-color:var(--out)"></i>Out: left bank</span><span><i style="border-color:var(--back);border-top-style:dashed"></i>Back: right bank, Myojin Pond, Weston Monument</span></div>
+      <figcaption>Schematic, not to scale, redrawn from the park's walking-course map. Segment times are the park's estimates.</figcaption>
+    </figure>
+    <p style="margin-top:10px"><a href="https://www.google.com/maps/dir/?api=1&origin=Kamikochi+Bus+Terminal&destination=Kamikochi+Bus+Terminal&waypoints=Kappabashi+Bridge|Myojin+Bridge+Kamikochi|Tokusawa+Kamikochi|Shinmura+Bridge+Kamikochi&travelmode=walking" target="_blank" rel="noopener">Open the loop in Google Maps</a> <small>(waypoints match by name, so check each pin)</small></p>
+  </section>
+
+  <section id="d6-time">
+    <h2>Timeline</h2>
+    <ol class="tl">
+      <li><span class="t">Wed night</span><div><b>Ask Miyama Ouan for 07:00 breakfast and a packed lunch</b><small>Tell them you leave at 07:45. Charge phones and power bank.</small></div></li>
+      <li><span class="t">07:00</span><div><b>Breakfast</b><small>Fill up. Nothing is likely to be open past Myojin.</small></div></li>
+      <li><span class="t">07:45</span><div><b>Walk to Hirayu Onsen Bus Terminal</b><small>7 min, 500 m. Leave the car at the hotel. Buy tickets at the counter.</small></div></li>
+      <li><span class="t">~08:00</span><div><b>Bus to Kamikochi</b><small>About 25 min, around ¥1,500 each way per person, paid on the day, no reservations. Cash is safest. Buses run about every 30 min from 06:30. Confirm departures at the counter.</small></div></li>
+      <li><span class="t">08:30</span><div><b>Arrive. Toilets, read the bear and trail notices</b><small>Put on the layers. Frost on the boards is normal.</small></div></li>
+      <li><span class="t">08:40</span><div><b>Start. Bus Terminal to Kappa Bridge, 6 min</b><small>The terminal is on the left bank side. Walk to Kappa Bridge but do not cross it yet. Follow the Left Bank path north.</small></div></li>
+      <li><span class="t">09:36</span><div><b>Myojin Bridge area, 50 min</b><small>Wide forest path, nearly flat.</small></div></li>
+      <li><span class="t">10:36</span><div><b>Tokusawa, 60 min further</b><small>Warm drink, 10 min break. Lodges here usually close before mid November.</small></div></li>
+      <li><span class="t">11:05</span><div><b>Shinmura Bridge, about 20 min on</b><small>The turnaround. Photos, then back to Tokusawa by 11:35. The 20 min is an estimate.</small></div></li>
+      <li><span class="t">11:35</span><div><b>Lunch at Tokusawa, 30 min</b><small>Somewhere sunny and out of the wind.</small></div></li>
+      <li><span class="t">13:05</span><div><b>Back at Myojin, 60 min</b><small>Cross Myojin Bridge to the right bank side, where the pond path starts.</small></div></li>
+      <li><span class="t">13:20</span><div><b>Myojin Pond (Hotaka Shrine Okumiya), 20 min</b><small>Small entry fee, around ¥500, bring coins. Classic reflection view of the Hotaka peaks.</small></div></li>
+      <li><span class="t">14:40</span><div><b>Kappa Bridge by the right bank path, 60 min</b><small>Boardwalks and wetland. Cafes and shops near the bridge may still be open.</small></div></li>
+      <li><span class="t">15:25</span><div><b>Weston Monument, Tashiro Bridge, Bus Terminal, about 45 min</b><small>Short and flat.</small></div></li>
+      <li><span class="t">15:30–16:00</span><div><b>Bus back to Hirayu, walk to the hotel</b><small>Onsen, then dinner. Last bus is 17:30 (confirm), but treat 16:00 as your real cutoff.</small></div></li>
+    </ol>
+    <div class="rule"><p style="margin:0"><b>Turnaround rules.</b> Not at Myojin Bridge by 10:15: skip Shinmura Bridge and turn at Tokusawa. Not back at Myojin by 13:15: skip Myojin Pond and go straight down the right bank. The valley is in shade from about 16:00, before the 16:40 sunset, and there is no street lighting.</p></div>
+  </section>
+
+  <section id="d6-wx">
+    <h2>Weather and terrain</h2>
+    <div class="tbl"><table>
+      <tr><th>When</th><th>What to expect</th></tr>
+      <tr><td class="n">08:30</td><td>About −5 to −2 °C, frost on boardwalks. Sun reaches the valley floor late.</td></tr>
+      <tr><td class="n">Midday</td><td>About 0 to 8 °C. Colder in shade at Tokusawa, with wind chill.</td></tr>
+      <tr><td class="n">15:30</td><td>Dropping fast, around 0 to 3 °C once the sun leaves the valley.</td></tr>
+    </table></div>
+    <p style="margin-top:12px">Gravel, packed dirt and boardwalk, almost no climbing. Expect icy patches in the morning in shaded sections, then mud and wet leaves as it thaws. Peaks may be snow-dusted and light valley snow is possible. Autumn colour is mostly past peak, with some larch gold. Check the forecast the night before and shorten the loop if it is wet or snowy.</p>
+  </section>
+
+  <section id="d6-gear">
+    <h2>Wear and carry</h2>
+    <div class="card"><h3>Wear</h3><ul>
+      <li>Merino or synthetic base layer, top and bottom</li><li>Fleece mid layer</li><li>Light down or insulated jacket for breaks</li>
+      <li>Windproof and waterproof shell</li><li>Warm hat, gloves, neck gaiter</li><li>Hiking boots or trail shoes with real grip, wool socks</li></ul></div>
+    <div class="card"><h3>Carry</h3><ul>
+      <li>Packed lunch, snacks, 1 to 1.5 L water, flask of something hot</li><li>Light microspikes for icy mornings (optional)</li>
+      <li>Spare gloves and a spare warm layer</li><li>Sunglasses and sunscreen (snow glare at 1,500 m)</li>
+      <li>Headlamp as backup, power bank (cold drains phones)</li><li>Bear bell</li>
+      <li>Cash: ¥100 coins and ¥1,000 notes for the bus, toilets and Myojin Pond</li><li>Offline map downloaded. Signal is patchy in the valley</li></ul></div>
+  </section>
+
+  <section id="d6-bears">
+    <h2>Bears</h2>
+    <p>Bears are active until they den in December and Kamikochi has sightings in autumn. Myojin to Tokusawa and Shinmura is the quietest, most remote stretch. Stay together, talk or use a bell, no headphones, and read the notices at the Bus Terminal before you start.</p>
+  </section>
+
+  <section id="d6-check">
+    <h2>Check before you go</h2>
+    <ul>
+      <li>Bus times and fare: <a href="https://www.nouhibus.co.jp/route_bus/kamikochi-line-en/" target="_blank" rel="noopener">Nohi Bus Kamikochi line</a>. Sources differ between ¥1,200 and ¥1,500 each way, and the November timetable was not readable.</li>
+      <li>Season and conditions: <a href="https://www.kamikochi.org/" target="_blank" rel="noopener">kamikochi.org</a>. The season ends 15 Nov, so 12 Nov is open.</li>
+      <li>Private cars are banned inside the park: <a href="https://kamikochi.org/access/car" target="_blank" rel="noopener">kamikochi.org car access</a>.</li>
+    </ul>
+  </section>
+</div>
+
+<!-- ===================== PAGE: RUNS ===================== -->
+<div class="page" id="runs" hidden>
+  <div class="chips" aria-label="Jump to run">
+    <a href="#r-karu">Karuizawa</a><a href="#r-haku">Hakuba</a><a href="#r-tokyo">Tokyo</a><a href="#r-tips">Tips</a>
+  </div>
+  <p class="lead">Three easy runs. Each one starts and ends at the hotel and fits in before breakfast.</p>
+
+  <section id="r-karu">
+    <div class="run-h"><h2>Karuizawa: Kumoba Pond loop</h2><span class="pill">Sun 8 Nov · 06:45</span></div>
+    <p>Out of Tsuruya to Kumoba Pond for a lap in the early light, north up Mikasa-dori's larch avenue to the Old Mikasa Hotel, then back past the Shaw Memorial Chapel. The pond is best at dawn, before the photographers arrive.</p>
+    <div class="facts">
+      <div class="fact"><b>7.0 km</b><span>with one pond lap</span></div>
+      <div class="fact"><b>+67 m</b><span>gentle, 950–1,000 m</span></div>
+      <div class="fact"><b>~45 min</b><span>at 6:30/km</span></div>
+      <div class="fact"><b>0–5 °C</b><span>sunrise ~06:10</span></div>
+    </div>
+    <figure style="margin-top:12px">
+      <svg viewBox="0 0 360 612" role="img" aria-label="Running loop from Tsuruya Ryokan south-west to Kumoba Pond, north up Mikasa-dori to the Old Mikasa Hotel, then back east past the Shaw Memorial Chapel"><defs><marker id="ak" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path class="mo" d="M0,0 L10,5 L0,10 z"/></marker><marker id="bk" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path class="mb" d="M0,0 L10,5 L0,10 z"/></marker></defs><rect class="s-ground" x="0" y="0" width="360" height="612" rx="8"/><polyline class="s-road" points="279.6,366.0 252.0,408.0 224.4,450.0 207.6,494.4" /><text class="s-m" x="229.6" y="483.6" text-anchor="start">Kyu-Karuizawa Ginza</text><text class="s-m" x="213.6" y="518.0" text-anchor="start">rotary</text><ellipse cx="63.6" cy="566.4" rx="8" ry="29" fill="var(--water)"/><polyline class="s-out" points="284.4,356.4 252.0,369.6 210.0,386.4 156.0,404.4 111.6,408.0 90.0,456.0 72.0,492.0 51.6,522.0 42.0,552.0 49.2,566.4" /><polyline class="s-out" points="49.2,566.4 44.4,540.0 72.0,492.0 99.6,426.0 99.6,360.0 96.0,300.0 92.4,234.0 90.0,162.0 78.0,108.0 56.4,60.0 49.2,36.0" /><polyline class="s-back" points="49.2,36.0 78.0,108.0 92.4,162.0 114.0,216.0 132.0,276.0 156.0,324.0 204.0,362.4 252.0,357.6 288.0,330.0 314.4,321.6 298.8,348.0 284.4,356.4" /><polyline class="s-arrow" points="284.4,356.4 268.2,363.0" marker-end="url(#ak)"/><polyline class="s-arrow" points="156.0,404.4 133.8,406.2" marker-end="url(#ak)"/><polyline class="s-arrow" points="72.0,492.0 61.8,507.0" marker-end="url(#ak)"/><polyline class="s-arrow" points="49.2,566.4 46.8,553.2" marker-end="url(#ak)"/><polyline class="s-arrow" points="99.6,426.0 99.6,393.0" marker-end="url(#ak)"/><polyline class="s-arrow" points="92.4,234.0 91.2,198.0" marker-end="url(#ak)"/><polyline class="s-arrow" points="56.4,60.0 52.8,48.0" marker-end="url(#ak)"/><polyline class="s-arrow" points="49.2,36.0 63.6,72.0" marker-end="url(#bk)"/><polyline class="s-arrow" points="114.0,216.0 123.0,246.0" marker-end="url(#bk)"/><polyline class="s-arrow" points="204.0,362.4 228.0,360.0" marker-end="url(#bk)"/><polyline class="s-arrow" points="314.4,321.6 306.6,334.8" marker-end="url(#bk)"/><circle class="s-node" cx="49.2" cy="566.4" r="6"/><circle class="s-node" cx="49.2" cy="36.0" r="6"/><circle class="s-node" cx="314.4" cy="321.6" r="6"/><circle class="s-end" cx="284.4" cy="356.4" r="8"/><text class="s-l" x="354.4" y="390.4" text-anchor="end">Tsuruya Ryokan</text><text class="s-so" x="354.4" y="404.4" text-anchor="end">start · finish</text><text class="s-l" x="306.4" y="297.6" text-anchor="end">Shaw Memorial</text><text class="s-m" x="306.4" y="310.6" text-anchor="end">Chapel</text><text class="s-l" x="67.2" y="570.4" text-anchor="start">Kumoba Pond</text><text class="s-mo" x="67.2" y="585.4" text-anchor="start">lap ~1 km · km 2</text><text class="s-l" x="63.2" y="40.0" text-anchor="start">Old Mikasa Hotel</text><text class="s-mo" x="63.2" y="55.0" text-anchor="start">turnaround · km 4.5</text><text class="s-m" x="82.4" y="180.0" text-anchor="end">Mikasa-dori</text><text class="s-m" x="82.4" y="194.0" text-anchor="end">larch avenue</text><g transform="translate(330,40)" fill="none" stroke="var(--muted)" stroke-width="1.5"><path d="M0,14 L0,-10 M-5,-4 L0,-12 L5,-4"/></g><text class="s-m" x="326" y="68">N</text></svg>
+      <div class="legend"><span><i style="border-color:var(--out)"></i>Out and up</span><span><i style="border-color:var(--back);border-top-style:dashed"></i>Back to the ryokan</span></div>
+      <figcaption>Traced from the Google Maps walking route (7.0 km). Not to scale.</figcaption>
+    </figure>
+    <ol class="steps" style="margin-top:14px">
+      <li><b>Tsuruya → Kumoba Pond, ~2 km</b><small>Head south-west along Kyu-Golf-dori, then south to the pond. Quiet villa lanes.</small></li>
+      <li><b>One lap of the pond, ~1 km</b><small>Narrow lakeside path, so walk it if there are people. Late autumn colour reflected in the water.</small></li>
+      <li><b>North up Mikasa-dori to the Old Mikasa Hotel, ~2 km</b><small>A long, straight larch avenue that's golden in early November. Slight uphill. The 1906 wooden hotel is your turnaround.</small></li>
+      <li><b>Back down, east to the Shaw Memorial Chapel and home, ~2 km</b><small>Optional cool-down: walk the length of Kyu-Karuizawa Ginza while it's still empty.</small></li>
+    </ol>
+    <p><a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=Karuizawa+Tsuruya+Ryokan&destination=Karuizawa+Tsuruya+Ryokan&waypoints=Kumoba+Pond+Karuizawa%7CKyu+Mikasa+Hotel+Karuizawa%7CKaruizawa+Shaw+Memorial+Church&travelmode=walking" target="_blank" rel="noopener">Open in Google Maps</a></p>
+  </section>
+
+  <section id="r-haku">
+    <div class="run-h"><h2>Hakuba: Ohashi bridge loop</h2><span class="pill">Tue 10 Nov · 07:00</span></div>
+    <p>From La Vigne north to Hakuba Ohashi, the 100 m bridge over the Matsukawa with the Hakuba Sanzan (Shirouma, Shakushi, Yari) straight ahead, then down the river side to Hakuba Station and back west. Morning sun lights up the peaks.</p>
+    <div class="facts">
+      <div class="fact"><b>6.3 km</b><span>loop</span></div>
+      <div class="fact"><b>+69 m</b><span>700–760 m</span></div>
+      <div class="fact"><b>~40 min</b><span>at 6:30/km</span></div>
+      <div class="fact"><b>−2–4 °C</b><span>frost likely</span></div>
+    </div>
+    <figure style="margin-top:12px">
+      <svg viewBox="0 0 360 332" role="img" aria-label="Running loop from Hotel La Vigne north to Hakuba Ohashi bridge over the Matsukawa river, south-east to Hakuba Station, then west back to the hotel"><defs><marker id="ah" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path class="mo" d="M0,0 L10,5 L0,10 z"/></marker><marker id="bh" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path class="mb" d="M0,0 L10,5 L0,10 z"/></marker></defs><rect class="s-ground" x="0" y="0" width="360" height="332" rx="8"/><polyline class="s-river" points="-63.5,16.9 14.1,50.8 110.1,64.9 225.9,76.2 352.9,67.8 381.2,59.3"/><text class="s-m" x="352.9" y="96.0" text-anchor="end">Matsukawa river</text><polyline class="s-rail" points="303.5,338.8 321.9,240.0 341.6,112.9 360.0,0.0" /><text class="s-m" x="307.4" y="310.6" text-anchor="end">JR Oito Line</text><polyline class="s-out" points="88.9,290.8 77.6,247.1 67.8,197.6 64.9,169.4 79.1,135.5 93.2,110.1 97.4,84.7 110.1,57.9" /><polyline class="s-out" points="110.1,57.9 97.4,91.8 101.6,120.0 129.9,135.5 162.4,155.3 186.4,176.5 225.9,199.1 275.3,225.9 314.8,240.0" /><polyline class="s-back" points="314.8,240.0 296.5,261.2 247.1,266.8 211.8,262.6 169.4,276.7 127.1,290.8 88.9,290.8" /><polyline class="s-arrow" points="88.9,290.8 83.25,268.95" marker-end="url(#ah)"/><polyline class="s-arrow" points="67.8,197.6 66.35,183.5" marker-end="url(#ah)"/><polyline class="s-arrow" points="79.1,135.5 86.15,122.8" marker-end="url(#ah)"/><polyline class="s-arrow" points="97.4,84.7 103.75,71.3" marker-end="url(#ah)"/><polyline class="s-arrow" points="110.1,57.9 103.75,74.85" marker-end="url(#ah)"/><polyline class="s-arrow" points="101.6,120.0 115.75,127.75" marker-end="url(#ah)"/><polyline class="s-arrow" points="162.4,155.3 174.4,165.9" marker-end="url(#ah)"/><polyline class="s-arrow" points="225.9,199.1 250.60000000000002,212.5" marker-end="url(#ah)"/><polyline class="s-arrow" points="314.8,240.0 305.65,250.6" marker-end="url(#bh)"/><polyline class="s-arrow" points="247.1,266.8 229.45,264.70000000000005" marker-end="url(#bh)"/><polyline class="s-arrow" points="169.4,276.7 148.25,283.75" marker-end="url(#bh)"/><circle class="s-node" cx="110.1" cy="57.9" r="6"/><circle class="s-node" cx="314.8" cy="240.0" r="6"/><circle class="s-end" cx="88.9" cy="290.8" r="8"/><text class="s-l" x="104.9" y="294.8" text-anchor="start">Hotel La Vigne</text><text class="s-so" x="104.9" y="308.8" text-anchor="start">start · finish</text><text class="s-l" x="122.1" y="43.9" text-anchor="start">Hakuba Ohashi</text><text class="s-mo" x="122.1" y="58.9" text-anchor="start">Alps view to NW · km 2</text><text class="s-l" x="312.8" y="228.0" text-anchor="end">Hakuba Stn</text><text class="s-mo" x="312.8" y="243.0" text-anchor="end">km 4</text><g transform="translate(336,130)" fill="none" stroke="var(--muted)" stroke-width="1.5"><path d="M0,14 L0,-10 M-5,-4 L0,-12 L5,-4"/></g><text class="s-m" x="332" y="158">N</text></svg>
+      <div class="legend"><span><i style="border-color:var(--out)"></i>Out to the bridge and station</span><span><i style="border-color:var(--back);border-top-style:dashed"></i>Back to the hotel</span></div>
+      <figcaption>Traced from the Google Maps walking route (6.3 km). Not to scale.</figcaption>
+    </figure>
+    <ol class="steps" style="margin-top:14px">
+      <li><b>La Vigne → Hakuba Ohashi, ~2 km</b><small>North through Echoland and up Prefectural Route 322. Stop on the bridge for the photo; there are sidewalks on both sides.</small></li>
+      <li><b>Bridge → Hakuba Station, ~2 km</b><small>South-east along the Matsukawa side, past the Happo area. Vending machines and the station toilets here.</small></li>
+      <li><b>Station → La Vigne, ~2 km</b><small>West, back through Wadano to the hotel. Then breakfast and gondola day.</small></li>
+    </ol>
+    <p><a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=HOTEL+LA+VIGNE+HAKUBA+by+Onko+Chishin&destination=HOTEL+LA+VIGNE+HAKUBA+by+Onko+Chishin&waypoints=Hakuba+Ohashi+Bridge%7CHakuba+Station&travelmode=walking" target="_blank" rel="noopener">Open in Google Maps</a></p>
+  </section>
+
+  <section id="r-tokyo">
+    <div class="run-h"><h2>Tokyo: Shinjuku to Yoyogi Park</h2><span class="pill">Sat 14 Nov · 07:00</span></div>
+    <p>Your plotted route: from Tomori through west Shinjuku and down past Sangubashi, a lap around Yoyogi Park beside the Meiji Jingu forest, then back the same way. Saturday morning in Yoyogi is full of runners.</p>
+    <div class="facts">
+      <div class="fact"><b>~9 km</b><span>out and back with a loop</span></div>
+      <div class="fact"><b>Flat</b><span>a few road crossings</span></div>
+      <div class="fact"><b>~60 min</b><span>at 6:30/km</span></div>
+      <div class="fact"><b>8–14 °C</b><span>Yoyogi opens 05:00</span></div>
+    </div>
+    <figure style="margin-top:12px">
+      <svg viewBox="0 0 360 850" role="img" aria-label="About 9 km run from Tomori in Shin-Okubo, south through west Shinjuku to Sangubashi, a loop around Yoyogi Park, and back the same way"><defs><marker id="at" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path class="mo" d="M0,0 L10,5 L0,10 z"/></marker><marker id="bt" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path class="mb" d="M0,0 L10,5 L0,10 z"/></marker></defs><rect class="s-ground" x="0" y="0" width="360" height="850" rx="8"/><polygon class="s-park" points="52.3,690.0 70.3,654.0 138.0,644.6 264.0,811.7 75.4,838.3 39.4,777.4"/><polygon class="s-park" points="138.0,644.6 171.4,497.1 248.6,488.6 291.4,540.0 282.9,788.6 264.0,811.7" style="opacity:.6"/><rect class="s-park" x="51.4" y="222.9" width="60" height="69" rx="4" style="opacity:.6"/><polyline class="s-rail" points="248.6,0.0 250.3,240.0 274.3,454.3 295.7,850.3" /><text class="s-m" x="261.7" y="197.1" text-anchor="start">JR lines</text><polyline class="s-road" points="0.0,432.9 180.0,317.1 360.0,265.7" /><text class="s-m" x="352.6" y="259.1" text-anchor="end">Koshu-kaido (Rte 20)</text><polyline class="s-out" points="289.7,44.6 279.4,32.6 269.1,123.4 260.6,150.0 187.7,218.6 159.4,226.3 178.3,301.7 165.4,307.7 55.7,420.0 120.0,510.9 124.3,533.1 70.3,654.0" /><polyline class="s-out" points="70.3,654.0 52.3,690.0 39.4,777.4 75.4,838.3 264.0,811.7 138.0,644.6 70.3,654.0" /><polyline class="s-back" points="70.3,654.0 124.3,533.1 120.0,510.9 55.7,420.0 44.6,392.6 165.4,306.9 148.3,215.1 187.7,218.6 251.1,145.7 269.1,123.4 276.0,96.9 285.4,99.4 289.7,44.6" /><polyline class="s-arrow" points="289.7,44.6 284.54999999999995,38.6" marker-end="url(#at)"/><polyline class="s-arrow" points="269.1,123.4 264.85,136.7" marker-end="url(#at)"/><polyline class="s-arrow" points="187.7,218.6 173.55,222.45" marker-end="url(#at)"/><polyline class="s-arrow" points="178.3,301.7 171.85000000000002,304.7" marker-end="url(#at)"/><polyline class="s-arrow" points="55.7,420.0 87.85,465.45" marker-end="url(#at)"/><polyline class="s-arrow" points="124.3,533.1 97.3,593.55" marker-end="url(#at)"/><polyline class="s-arrow" points="70.3,654.0 61.3,672.0" marker-end="url(#at)"/><polyline class="s-arrow" points="52.3,690.0 45.849999999999994,733.7" marker-end="url(#at)"/><polyline class="s-arrow" points="39.4,777.4 57.400000000000006,807.8499999999999" marker-end="url(#at)"/><polyline class="s-arrow" points="75.4,838.3 169.7,825.0" marker-end="url(#at)"/><polyline class="s-arrow" points="264.0,811.7 201.0,728.1500000000001" marker-end="url(#at)"/><polyline class="s-arrow" points="138.0,644.6 104.15,649.3" marker-end="url(#at)"/><polyline class="s-arrow" points="70.3,654.0 97.3,593.55" marker-end="url(#bt)"/><polyline class="s-arrow" points="55.7,420.0 50.150000000000006,406.3" marker-end="url(#bt)"/><polyline class="s-arrow" points="148.3,215.1 168.0,216.85" marker-end="url(#bt)"/><polyline class="s-arrow" points="269.1,123.4 272.55,110.15" marker-end="url(#bt)"/><circle class="s-end" cx="289.7" cy="44.6" r="8"/><text class="s-l" x="277.7" y="48.6" text-anchor="end">Tomori</text><text class="s-so" x="277.7" y="62.6" text-anchor="end">Shin-Okubo · start</text><text class="s-l" x="241.4" y="241.4" text-anchor="start">Shinjuku Stn</text><text class="s-m" x="81.4" y="261.1" text-anchor="middle">Chuo Park</text><circle class="s-node" cx="120.0" cy="522.9" r="5"/><text class="s-l" x="108.0" y="526.9" text-anchor="end">Sangubashi</text><text class="s-l" x="137.1" y="754.3" text-anchor="middle">Yoyogi Park</text><text class="s-m" x="222.9" y="591.4" text-anchor="middle">Meiji Jingu</text><circle class="s-km" cx="87.4" cy="617.1" r="4"/><text class="s-mo" x="95.4" y="621.1" text-anchor="start">3 km</text><circle class="s-km" cx="252.9" cy="797.1" r="4"/><text class="s-mo" x="260.9" y="801.1" text-anchor="start">5 km</text><circle class="s-km" cx="68.6" cy="437.1" r="4"/><text class="s-mo" x="76.6" y="441.1" text-anchor="start">7 km</text><g transform="translate(330,30)" fill="none" stroke="var(--muted)" stroke-width="1.5"><path d="M0,14 L0,-10 M-5,-4 L0,-12 L5,-4"/></g><text class="s-m" x="326" y="58">N</text></svg>
+      <div class="legend"><span><i style="border-color:var(--out)"></i>Out and the park loop</span><span><i style="border-color:var(--back);border-top-style:dashed"></i>Back to Tomori</span></div>
+      <figcaption>Traced from your Google Maps plot, with your 3, 5 and 7 km marks. About 9 km in total. Not to scale.</figcaption>
+    </figure>
+    <ol class="steps" style="margin-top:14px">
+      <li><b>Shin-Okubo → west Shinjuku, ~1.5 km</b><small>South under the JR tracks and past the skyscrapers by Shinjuku Chuo Park.</small></li>
+      <li><b>Down to Sangubashi, km 3</b><small>Cross Koshu-kaido (Route 20) and follow the road south toward the park.</small></li>
+      <li><b>Yoyogi Park loop, km 3–6</b><small>Down the west side, along the south edge, then back up beside Meiji Jingu's forest.</small></li>
+      <li><b>Retrace to Tomori, km 6–9</b><small>Vending machines on every block: use Suica or coins.</small></li>
+    </ol>
+    <p><a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=Shin-Okubo+Station&destination=Shin-Okubo+Station&waypoints=Sangubashi+Station%7CYoyogi+Park&travelmode=walking" target="_blank" rel="noopener">Open in Google Maps</a> <small>(approximate, so use your own saved plot for the exact line)</small></p>
+  </section>
+
+  <section id="r-tips">
+    <h2>Running tips for this trip</h2>
+    <div class="card"><ul>
+      <li><b>Cold starts.</b> Mountain mornings are around freezing. Wear tights, a long sleeve, a light shell, gloves and a beanie, and peel off after 10 minutes.</li>
+      <li><b>Frost.</b> Bridges, boardwalks and shaded lanes ice over first. Shorten your stride and slow down on them.</li>
+      <li><b>Bears.</b> Karuizawa and Hakuba both have bears active until December. Run after sunrise, stay on roads, wear a bell, and skip the headphones.</li>
+      <li><b>Traffic.</b> Japan drives on the left. Mountain lanes have no sidewalk in places, so run facing the traffic and in single file.</li>
+      <li><b>Ryokan timing.</b> Breakfast seatings are fixed. Tell the front desk your time the night before, and run before it.</li>
+      <li><b>Onsen after.</b> Rinse off fully at the wash stations before you get in.</li>
+    </ul></div>
+  </section>
+</div>
+
+<!-- ===================== PAGE: INFO ===================== -->
+<div class="page" id="info" hidden>
+  <div class="chips" aria-label="Jump to section">
+    <a href="#i-now">Do now</a><a href="#i-list">Checklist</a><a href="#i-money">Money</a><a href="#i-planb">Plan B</a><a href="#i-drive">Driving</a><a href="#i-budget">Budget</a><a href="#i-flights">Flights</a><a href="#i-help">Help</a>
+  </div>
+
+  <section id="i-now">
+    <h2>Do before you fly</h2>
+    <div class="card" style="border-left:5px solid var(--warn)"><ul>
+      <li><b>Visit Japan Web.</b> Register all three passports and screenshot the QR codes.</li>
+      <li><b>Tomori.</b> Enter guest and ID details in Airbnb, then screenshot the keypad code and house manual.</li>
+      <li><b>Narita Express on Sun 15 Nov.</b> Book seats for the ~12:30 train from Shinjuku. Leave the Day 1 trains to buy on the day.</li>
+    </ul></div>
+  </section>
+
+  <section id="i-list">
+    <h2>Checklist</h2>
+    <p><small>Ticks are saved on this phone only.</small></p>
+    <h3>Bookings</h3>
+    <div class="group">
+      <label class="chk"><input type="checkbox" data-k="car" checked disabled><span><b>Car pick-up moved to 13:30, winter tyres confirmed</b><small>Nissan Rent a Car, via Klook</small></span></label>
+      <label class="chk"><input type="checkbox" data-k="nex2"><span><b>Narita Express, Shinjuku → Narita, Sun 15 Nov</b><small>~12:30 departure, reserved seats</small></span></label>
+      <label class="chk"><input type="checkbox" data-k="azusa" checked disabled><span><b>Azusa 38, Fri 13 Nov 14:50</b><small>Booked on Klook. QR pick-up</small></span></label>
+      <label class="chk"><input type="checkbox" data-k="denen" checked disabled><span><b>Denenshi, Mon 9 Nov 18:30</b><small>Confirmed</small></span></label>
+      <label class="chk"><input type="checkbox" data-k="breakfast"><span><b>Miyama Ouan: 07:00 breakfast + packed lunch on Thu 12 Nov</b><small>Ask at check-in on Wed</small></span></label>
+      <label class="chk"><input type="checkbox" data-k="tsuruya"><span><b>Tsuruya: message about the futon layout and dropping bags before 15:00</b></span></label>
+      <label class="chk"><input type="checkbox" data-k="tomori"><span><b>Tomori: guest details in Airbnb, keypad code saved</b></span></label>
+      <label class="chk"><input type="checkbox" data-k="cards"><span><b>Check card acceptance</b><small>Sushi Hanaoka, Yoroniku, Denenshi</small></span></label>
+    </div>
+    <h3>Documents and phone</h3>
+    <div class="group">
+      <label class="chk"><input type="checkbox" data-k="pass"><span><b>Passports</b></span></label>
+      <label class="chk"><input type="checkbox" data-k="idp"><span><b>IDP + Singapore licence for every driver</b></span></label>
+      <label class="chk"><input type="checkbox" data-k="vjw"><span><b>Visit Japan Web QR codes</b></span></label>
+      <label class="chk"><input type="checkbox" data-k="ins" checked disabled><span><b>Travel insurance (FWD)</b><small>Bought</small></span></label>
+      <label class="chk"><input type="checkbox" data-k="suica"><span><b>Suica in Apple Wallet, topped up</b></span></label>
+      <label class="chk"><input type="checkbox" data-k="esim"><span><b>eSIM installed</b></span></label>
+      <label class="chk"><input type="checkbox" data-k="jre"><span><b>JR-EAST Train Reservation account set up</b><small>So you can book the Shinkansen on the Skyliner</small></span></label>
+      <label class="chk"><input type="checkbox" data-k="offline"><span><b>Offline Google Maps downloaded</b><small>Karuizawa, Kusatsu, Hakuba, Hirayu + Kamikochi, Matsumoto, Shinjuku</small></span></label>
+    </div>
+    <h3>Pack</h3>
+    <div class="group">
+      <label class="chk"><input type="checkbox" data-k="layers"><span><b>Warm layers, hat, gloves, waterproof shell</b><small>Mornings are below freezing in the mountains</small></span></label>
+      <label class="chk"><input type="checkbox" data-k="shoes"><span><b>Running shoes + trail shoes with grip</b></span></label>
+      <label class="chk"><input type="checkbox" data-k="run"><span><b>Running kit: tights, long sleeve, beanie, gloves</b></span></label>
+      <label class="chk"><input type="checkbox" data-k="bell"><span><b>Bear bell, headlamp, power bank</b></span></label>
+      <label class="chk"><input type="checkbox" data-k="plug"><span><b>Type A plug adapter</b><small>Japan is 100 V</small></span></label>
+      <label class="chk"><input type="checkbox" data-k="bag"><span><b>Small day bag for the trains</b></span></label>
+    </div>
+  </section>
+
+  <section id="i-money">
+    <h2>Money</h2>
+    <div class="facts">
+      <div class="fact"><b>¥150,000</b><span>cash for the 3 of us</span></div>
+      <div class="fact"><b>≈ S$1,220</b><span>at ~¥123 per S$1</span></div>
+    </div>
+    <p style="margin-top:10px">Use a card wherever possible and keep the cash for buses, onsen, shrines, small restaurants and countryside shops. Top up at 7-Eleven ATMs. Carry ¥100 coins and ¥1,000 notes on Kamikochi day.</p>
+  </section>
+
+  <section id="i-planb">
+    <h2>Plan B: Route 292 closed on Day 3</h2>
+    <p>The leg from Kusatsu to Jigokudani crosses Shibu Pass (2,172 m) on Route 292. It closes for winter between mid and late November, and the stretch past Mt Shirane also closes when the volcano warning level rises.</p>
+    <div class="tbl"><table>
+      <tr><th>If</th><th>Then</th></tr>
+      <tr><td>292 open</td><td><b>Drive it.</b> It's the best scenery of the trip.</td></tr>
+      <tr><td>292 closed, clear weather</td><td><b>Manza Highway detour</b> (toll, ~¥3,000–4,000, +30–45 min). You keep the monkeys.</td></tr>
+      <tr><td>292 closed, snow or ice</td><td><b>Lowland route:</b> Route 145 to Ueda, Nagano city (Zenkoji), Hakuba. Open all year, but you drop Jigokudani.</td></tr>
+    </table></div>
+    <p style="margin-top:10px"><small>Check the Shiga Kogen road status a week out and again that morning. Ask the Futabaya front desk, or call the Gunma Nakanojo road office on +81 279-75-3047. Winter tyres are not optional. The rest of the route (146, 148/158, Abo Tunnel) is low and open all year.</small></p>
+  </section>
+
+  <section id="i-drive">
+    <h2>Driving</h2>
+    <div class="card"><ul>
+      <li>Drive on the left. Watch for frost in shade and on bridges, especially before 10:00.</li>
+      <li>Legs: Karuizawa → Kusatsu (~45 min) → Jigokudani and Zenkoji → Hakuba → Hirayu (~2 hr) → Matsumoto (~1 hr).</li>
+      <li>Fill up in town before every mountain leg, and return the car full at Matsumoto.</li>
+      <li>No car on Day 6. Private cars are banned in Kamikochi, so leave it at Miyama Ouan.</li>
+    </ul></div>
+  </section>
+
+  <section id="i-budget">
+    <h2>Budget per person</h2>
+    <div class="tbl"><table>
+      <tr><th>Category</th><th style="text-align:right">S$</th><th style="text-align:right">Share</th></tr>
+      <tr><td>Accommodation</td><td class="r">1,498</td><td class="r">36%</td></tr>
+      <tr><td>Flights</td><td class="r">1,100</td><td class="r">26%</td></tr>
+      <tr><td>Food and drink</td><td class="r">600</td><td class="r">14%</td></tr>
+      <tr><td>Transport and parking</td><td class="r">~470</td><td class="r">11%</td></tr>
+      <tr><td>Shopping</td><td class="r">400</td><td class="r">10%</td></tr>
+      <tr><td>Attractions</td><td class="r">70</td><td class="r">2%</td></tr>
+      <tr><td>Insurance</td><td class="r">33</td><td class="r">1%</td></tr>
+      <tr><th>Total</th><th style="text-align:right">≈ 4,170</th><th></th></tr>
+    </table></div>
+    <p style="margin-top:8px"><small>From the trip sheet's Costs tab, with the Day 1 trains now via Ueno (Skyliner ¥2,580, Shinkansen ~¥5,800).</small></p>
+  </section>
+
+  <section id="i-flights">
+    <h2>Flights</h2>
+    <div class="tbl"><table>
+      <tr><th>Flight</th><th>Details</th></tr>
+      <tr><td class="n">SQ5926</td><td>Singapore 00:55 → Narita 08:40, Sat 7 Nov. Operated by ANA. Leave home on Friday night.</td></tr>
+      <tr><td class="n">SQ5925</td><td>Narita 17:00 → Singapore 23:40, Sun 15 Nov. Operated by ANA.</td></tr>
+    </table></div>
+  </section>
+
+  <section id="i-help">
+    <h2>Help and phrases</h2>
+    <div class="tbl"><table>
+      <tr><td class="n">110</td><td>Police</td></tr>
+      <tr><td class="n">119</td><td>Ambulance and fire</td></tr>
+      <tr><td class="n">050-3816-2787</td><td>Japan Visitor Hotline (JNTO), English, 24 hr</td></tr>
+    </table></div>
+    <h3>Phrases</h3>
+    <p><small>Say it the way the bold part reads. Keep it flat, without English-style stress, and drop the final "u" in <i>desu</i> and <i>masu</i>.</small></p>
+    <div class="tbl"><table>
+      <tr><th>Say</th><th>Means</th></tr>
+      <tr><td><b>chek-koo-in, oh-neh-guy shee-mass</b><br><span class="jp muted">チェックインお願いします</span></td><td>Check-in, please</td></tr>
+      <tr><td><b>nee-moh-tsoo oh ah-zoo-keh-teh moh ee dess-kah?</b><br><span class="jp muted">荷物を預けてもいいですか</span></td><td>Can we leave our bags?</td></tr>
+      <tr><td><b>choh-shoh-koo wah shee-chee-jee nee, oh-neh-guy shee-mass</b><br><span class="jp muted">朝食は7時にお願いします</span></td><td>Breakfast at 7, please</td></tr>
+      <tr><td><b>kah-doh wah tsoo-kah-eh-mass-kah?</b><br><span class="jp muted">カードは使えますか</span></td><td>Can I pay by card?</td></tr>
+      <tr><td><b>koh-koh nee eet-teh koo-dah-sigh</b><br><span class="jp muted">ここに行ってください</span></td><td>Please take me here (show the address)</td></tr>
+      <tr><td><b>soo-mee-mah-sen</b><br><span class="jp muted">すみません</span></td><td>Excuse me / sorry (to get attention too)</td></tr>
+      <tr><td><b>ah-ree-gah-toh go-zai-mass</b><br><span class="jp muted">ありがとうございます</span></td><td>Thank you</td></tr>
+      <tr><td><b>oh-kai-keh oh-neh-guy shee-mass</b><br><span class="jp muted">お会計お願いします</span></td><td>The bill, please</td></tr>
+    </table></div>
+  </section>
+</div>
+
+</main>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Screenshot"><button type="button" id="lbClose">Close</button><img id="lbImg" alt=""></div>
+
+<nav class="tabs" aria-label="Pages">
+  <button data-tab="trip" aria-current="page"><svg viewBox="0 0 24 24"><path d="M4 19 9 5l6 9 2-3 3 8z"/></svg>Trip</button>
+  <button data-tab="stays" aria-current="false"><svg viewBox="0 0 24 24"><path d="M3 20V8l9-5 9 5v12"/><path d="M9 20v-6h6v6"/></svg>Check-in</button>
+  <button data-tab="kamikochi" aria-current="false"><svg viewBox="0 0 24 24"><path d="M2 19 8 8l4 6 3-4 7 9z"/><circle cx="17" cy="5" r="2"/></svg>Kamikochi</button>
+  <button data-tab="runs" aria-current="false"><svg viewBox="0 0 24 24"><circle cx="14" cy="4" r="2"/><path d="m6 21 4-6 3 2 1 4M9 11l2-4 4 2 3 3M11 7l-4 1-2 3"/></svg>Runs</button>
+  <button data-tab="info" aria-current="false"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>Info</button>
+</nav>
+
+<script>
+(function(){
+  var S={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+  var pages=[].slice.call(document.querySelectorAll('.page'));
+  var tabs=[].slice.call(document.querySelectorAll('[data-tab]'));
+  function show(id,keepScroll){
+    pages.forEach(function(p){p.hidden=(p.id!==id)});
+    tabs.forEach(function(t){t.setAttribute('aria-current',t.dataset.tab===id?'page':'false')});
+    if(!keepScroll)window.scrollTo(0,0);
+    S.set('ngm_tab',id);
+  }
+  tabs.forEach(function(t){t.addEventListener('click',function(){show(t.dataset.tab)})});
+  [].slice.call(document.querySelectorAll('[data-goto]')).forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();show(a.dataset.goto)})});
+  [].slice.call(document.querySelectorAll('.chips a')).forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault();
+      var el=document.getElementById(a.getAttribute('href').slice(1));
+      if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
+  var saved=S.get('ngm_tab');
+  if(saved&&document.getElementById(saved))show(saved,true);
+
+  /* checklist */
+  [].slice.call(document.querySelectorAll('.chk input:not([disabled])')).forEach(function(c){
+    c.checked=S.get('ngm_'+c.dataset.k)==='1';
+    c.addEventListener('change',function(){S.set('ngm_'+c.dataset.k,c.checked?'1':'0')});
+  });
+
+  /* today / tonight, in Japan time */
+  var jst=new Date(Date.now()+9*3600e3).toISOString().slice(0,10);
+  var d=document.querySelector('.day[data-date="'+jst+'"]');
+  if(d){d.classList.add('today');var tag=document.createElement('span');tag.className='pill now';tag.textContent='Today';d.querySelector('h3').appendChild(document.createTextNode(' '));d.querySelector('h3').appendChild(tag);}
+  [].slice.call(document.querySelectorAll('.stay-card[data-from]')).forEach(function(c){
+    if(jst>=c.dataset.from&&jst<c.dataset.to){c.classList.add('tonight');c.querySelector('.tn').hidden=false;}
+  });
+
+  /* screenshot viewer */
+  var lb=document.getElementById('lb'),lbImg=document.getElementById('lbImg');
+  [].slice.call(document.querySelectorAll('.shots button')).forEach(function(b){
+    b.addEventListener('click',function(){var im=b.querySelector('img');lbImg.src=im.src;lbImg.alt=im.alt;lb.classList.add('open');lb.scrollTop=0;document.getElementById('lbClose').focus();});
+  });
+  function closeLb(){lb.classList.remove('open')}
+  document.getElementById('lbClose').addEventListener('click',closeLb);
+  lb.addEventListener('click',function(e){if(e.target===lb)closeLb()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLb()});
+
+  /* theme toggle */
+  var root=document.documentElement,btn=document.getElementById('themeBtn');
+  function applyTheme(t){if(t)root.setAttribute('data-theme',t);else root.removeAttribute('data-theme');btn.textContent=t==='dark'?'Light':t==='light'?'Dark':'Theme';}
+  applyTheme(S.get('ngm_theme'));
+  btn.addEventListener('click',function(){
+    var cur=root.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+    var next=cur==='dark'?'light':'dark';S.set('ngm_theme',next);applyTheme(next);
+  });
+})();
+</script>
+</body>
+</html>
