@@ -1,0 +1,706 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Narita to Karuizawa Walkthrough</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+:root{
+  --bg:#f3f0e8; --panel:#ffffff; --ink:#1b1c1f; --muted:#6a6b72; --line:#e1ddd3;
+  --sky:#cfe6f5; --sky2:#eef6fb; --wall:#f8f6f1; --wall2:#efebe2; --floor:#e6e0d3; --floor2:#d3cbb9; --slab:#cfc7b6;
+  --tarmac:#9a9c9f; --term:#e9eef3; --glass:#a9cde6; --grass:#c9e2b5; --hill:#a7cc93; --hill2:#86b773; --far:#b9d2e3;
+  --road:#d8d3c8; --mapbg:#efebe1; --platform:#d9d4c8; --card:#ffffff; --land:#e9ead9; --sea:#bfe0f2; --booth:#dfe4ea;
+  --keisei:#1f5fbf; --keisei-soft:#e0eafa; --shink:#0f8a5f; --shink-soft:#dcf2e8; --jr:#c8322b; --jr-soft:#fbe3e0;
+  --walk:#d9822b; --walk-soft:#fbecd8; --warn:#b42318; --warn-soft:#fdecea; --city:#c9ced6; --city2:#b3bac6;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#121315; --panel:#1c1d20; --ink:#f1f1f3; --muted:#a3a3ab; --line:#313137;
+    --sky:#1d3243; --sky2:#18242e; --wall:#24252a; --wall2:#1f2024; --floor:#2f2e2b; --floor2:#45423c; --slab:#3a3833;
+    --tarmac:#4a4c50; --term:#2b3540; --glass:#3c5a73; --grass:#2e4228; --hill:#344d2c; --hill2:#2a3f24; --far:#2a3a48;
+    --road:#383632; --mapbg:#1e1f22; --platform:#3a3833; --card:#26272b; --land:#23261f; --sea:#1d3343; --booth:#323840;
+    --keisei:#6aa1ff; --keisei-soft:#1c2a44; --shink:#3fcf97; --shink-soft:#17332a; --jr:#ff7a72; --jr-soft:#3a1f1d;
+    --walk:#f2a65a; --walk-soft:#3a2b1a; --warn:#ff8a80; --warn-soft:#3a1f1d; --city:#3a3f48; --city2:#2f343c;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121315; --panel:#1c1d20; --ink:#f1f1f3; --muted:#a3a3ab; --line:#313137;
+  --sky:#1d3243; --sky2:#18242e; --wall:#24252a; --wall2:#1f2024; --floor:#2f2e2b; --floor2:#45423c; --slab:#3a3833;
+  --tarmac:#4a4c50; --term:#2b3540; --glass:#3c5a73; --grass:#2e4228; --hill:#344d2c; --hill2:#2a3f24; --far:#2a3a48;
+  --road:#383632; --mapbg:#1e1f22; --platform:#3a3833; --card:#26272b; --land:#23261f; --sea:#1d3343; --booth:#323840;
+  --keisei:#6aa1ff; --keisei-soft:#1c2a44; --shink:#3fcf97; --shink-soft:#17332a; --jr:#ff7a72; --jr-soft:#3a1f1d;
+  --walk:#f2a65a; --walk-soft:#3a2b1a; --warn:#ff8a80; --warn-soft:#3a1f1d; --city:#3a3f48; --city2:#2f343c;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans JP",Roboto,sans-serif;
+  display:flex;flex-direction:column;min-height:100vh}
+.jp{font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",sans-serif}
+header{display:flex;align-items:center;gap:24px;padding:14px 24px;border-bottom:1px solid var(--line);background:var(--panel)}
+header h1{font-size:18px;margin:0;white-space:nowrap;letter-spacing:-.01em}
+header .sub{color:var(--muted);font-size:13px;white-space:nowrap}
+#prog{flex:1;display:flex;gap:4px;min-width:0}
+#prog button{flex:1;min-width:0;height:30px;border:0;border-radius:6px;background:var(--wall2);color:var(--muted);
+  font:600 11px/1 inherit;cursor:pointer;padding:0 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#prog button.done{background:var(--shink-soft);color:var(--shink)}
+#prog button.on{background:var(--ink);color:var(--bg)}
+main{flex:1;display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:20px;padding:20px 24px;min-height:0}
+.left{display:flex;flex-direction:column;gap:12px;min-width:0}
+.stagewrap{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+#stage{display:block;width:100%;height:auto}
+#stage text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans JP",sans-serif}
+#bubbles{position:absolute;inset:0;pointer-events:none}
+.bubble{position:absolute;transform:translate(-50%,calc(-100% - 12px)) scale(.9);opacity:0;transition:opacity .2s, transform .2s;
+  background:var(--ink);color:var(--bg);padding:8px 12px;border-radius:12px;font-size:14px;font-weight:600;line-height:1.35;max-width:300px;
+  box-shadow:0 6px 18px rgba(0,0,0,.18)}
+.bubble.show{opacity:1;transform:translate(-50%,calc(-100% - 12px)) scale(1)}
+.bubble::after{content:"";position:absolute;left:calc(50% + var(--tail,0px));bottom:-7px;margin-left:-7px;border:7px solid transparent;border-bottom:0;border-top-color:var(--ink)}
+.bubble.warn{background:var(--warn);color:#fff}.bubble.warn::after{border-top-color:var(--warn)}
+.bubble.good{background:var(--shink);color:#fff}.bubble.good::after{border-top-color:var(--shink)}
+#phone{position:absolute;right:3%;top:6%;width:240px;background:#111;border-radius:28px;padding:12px;box-shadow:0 14px 40px rgba(0,0,0,.35);
+  opacity:0;transform:translateY(20px);transition:.35s;pointer-events:none}
+#phone.show{opacity:1;transform:none}
+#phone .scr{background:#fff;color:#111;border-radius:18px;padding:12px 12px 14px;min-height:300px}
+#phone .hd{font-size:11px;font-weight:700;color:#0f8a5f;letter-spacing:.04em;margin-bottom:8px}
+#phone .ln{font-size:13px;padding:7px 8px;border-radius:8px;background:#f2f2f2;margin:6px 0;opacity:0;transform:translateY(6px);transition:.3s}
+#phone .ln.on{opacity:1;transform:none}
+#phone .ln.g{background:#dcf2e8;color:#0b6b49;font-weight:700}
+#phone .ln.r{background:#fdecea;color:#b42318}
+#banner{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.9);opacity:0;transition:.4s;pointer-events:none;
+  background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:22px 28px;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+#banner.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+#banner b{display:block;font-size:24px;margin-bottom:4px}
+.controls{display:flex;align-items:center;gap:10px}
+.btn{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:12px;padding:10px 16px;font:600 14px/1 inherit;cursor:pointer}
+.btn:hover{border-color:var(--muted)}
+.btn:disabled{opacity:.4;cursor:default}
+.btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink);padding:12px 26px;font-size:15px}
+.btn.primary.pulse{animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(15,138,95,.0)}50%{box-shadow:0 0 0 6px rgba(15,138,95,.28)}}
+#caption{flex:1;min-width:0;color:var(--muted);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#caption b{color:var(--ink)}
+.kbd{font-size:12px;color:var(--muted)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{border:0;background:var(--panel);color:var(--muted);padding:8px 10px;font:600 12px/1 inherit;cursor:pointer}
+.seg button.on{background:var(--wall2);color:var(--ink)}
+aside{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px 22px;overflow:auto;max-height:calc(100vh - 110px)}
+.stepno{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+aside h2{font-size:22px;line-height:1.2;margin:4px 0 8px}
+.chip{display:inline-block;background:var(--walk-soft);color:var(--walk);font-weight:700;font-size:12px;padding:3px 10px;border-radius:999px}
+.intro{color:var(--muted);margin:12px 0}
+ol.beats{list-style:none;padding:0;margin:14px 0;counter-reset:b}
+ol.beats li{counter-increment:b;position:relative;padding:9px 10px 9px 40px;border-radius:12px;margin:4px 0;transition:background .25s,color .25s;color:var(--muted)}
+ol.beats li::before{content:counter(b);position:absolute;left:10px;top:9px;width:22px;height:22px;border-radius:50%;background:var(--wall2);
+  color:var(--muted);font-size:12px;font-weight:700;display:grid;place-items:center}
+ol.beats li.past{color:var(--ink)}
+ol.beats li.past::before{background:var(--shink-soft);color:var(--shink);content:"✓"}
+ol.beats li.on{background:var(--walk-soft);color:var(--ink)}
+ol.beats li.on::before{background:var(--walk);color:#fff}
+.note{border-radius:12px;padding:10px 12px;margin:8px 0;font-size:14px}
+.note.warn{background:var(--warn-soft);border-left:4px solid var(--warn)}
+.note.tip{background:var(--shink-soft);border-left:4px solid var(--shink)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+@media (max-width:980px){main{grid-template-columns:1fr} aside{max-height:none} header{flex-wrap:wrap} #prog{flex-basis:100%}}
+</style>
+</head>
+<body>
+<header>
+  <div><h1>Narita → Karuizawa</h1><div class="sub">Sat 7 Nov 2026 · 3 travellers · land 08:40</div></div>
+  <nav id="prog" aria-label="Steps"></nav>
+</header>
+<main>
+  <div class="left">
+    <div class="stagewrap">
+      <svg id="stage" viewBox="0 0 1200 620" role="img" aria-label="Animated walkthrough">
+        <g id="scene"></g><g id="actors"></g><g id="fx"></g>
+      </svg>
+      <div id="bubbles"></div>
+      <div id="phone"><div class="scr">
+        <div class="hd">JR-EAST TRAIN RESERVATION</div>
+        <div class="ln">From <b>Ueno 上野</b> → <b>Karuizawa 軽井沢</b></div>
+        <div class="ln">Sat 7 Nov · 3 adults</div>
+        <div class="ln g">✓ あさま Asama / はくたか Hakutaka</div>
+        <div class="ln r">✗ かがやき Kagayaki (skips Karuizawa)</div>
+        <div class="ln">Reserved 指定席 · 3 seats together</div>
+        <div class="ln">Paper ticket → collect at JR Ueno</div>
+        <div class="ln g">Screenshot the QR ✓</div>
+      </div></div>
+      <div id="banner"><b>You made it</b>Karuizawa · about 12:45–13:30<br>Tsuruya check-in from 15:00</div>
+    </div>
+    <div class="controls">
+      <button class="btn" id="back">◀ Back</button>
+      <button class="btn" id="replay">↻ Replay</button>
+      <button class="btn primary" id="next">Start ▶</button>
+      <div id="caption"></div>
+      <div class="seg" id="speed"><button data-s="1" class="on">1×</button><button data-s="2">2×</button><button data-s="4">4×</button></div>
+    </div>
+    <div class="kbd">Keys: → or Space = next · ← = back · R = replay. Diagrams are schematic, not to scale; follow station signs on the day.</div>
+  </div>
+  <aside id="panel"></aside>
+</main>
+
+<script>
+(function(){
+"use strict";
+const $=s=>document.querySelector(s);
+const svg=$('#stage'), layer=$('#scene'), actors=$('#actors'), fxl=$('#fx'), bwrap=$('#bubbles'), wrap=$('.stagewrap');
+
+/* ---------- svg helpers ---------- */
+const col=c=>(/^(#|rgb|none|white|black|transparent)/.test(c)?c:`var(--${c})`);
+function R(x,y,w,h,f,o={}){return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${o.rx||0}"${o.id?` id="${o.id}"`:''} style="fill:${col(f)};${o.st?`stroke:${col(o.st)};stroke-width:${o.sw||2};`:''}${o.op!=null?`opacity:${o.op};`:''}"/>`}
+function T(x,y,s,o={}){return `<text x="${x}" y="${y}" text-anchor="${o.a||'start'}"${o.id?` id="${o.id}"`:''} style="font-size:${o.s||16}px;font-weight:${o.w||600};fill:${col(o.f||'ink')};${o.op!=null?`opacity:${o.op};`:''}${o.ls?`letter-spacing:${o.ls}px;`:''}">${s}</text>`}
+function L(x1,y1,x2,y2,c,w=2,o={}){return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" style="stroke:${col(c)};stroke-width:${w};stroke-linecap:round;${o.da?`stroke-dasharray:${o.da};`:''}${o.op!=null?`opacity:${o.op};`:''}"/>`}
+function P(d,f,o={}){return `<path d="${d}"${o.id?` id="${o.id}"`:''} style="fill:${col(f)};${o.st?`stroke:${col(o.st)};stroke-width:${o.sw||2};stroke-linecap:round;stroke-linejoin:round;`:''}${o.da?`stroke-dasharray:${o.da};`:''}${o.op!=null?`opacity:${o.op};`:''}"/>`}
+function C(x,y,r,f,o={}){return `<circle cx="${x}" cy="${y}" r="${r}"${o.id?` id="${o.id}"`:''} style="fill:${col(f)};${o.st?`stroke:${col(o.st)};stroke-width:${o.sw||2};`:''}${o.op!=null?`opacity:${o.op};`:''}"/>`}
+let seed=1; const rnd=()=>{seed=(seed*16807)%2147483647;return (seed-1)/2147483646};
+
+function ysign(x,y,w,en,jp,arrow=''){ // yellow Japanese airport sign
+  return `${L(x+20,y-30,x+20,y,'floor2',3)}${L(x+w-20,y-30,x+w-20,y,'floor2',3)}${R(x,y,w,50,'#f2c200',{rx:6})}
+  ${T(x+14,y+22,jp,{s:17,w:800,f:'#111'})}${T(x+14,y+41,en,{s:13,w:700,f:'#111'})}${arrow?T(x+w-14,y+35,arrow,{s:26,w:800,f:'#111',a:'end'}):''}`;
+}
+function csign(x,y,w,bg,line1,line2,o={}){
+  return `${o.hang!==false?L(x+20,y-30,x+20,y,'floor2',3)+L(x+w-20,y-30,x+w-20,y,'floor2',3):''}${R(x,y,w,52,bg,{rx:8})}
+  ${T(x+w/2,y+23,line1,{s:o.s1||17,w:800,f:'#fff',a:'middle'})}${T(x+w/2,y+42,line2,{s:o.s2||12,w:600,f:'#fff',a:'middle',op:.92})}`;
+}
+function interior(fy){
+  let s=R(0,0,1200,fy,'wall')+R(0,fy,1200,620-fy,'floor')+L(0,fy,1200,fy,'floor2',3);
+  for(let x=60;x<1200;x+=170) s+=R(x,14,100,6,'floor2',{rx:3});
+  for(let x=-200;x<1400;x+=90) s+=L(x,fy,x+(x-600)*0.25,620,'floor2',1,{op:.45});
+  return s;
+}
+function gate(x,y,id){ // three cabinets with flaps; lane centers at x+29 and x+69
+  let s='';
+  for(let i=0;i<3;i++) s+=R(x+i*40,y,18,70,'#5d6570',{rx:4})+R(x+i*40+3,y+6,12,8,'#6ee7a8',{rx:2});
+  s+=`<g id="${id}">`;
+  for(let i=0;i<2;i++){ const lx=x+18+i*40; s+=`<rect class="fl" data-d="-1" x="${lx}" y="${y+22}" width="11" height="10" rx="3" style="fill:#c8322b"/><rect class="fl" data-d="1" x="${lx+11}" y="${y+22}" width="11" height="10" rx="3" style="fill:#c8322b"/>`; }
+  return s+'</g>';
+}
+function tree(x,y,s=1,c='hill2'){return L(x,y,x,y-18*s,'#7a5a3a',4*s)+C(x,y-30*s,16*s,c)+C(x-9*s,y-22*s,11*s,c)+C(x+10*s,y-22*s,11*s,c)}
+function hills(x0,w,base,amp,f,k=0.004){let d=`M${x0} 640 L${x0} ${base}`;for(let x=x0;x<=x0+w;x+=24){const y=base-amp*(0.55+0.45*Math.sin(x*k+1)+0.25*Math.sin(x*k*2.7));d+=` L${x} ${y.toFixed(0)}`;}return P(d+` L${x0+w} 640 Z`,f);}
+function ticket(x,y){return R(x,y,40,24,'#ffffff',{rx:3,st:'#9aa3ad',sw:1.5})+R(x+28,y,12,24,'#6ee7a8',{rx:2})+L(x+5,y+9,x+24,y+9,'#9aa3ad',2)+L(x+5,y+15,x+20,y+15,'#9aa3ad',2)}
+
+/* trains: leading car nose at local x ~ 268/300, extra cars to the left. height ~ 92 incl. wheels */
+function skyliner(n,riders){
+  let s='';
+  for(let i=n-1;i>=0;i--){const x=-i*264;
+    if(i===0){s+=P(`M${x} 0 H${x+196} Q${x+258} 4 ${x+270} 66 L${x+270} 82 H${x} Z`,'#f4f6f9',{st:'#b9c2cf',sw:1.5});
+      s+=P(`M${x+200} 14 Q${x+244} 18 ${x+258} 44 H${x+200} Z`,'#1d2a40');}
+    else s+=R(x,0,262,82,'#f4f6f9',{rx:6,st:'#b9c2cf',sw:1.5});
+    s+=R(x+40,15,i===0?150:180,22,'#1d2a40',{rx:4});
+    s+=R(x,48,i===0?264:262,9,'#1f5fbf');
+    s+=R(x,62,i===0?268:262,6,'#0d2a5c');
+    s+=R(x+12,10,20,64,'#e3e8ef',{rx:2,st:'#b9c2cf',sw:1});
+    if(i>0) s+=R(x+226,10,20,64,'#e3e8ef',{rx:2,st:'#b9c2cf',sw:1});
+    [36,66,196,226].forEach(w=>s+=C(x+w,86,6,'#333'));
+    if(i===1) s+=T(x+130,32,'SKYLINER',{s:12,w:800,f:'#ffffff',a:'middle',ls:2});
+  }
+  if(riders) ['#e4572e','#2a9d8f','#8f5bd6'].forEach((c,k)=>{s+=C(96+k*26,25,7,'#f1c7a0')+P(`M${89+k*26} 37 q7 -9 14 0 Z`,c)+P(`M${89+k*26} 23 a7 7 0 0 1 14 0 q-7 -3 -14 0z`,'#2b2b2b');});
+  return s;
+}
+function e7(n,label,riders,carBase=7){
+  let s='';
+  for(let i=n-1;i>=0;i--){const x=-i*284;
+    if(i===0){s+=P(`M${x} 0 H${x+150} C${x+225} 0 ${x+282} 36 ${x+300} 76 L${x+300} 86 H${x} Z`,'#f7f6f1',{st:'#c5c3bb',sw:1.5});
+      s+=P(`M${x} 0 H${x+150} C${x+190} 0 ${x+222} 12 ${x+248} 30 H${x} Z`,'#1e4c8c');
+      s+=P(`M${x+170} 6 C${x+200} 8 ${x+226} 18 ${x+240} 30 L${x+190} 30 Z`,'#0f1d33');}
+    else {s+=R(x,0,282,86,'#f7f6f1',{rx:6,st:'#c5c3bb',sw:1.5});s+=R(x,0,282,30,'#1e4c8c',{rx:6});}
+    s+=R(x,30,i===0?254:282,4,'#b8763a');
+    s+=R(x,68,i===0?296:282,5,'#5aa9e6');
+    const nw=i===0?6:10; for(let k=0;k<nw;k++) s+=R(x+32+k*23,40,15,12,'#26354d',{rx:2});
+    s+=R(x+8,36,16,44,'#e9e7e0',{rx:2,st:'#c5c3bb',sw:1});
+    if(i>0) s+=R(x+258,36,16,44,'#e9e7e0',{rx:2,st:'#c5c3bb',sw:1});
+    s+=T(x+130,64,`${carBase-i}号車`,{s:10,w:700,f:'#4a5568',a:'middle'});
+    if(i===1&&label) s+=T(x+141,21,label,{s:13,w:800,f:'#ffffff',a:'middle',ls:1});
+    [40,70,212,242].forEach(w=>s+=C(x+w,90,6,'#333'));
+  }
+  if(riders) ['#e4572e','#2a9d8f','#8f5bd6'].forEach((c,k)=>{s+=C(39.5+(k+1)*23,46,5,c);});
+  return s;
+}
+function stationBoard(x,jp,en,c){
+  return `${L(x-70,312,x-70,388,'#8a8579',4)}${L(x+70,312,x+70,388,'#8a8579',4)}${R(x-115,244,230,70,'#ffffff',{rx:6,st:'#9aa3ad',sw:1.5})}
+  ${T(x,276,jp,{s:24,w:800,f:'#111',a:'middle'})}${T(x,296,en,{s:13,w:700,f:'#555',a:'middle'})}${R(x-115,302,230,12,c,{rx:0})}`;
+}
+
+/* ---------- animation core ---------- */
+const CANCEL=Symbol('cancel');
+let run=0, speed=1;
+if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches) speed=2;
+const lin=t=>t, io=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2, eo=t=>1-Math.pow(1-t,3), ei=t=>t*t*t;
+function tween(ms,fn,ease=lin){const my=run;return new Promise((res,rej)=>{const t0=performance.now();const D=Math.max(1,ms/speed);
+  function f(now){if(my!==run)return rej(CANCEL);const p=Math.min(1,(now-t0)/D);fn(ease(p),p);if(p<1)requestAnimationFrame(f);else res();}requestAnimationFrame(f);});}
+const wait=ms=>tween(ms,()=>{});
+const bg=pr=>{pr.catch(()=>{});return pr;}; // fire-and-forget
+const el=id=>document.getElementById(id);
+function moveX(id,x0,x1,ms,ease=io,y=0,wob=0){const e=el(id);return tween(ms,(t,p)=>{e.setAttribute('transform',`translate(${(x0+(x1-x0)*t).toFixed(1)},${(y+(wob?Math.sin(p*90)*wob:0)).toFixed(2)})`);},ease);}
+function fade(node,to,ms){const from=+(getComputedStyle(node).opacity);return tween(ms,t=>node.style.opacity=from+(to-from)*t);}
+
+/* ---------- the travellers ---------- */
+const PC=[['#e4572e','#3d5a80'],['#2a9d8f','#9c6644'],['#8f5bd6','#6d597a']];
+actors.innerHTML=PC.map((c,i)=>`<g id="ch${i}" style="opacity:0">
+  <ellipse cx="0" cy="0" rx="14" ry="3.5" style="fill:rgba(0,0,0,.18)"/>
+  <g class="bag">${L(16,-38,16,-50,'#555',2.5)}${R(9,-38,17,32,c[1],{rx:4})}${L(11,-28,24,-28,'rgba(0,0,0,.25)',1.5)}${C(12,-4,2.6,'#222')}${C(23,-4,2.6,'#222')}</g>
+  <g class="lb">${L(0,-31,0,-3,'#3b3f55',6.5)}${L(0,-3,4,-3,'#222',4)}</g>
+  <g class="lf">${L(0,-31,0,-3,'#2b2d42',6.5)}${L(0,-3,4,-3,'#111',4)}</g>
+  ${R(-10,-62,20,36,c[0],{rx:9})}
+  ${R(-15,-58,7,22,'rgba(0,0,0,.28)',{rx:3})}
+  ${L(4,-55,15,-48,c[0],5)}
+  ${C(0,-72,10,'#f1c7a0')}${P('M-10 -73 a10 10 0 0 1 20 0 q-10 -5 -20 0z','#2b2b2b')}${C(5,-72,1.4,'#222')}
+  ${i===0?P('M-6 -96 h12 l-6 8 z','#e4572e'):''}
+</g>`).join('');
+const party=PC.map((_,i)=>{const g=el('ch'+i);return {g,lf:g.querySelector('.lf'),lb:g.querySelector('.lb'),bag:g.querySelector('.bag'),x:0,y:0,dir:1,ph:0};});
+let pScale=1, H=[[0,0]], Hc=[0], back=[-1,0], Dlead=0;
+const SP=38;
+function ptAt(d){
+  if(d<=0) return [H[0][0]+back[0]*(-d),H[0][1]+back[1]*(-d)];
+  for(let i=1;i<H.length;i++) if(d<=Hc[i]){const t=(d-Hc[i-1])/((Hc[i]-Hc[i-1])||1);return [H[i-1][0]+(H[i][0]-H[i-1][0])*t,H[i-1][1]+(H[i][1]-H[i-1][1])*t];}
+  return H[H.length-1].slice();
+}
+function drawChar(c,moving){
+  const a=moving?Math.sin(c.ph)*26:0, bob=moving?Math.abs(Math.sin(c.ph))*1.8:0;
+  c.g.setAttribute('transform',`translate(${c.x.toFixed(1)},${(c.y-bob*pScale).toFixed(1)}) scale(${c.dir*pScale},${pScale})`);
+  c.lf.setAttribute('transform',`rotate(${a.toFixed(1)} 0 -31)`);c.lb.setAttribute('transform',`rotate(${(-a).toFixed(1)} 0 -31)`);
+}
+function placeAll(moving){
+  party.forEach((c,i)=>{const [x,y]=ptAt(Dlead-i*SP*pScale);const dx=x-c.x,dist=Math.hypot(dx,y-c.y);
+    if(Math.abs(dx)>0.05)c.dir=dx>0?1:-1; const mv=moving&&dist>0.02; if(mv)c.ph+=dist*0.16/pScale;
+    c.x=x;c.y=y;drawChar(c,mv);});
+}
+function startAt(x,y,o={}){pScale=o.s||1;back=o.back||[-1,0];H=[[x,y]];Hc=[0];Dlead=0;
+  party.forEach((c,i)=>{const p=ptAt(-i*SP*pScale);c.x=p[0];c.y=p[1];c.dir=back[0]>0?-1:1;c.ph=0;drawChar(c,false);
+    c.g.style.opacity=o.hidden?0:1;c.bag.style.display=o.nobag?'none':'';});}
+function walk(pts,ms){
+  const d0=Dlead;
+  for(const p of pts){const l=H[H.length-1];const seg=Math.hypot(p[0]-l[0],p[1]-l[1]);if(seg<.01)continue;H.push(p);Hc.push(Hc[Hc.length-1]+seg);}
+  const d1=Hc[Hc.length-1]; if(!ms) ms=(d1-d0)/(0.15*Math.max(pScale,.55));
+  return tween(ms,t=>{Dlead=d0+(d1-d0)*t;placeAll(true);}).then(()=>placeAll(false));
+}
+const partyFade=(to,ms=500)=>Promise.all(party.map(c=>fade(c.g,to,ms)));
+const bags=on=>party.forEach(c=>c.bag.style.display=on?'':'none');
+
+/* ---------- bubbles, fx ---------- */
+function toScreen(x,y){const m=svg.getScreenCTM();const r=wrap.getBoundingClientRect();const p=svg.createSVGPoint();p.x=x;p.y=y;const s=p.matrixTransform(m);return [s.x-r.left,s.y-r.top];}
+function sayAt(x,y,html,ms=2200,cls=''){
+  const b=document.createElement('div');b.className='bubble '+cls;b.innerHTML=html;bwrap.appendChild(b);
+  const [sx,sy]=toScreen(x,y);const W=wrap.clientWidth,w=b.offsetWidth;const left=Math.min(Math.max(sx,w/2+8),W-w/2-8);
+  b.style.left=left+'px';b.style.top=Math.max(sy,b.offsetHeight+20)+'px';b.style.setProperty('--tail',(sx-left)+'px');
+  requestAnimationFrame(()=>b.classList.add('show'));
+  return wait(ms).finally(()=>{b.classList.remove('show');setTimeout(()=>b.remove(),300);});
+}
+const say=(html,ms,cls)=>{const c=party[0];return sayAt(c.x,c.y-92*pScale,html,ms,cls);};
+function pop(x,y,svgStr,ms=1400,sc=1){const g=document.createElementNS('http://www.w3.org/2000/svg','g');g.innerHTML=svgStr;fxl.appendChild(g);
+  return tween(ms,t=>{g.setAttribute('transform',`translate(${x},${y-50*eo(t)}) scale(${sc})`);g.style.opacity=t<.75?1:1-(t-.75)*4;}).finally(()=>g.remove());}
+function openGate(id,ms=350){const flaps=[...el(id).querySelectorAll('.fl')];return tween(ms,t=>flaps.forEach(f=>f.setAttribute('transform',`translate(${f.dataset.d*9*t},0)`)));}
+function closeGate(id,ms=300){const flaps=[...el(id).querySelectorAll('.fl')];return tween(ms,t=>flaps.forEach(f=>f.setAttribute('transform',`translate(${f.dataset.d*9*(1-t)},0)`)));}
+async function drawPath(id,ms){const p=el(id);const len=p.getTotalLength();p.style.strokeDasharray=len;p.style.strokeDashoffset=len;await tween(ms,t=>p.style.strokeDashoffset=len*(1-t),io);}
+function along(pathId,dotId,ms){const p=el(pathId),d=el(dotId),len=p.getTotalLength();return tween(ms,t=>{const q=p.getPointAtLength(len*t);d.setAttribute('transform',`translate(${q.x},${q.y})`);},io);}
+function setText(id,s){el(id).textContent=s;}
+
+/* ---------- scenes ---------- */
+const SC=[];
+
+/* 0 · overview */
+SC.push({nav:'Overview',title:'The whole journey',time:'Sat 7 Nov · land 08:40',
+ intro:'Two trains and two short walks. Press <b>Next</b> to follow your group of three through each one.',
+ beats:['Skyliner: Narita → Keisei Ueno, 41–45 min','Walk 3–5 min: Keisei Ueno → JR Ueno','Shinkansen: JR Ueno → Karuizawa, 60–70 min','Arrive about 12:45–13:30, before the 15:00 check-in'],
+ notes:[['tip','Book the Shinkansen on your phone during the Skyliner ride. That one step removes most of the risk from the day.']],
+ draw(){
+  let s=R(0,0,1200,620,'land');
+  s+=P('M700 620 C 820 560 980 520 1200 470 L1200 620 Z','sea')+P('M600 520 C 640 470 720 450 760 480 C 780 520 740 570 700 600 C 660 590 610 560 600 520 Z','sea');
+  s+=T(1040,580,'Pacific Ocean',{s:14,f:'muted',w:600})+T(690,540,'Tokyo Bay',{s:13,f:'muted',w:600,a:'middle'});
+  [[90,190,90],[170,200,120],[260,195,80],[330,210,70],[60,215,60]].forEach(([x,y,h])=>s+=P(`M${x-h*.8} ${y} L${x} ${y-h} L${x+h*.8} ${y} Z`,'hill2',{op:.85})+P(`M${x-h*.22} ${y-h*.72} L${x} ${y-h} L${x+h*.22} ${y-h*.72} Z`,'#ffffff',{op:.8}));
+  s+=T(170,70,'Mt Asama',{s:12,f:'muted',a:'middle'});
+  seed=7;for(let i=0;i<26;i++){const x=600+rnd()*130,h=10+rnd()*30;s+=R(x,380-h,10,h,'city2');}
+  s+=T(660,330,'Tokyo',{s:14,f:'muted',a:'middle'});
+  s+=P('M1040 420 C 930 410 790 380 660 352','none',{st:'keisei',sw:7,id:'r1'});
+  s+=P('M648 346 C 520 300 380 250 232 196','none',{st:'shink',sw:7,id:'r2'});
+  s+=C(1040,420,22,'card',{st:'ink',sw:2})+T(1040,428,'✈',{s:20,a:'middle'});
+  s+=C(654,349,17,'walk-soft',{st:'walk',sw:3})+T(654,356,'🚶',{s:16,a:'middle'});
+  s+=C(222,192,22,'shink')+T(222,199,'🏔',{s:18,a:'middle'});
+  s+=R(960,446,190,48,'card',{rx:10,st:'line',sw:1})+T(975,468,'Narita Airport',{s:16,w:800})+T(975,486,'land 08:40',{s:12,f:'muted'});
+  s+=R(560,250,200,48,'card',{rx:10,st:'line',sw:1})+T(575,272,'Ueno',{s:16,w:800})+T(575,290,'Keisei Ueno → JR Ueno',{s:12,f:'muted'});
+  s+=R(140,206,180,48,'card',{rx:10,st:'line',sw:1})+T(155,228,'Karuizawa',{s:16,w:800})+T(155,246,'~12:45–13:30',{s:12,f:'muted'});
+  s+=T(850,372,'Skyliner 41–45 min',{s:14,w:800,f:'keisei',a:'middle'})+T(420,240,'Shinkansen 60–70 min',{s:14,w:800,f:'shink',a:'middle'});
+  s+=`<g id="tok">${C(0,0,11,'#e4572e',{st:'#ffffff',sw:3})}</g>`;
+  return s;},
+ init(){startAt(-100,-100,{hidden:true});el('r1').style.strokeDasharray=2000;el('r1').style.strokeDashoffset=2000;el('r2').style.strokeDasharray=2000;el('r2').style.strokeDashoffset=2000;el('tok').setAttribute('transform','translate(1040,420)');},
+ async play(b){
+  b(0);await Promise.all([drawPath('r1',2200),along('r1','tok',2200)]);
+  b(1);await sayAt(654,320,'Short walk between two stations',1800);
+  b(2);await Promise.all([drawPath('r2',2400),along('r2','tok',2400)]);
+  b(3);await sayAt(222,170,'Karuizawa ✓',1600,'good');
+ }});
+
+/* 1 · land */
+SC.push({nav:'1 Land',title:'Land at Narita',time:'08:40',
+ intro:'Before you stand up, check which terminal you landed at. It decides the station name you look for later.',
+ beats:['Plane lands at Narita','Check your terminal: T1, T2 or T3','Walk off the plane along the air bridge','Follow the yellow “Arrivals 到着” signs'],
+ notes:[['tip','Station names: “Narita Airport Terminal 1” or “Airport Terminal 2·3”.']],
+ draw(){
+  let s=`<defs><linearGradient id="skyg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--sky)"/><stop offset="1" stop-color="var(--sky2)"/></linearGradient></defs>`;
+  s+='<rect x="0" y="0" width="1200" height="620" style="fill:url(#skyg)"/>';
+  [[160,90],[520,60],[980,110]].forEach(([x,y])=>s+=`<g style="opacity:.85">${C(x,y,22,'#ffffff')}${C(x+26,y-8,28,'#ffffff')}${C(x+56,y,20,'#ffffff')}${R(x-6,y,70,20,'#ffffff',{rx:10})}</g>`);
+  s+=hills(0,1200,420,40,'far',0.006);
+  s+=R(0,540,1200,80,'tarmac');for(let x=20;x<1200;x+=80)s+=R(x,574,44,5,'#ffffff',{op:.8});
+  s+=R(800,250,400,290,'term',{st:'floor2',sw:2});for(let r=0;r<4;r++)for(let c=0;c<6;c++)s+=R(820+c*62,270+r*58,48,40,'glass',{rx:3});
+  s+=R(800,232,400,26,'ink')+T(1000,251,'NARITA AIRPORT  成田空港',{s:15,w:800,f:'bg',a:'middle',ls:1});
+  s+=R(1120,150,30,100,'term',{st:'floor2'})+R(1108,130,54,26,'glass',{rx:4,st:'floor2'});
+  s+=`<g id="bridge" style="opacity:0">${R(636,462,166,50,'#c9d1db',{rx:4,st:'#9aa3ad',sw:1.5})}${R(646,470,146,18,'glass',{rx:3})}${L(700,512,700,540,'#7d8794',6)}</g>`;
+  s+=`<g id="plane" transform="translate(-420,330)">
+   ${P('M24 -64 L-6 -128 L34 -128 L86 -66 Z','#e9edf2',{st:'#aab4c0',sw:1.5})}${P('M2 -124 L30 -124 L40 -110 L10 -110 Z','#1f5fbf')}
+   ${P('M20 -66 Q2 -50 20 -22 L300 -22 Q346 -24 346 -44 Q342 -66 300 -68 L40 -68 Z','#f5f7fa',{st:'#aab4c0',sw:1.5})}
+   ${P('M318 -60 Q336 -58 340 -48 L318 -48 Z','#1d2a40')}
+   ${R(40,-38,260,4,'#1f5fbf')}
+   ${Array.from({length:17},(_,k)=>C(64+k*14,-52,3.2,'#2c3a50')).join('')}
+   ${R(296,-62,10,30,'#dbe1e8',{rx:2,st:'#aab4c0',sw:1})}
+   ${P('M130 -36 L230 -36 L170 -14 L120 -14 Z','#d6dce4',{st:'#aab4c0',sw:1})}
+   <ellipse cx="170" cy="-14" rx="28" ry="9" style="fill:#c3cad3"/>
+   ${L(90,-22,90,-6,'#555',3)}${L(282,-22,282,-6,'#555',3)}${C(90,-5,6,'#222')}${C(282,-5,6,'#222')}
+  </g>`;
+  return s;},
+ init(){startAt(631,510,{s:.55,hidden:true});},
+ async play(b){
+  b(0);const pl=el('plane');
+  await tween(3200,(t)=>{const x=-420+750*t,y=330+210*Math.min(1,t*1.25),r=-6*(1-Math.min(1,t*1.4));pl.setAttribute('transform',`translate(${x.toFixed(1)},${y.toFixed(1)}) rotate(${r.toFixed(2)} 90 0)`);},eo);
+  b(1);await sayAt(1000,232,'Which terminal? <b>T1</b> or <b>T2·3</b> — check your boarding pass',2600);
+  await fade(el('bridge'),1,500);
+  b(2);await partyFade(1,300);await walk([[805,510]]);await partyFade(0,400);
+  b(3);await sayAt(1000,300,'Follow yellow <b>Arrivals 到着</b> signs',2000);
+ }});
+
+/* 2 · immigration, bags, customs */
+SC.push({nav:'2 Arrivals',title:'Immigration, bags, customs',time:'about 08:45–10:00 · 60–80 min',
+ intro:'The big unknown of the day. Don’t commit to a specific train until you are through customs.',
+ beats:['Immigration: foreign-passport lane, show Visit Japan Web QR','Fingerprints and photo','Baggage claim: screens list belts by flight number','Customs: scan the customs QR at the e-gate','Out into the arrivals lobby'],
+ notes:[['tip','Arrivals lobby (1F) has toilets, a 7-Eleven ATM and a konbini. Grab water and a snack.']],
+ draw(){
+  let s=interior(500);
+  s+=ysign(130,70,230,'Immigration','入国審査')+ysign(450,70,320,'Baggage Claim','手荷物受取所')+ysign(860,70,210,'Customs','税関')+ysign(1085,70,110,'Lobby','到着','→');
+  [150,280].forEach(x=>{s+=R(x,410,80,90,'booth',{rx:6,st:'floor2'})+R(x+8,392,64,24,'glass',{rx:4,op:.8})+C(x+40,404,9,'#f1c7a0')+R(x+30,412,20,10,'#2c3a50',{rx:4});});
+  s+=T(245,540,'Foreign passports',{s:13,f:'muted',a:'middle'});
+  s+=R(560,250,120,64,'#111',{rx:6})+T(620,276,'Your flight',{s:12,f:'#7CFFB2',a:'middle',w:700})+T(620,300,'→ Belt 4',{s:18,f:'#7CFFB2',a:'middle',w:800})+L(620,230,620,250,'floor2',3);
+  s+=R(450,452,330,48,'#6b6f76',{rx:24})+R(462,440,306,20,'#9aa0a8',{rx:10});
+  s+=`<g id="belt">${[0,1,2,3,4,5].map(k=>R(470+k*52,418,30,24,['#3d5a80','#9c6644','#6d597a','#bc4749','#386641','#5e548e'][k],{rx:4})).join('')}</g>`;
+  [910,990].forEach(x=>s+=R(x,420,24,80,'#5c6470',{rx:4})+R(x+4,432,16,12,'#6ee7a8',{rx:2}));
+  s+=R(900,340,120,60,'card',{rx:8,st:'floor2'})+T(960,366,'QR ▣',{s:16,a:'middle',w:800})+T(960,386,'scan here',{s:12,a:'middle',f:'muted'});
+  s+=R(1110,330,90,170,'glass',{op:.55})+L(1155,330,1155,500,'floor2',2);
+  return s;},
+ init(){startAt(30,500,{s:.85,nobag:true});},
+ async play(b){
+  const belt=el('belt');bg(tween(60000,(t,p)=>belt.setAttribute('transform',`translate(${((p*60000*0.03)%52).toFixed(1)},0)`)));
+  b(0);await walk([[255,500]]);await say('Show your <b>Visit Japan Web</b> QR',2000);
+  b(1);await say('Fingerprints + photo',1400);
+  b(2);await walk([[600,500]]);await say('Find your belt on the screen',1600);bags(true);await pop(600,420,R(-10,-10,20,26,'#3d5a80',{rx:4}),900);
+  b(3);await walk([[946,500]]);await say('Scan the <b>customs QR</b> at the e-gate',2000);
+  b(4);await walk([[1230,500]]);
+ }});
+
+/* 3 · down to the trains */
+SC.push({nav:'3 To B1F',title:'Down to the trains (B1F)',time:'about 10:00 · 5 min',
+ intro:'All trains leave from the basement. Two railway companies share the floor: JR (red) and <b>Keisei (blue)</b>. You want Keisei.',
+ beats:['Arrivals lobby: toilets, ATM, snacks','Follow “Railways 鉄道” down the escalator','At B1F: red JR to the left — not today','Blue Keisei to the right ✓'],
+ notes:[['warn','The Narita Express (JR) also goes to Tokyo, but today’s plan is the Skyliner to Ueno.']],
+ draw(){
+  let s=R(0,0,1200,300,'wall')+R(0,300,1200,40,'slab')+R(0,340,1200,280,'wall2')+L(0,300,1200,300,'floor2',3)+L(0,590,1200,590,'floor2',3)+R(0,590,1200,30,'floor');
+  s+=R(16,20,150,26,'ink',{rx:6})+T(91,38,'1F · ARRIVALS',{s:12,f:'bg',a:'middle',w:800})+R(16,354,150,26,'ink',{rx:6})+T(91,372,'B1F · RAILWAYS',{s:12,f:'bg',a:'middle',w:800});
+  s+=R(110,190,80,110,'#1f7a3a',{rx:4})+R(110,190,80,16,'#f28c28')+T(150,240,'ATM',{s:16,f:'#fff',a:'middle',w:800})+T(150,260,'7-Eleven',{s:11,f:'#fff',a:'middle'});
+  s+=R(210,200,130,100,'card',{rx:6,st:'floor2'})+T(275,230,'Konbini',{s:15,a:'middle',w:800})+T(275,250,'🍙 🥤',{s:20,a:'middle'});
+  s+=ysign(360,100,200,'Railways · B1F','鉄道','↓');
+  s+=P('M470 300 L500 300 L742 590 L712 590 Z','#b9bec6');for(let k=1;k<12;k++){const t=k/12;s+=L(470+242*t,300+290*t,500+242*t,300+290*t,'#8d939c',1.5);}
+  s+=L(470,262,712,552,'#4a5260',5)+L(500,262,742,552,'#4a5260',3,{op:.5});
+  s+=R(40,400,360,190,'jr-soft',{rx:10})+csign(70,420,300,'jr','JR Lines  JR線','Narita Express → Tokyo',{hang:false})+T(220,540,'✗ not today',{s:20,f:'jr',a:'middle',w:800});
+  s+=R(800,400,360,190,'keisei-soft',{rx:10})+csign(830,420,300,'keisei','Keisei  京成線','Skyliner → Nippori · Ueno',{hang:false})+T(980,540,'✓ this way',{s:20,f:'keisei',a:'middle',w:800});
+  return s;},
+ init(){startAt(40,300,{s:.75});},
+ async play(b){
+  b(0);await walk([[260,300]]);await say('Last chance for ATM, toilets, snacks',1600);
+  b(1);await walk([[485,300]]);await walk([[727,590]],2600);
+  b(2);await walk([[760,590]]);await sayAt(220,400,'Red <b>JR</b> side — not today',1600,'warn');
+  b(3);await sayAt(980,400,'Blue <b>Keisei</b> — Skyliner ✓',1400,'good');await walk([[1060,590]]);
+ }});
+
+/* 4 · tickets, gate, board */
+SC.push({nav:'4 Skyliner',title:'Buy Skyliner tickets & board',time:'about 10:05–10:20 · 10–15 min',
+ intro:'Every Skyliner seat is reserved, so each ticket names a train, car and seat.',
+ beats:['Blue Skyliner machine or counter: “Ueno, 3 adults, next train, seats together”','Ticket gate: insert ticket — and take it back','Find your car number on the platform','Board — only a train marked SKYLINER'],
+ notes:[['warn','Cheaper Keisei trains (Access Express, Limited Express) leave from the same floor and are much slower.'],['tip','Bought an online voucher? Scan its QR at the Skyliner machine instead.']],
+ draw(){
+  let s=interior(560);
+  s+=csign(60,70,330,'keisei','Skyliner Tickets','スカイライナー券売機');
+  [70,140,210].forEach(x=>s+=R(x,420,56,140,'keisei',{rx:6})+R(x+8,434,40,30,'#bfe0ff',{rx:3})+R(x+16,480,24,6,'#0d2a5c',{rx:2}));
+  s+=R(290,450,160,110,'card',{rx:6,st:'floor2'})+T(370,480,'Information',{s:14,a:'middle',w:800})+T(370,498,'Center',{s:14,a:'middle',w:800})+C(370,525,9,'#f1c7a0');
+  s+=gate(500,490,'g4');
+  s+=R(620,440,580,120,'platform')+R(620,530,580,6,'#e6c229');
+  s+=`<defs><clipPath id="clipP"><rect x="620" y="0" width="600" height="620"/></clipPath></defs><g clip-path="url(#clipP)"><g id="sky" transform="translate(1040,430)">${skyliner(4)}</g></g>`;
+  s+=R(620,530,580,30,'platform')+R(620,530,580,5,'#e6c229');
+  s+=csign(700,70,420,'keisei','SKYLINER  スカイライナー','→ Nippori · Keisei Ueno (last stop)');
+  s+=R(640,150,250,80,'warn-soft',{rx:8,st:'warn',sw:1.5})+T(655,176,'✗ Access Express',{s:13,f:'warn',w:800})+T(655,196,'✗ Limited Express',{s:13,f:'warn',w:800})+T(655,216,'slower — board only SKYLINER',{s:12,f:'warn'});
+  return s;},
+ init(){startAt(20,560,{s:.8});},
+ async play(b){
+  b(0);await walk([[150,560]]);await say('“Skyliner to Ueno, 3 adults, next train, seats together”',2200);
+  await Promise.all([pop(130,470,ticket(0,0)),pop(160,480,ticket(0,0)),pop(190,470,ticket(0,0))]);
+  b(1);await walk([[470,560]]);await openGate('g4');await say('Insert ticket → <b>take it back</b>',1500,'warn');
+  await walk([[640,560]]);await closeGate('g4');
+  b(2);await walk([[900,560]]);await say('Your car number is on the ticket',1600);
+  b(3);await partyFade(0,600);await moveX('sky',1040,2700,2600,ei,430);
+ }});
+
+/* 5 · skyliner ride */
+SC.push({nav:'5 Ride',title:'Skyliner ride + book the Shinkansen',time:'about 10:20–11:05 · 41–45 min',
+ intro:'Use the ride to book the Shinkansen on your phone, so there’s no surprise at the ticket machine.',
+ beats:['Settle in — big bags at the end of the car','On your phone: book Ueno → Karuizawa, 3 seats together','Nippori: stay on!','Keisei Ueno: last stop — everyone off'],
+ notes:[['tip','Pick a Shinkansen at least 20 min after your Skyliner arrives. Paper-ticket booking closes 6 min before departure.'],['warn','No signal or card rejected? Buy at the JR Ueno machines instead — a rejected card doesn’t mean sold out.']],
+ draw(){
+  let s=R(0,0,1200,620,'sky2');
+  let far='';seed=3;far+=hills(-100,5000,330,60,'far',0.003);
+  s+=`<g id="far">${far}</g>`;
+  let st=R(-400,476,5200,160,'grass');
+  for(let x=-400;x<4800;x+=40) st+=R(x,482,22,6,'#8a8579',{op:.6});
+  seed=11;
+  for(let x=950;x<2300;x+=60){ if(rnd()<.5) st+=R(x,430,50,46,'#b9d98f',{op:.7}); else st+=tree(x,476,.9+rnd()*.5); }
+  for(let x=1300;x<2100;x+=260) st+=P(`M${x} 476 V440 L${x+30} 418 L${x+60} 440 V476 Z`,'#d9c7a7')+R(x+22,450,16,26,'#7a5a3a');
+  for(let x=2200;x<4300;x+=46){const h=60+rnd()*180;st+=R(x,476-h,40,h,rnd()<.5?'city':'city2');for(let y=476-h+10;y<466;y+=18)st+=R(x+6,y,8,8,'#ffffff',{op:.35})+R(x+24,y,8,8,'#ffffff',{op:.35});}
+  for(let x=-400;x<4800;x+=220) st+=L(x,330,x,476,'#8a8579',4)+L(x-12,338,x+12,338,'#8a8579',3);
+  [[600,'成田空港','Narita Airport'],[3200,'日暮里','Nippori'],[3800,'京成上野','Keisei Ueno']].forEach(([x,jp,en])=>st+=R(x-330,486,660,28,'platform')+R(x-330,486,660,4,'#e6c229')+stationBoard(x,jp,en,'#1f5fbf'));
+  s+=`<g id="strip">${st}</g>`;
+  s+=L(0,330,1200,330,'#6b6b6b',1.5,{op:.6})+L(0,477,1200,477,'#555',3);
+  s+=`<g id="train" transform="translate(560,388)">${skyliner(3,true)}</g>`;
+  return s;},
+ init(){startAt(-200,-200,{hidden:true});},
+ async play(b){
+  const strip=el('strip'),far=el('far'),tr=el('train');
+  const scroll=(x0,x1,ms)=>tween(ms,(t,p)=>{const x=x0+(x1-x0)*t;strip.setAttribute('transform',`translate(${x.toFixed(1)},0)`);far.setAttribute('transform',`translate(${(x*.2).toFixed(1)},0)`);tr.setAttribute('transform',`translate(560,${(388+Math.sin(p*240)*.7).toFixed(2)})`);},io);
+  b(0);await sayAt(700,380,'Settle in — bags in the rack at the end of the car',1800);
+  b(1);const ph=el('phone');ph.classList.add('show');const lines=[...ph.querySelectorAll('.ln')];
+  bg((async()=>{for(const l of lines){await wait(900);l.classList.add('on');}})());
+  await scroll(0,-2600,9000);
+  b(2);await sayAt(700,380,'Nippori — <b>stay on!</b>',1800,'warn');
+  ph.classList.remove('show');
+  await scroll(-2600,-3200,3200);
+  b(3);await sayAt(700,380,'Keisei Ueno — last stop. Everyone off',2000,'good');
+ },
+ leave(){const ph=el('phone');ph.classList.remove('show');ph.querySelectorAll('.ln').forEach(l=>l.classList.remove('on'));}});
+
+/* 6 · street walk */
+SC.push({nav:'6 Ueno walk',title:'Keisei Ueno → JR Ueno',time:'about 11:05–11:15 · 3–5 min walk',
+ intro:'Two separate stations. You walk outside for a few minutes; signs in English point to “JR Line / Shinkansen”.',
+ beats:['Keisei gate: insert your Skyliner ticket (it keeps it)','Main Exit, to the left of the gates','Walk north 3–5 min, following “JR / Shinkansen” signs','Enter JR Ueno on the Shinobazu Exit 不忍口 side','Head to the Central Gate 中央改札'],
+ notes:[['warn','Avoid the Park Exit and Iriya Exit: they lead upstairs and take longer.']],
+ draw(){
+  let s=R(0,0,1200,620,'mapbg');
+  s+=P('M0 0 H520 C 500 120 420 230 300 260 C 180 290 60 260 0 240 Z','grass')+T(200,110,'Ueno Park',{s:18,w:800,f:'shink',a:'middle'})+T(200,132,'(up the hill)',{s:12,f:'muted',a:'middle'});
+  s+=R(0,300,1200,80,'road',{op:1})+R(0,300,1200,80,'#9a9488',{op:.25});
+  for(let x=0;x<1200;x+=60) s+=R(x,338,30,4,'#ffffff',{op:.7});
+  for(let k=0;k<7;k++) s+=R(500+k*12,300,7,80,'#ffffff',{op:.85});
+  s+=R(560,50,580,230,'card',{rx:12,st:'ink',sw:2});
+  for(let y=110;y<260;y+=26) s+=L(600,y,1100,y,'line',3);
+  s+=T(850,92,'JR Ueno  上野駅',{s:22,w:800,a:'middle'});
+  s+=R(576,40,120,30,'warn-soft',{rx:6,st:'warn',sw:1.5})+T(636,60,'✗ Park Exit',{s:13,f:'warn',a:'middle',w:800});
+  s+=R(548,258,120,40,'walk-soft',{rx:6,st:'walk',sw:2})+T(608,275,'Shinobazu Exit',{s:12,f:'walk',a:'middle',w:800})+T(608,291,'不忍口',{s:12,f:'walk',a:'middle',w:800});
+  s+=R(770,200,110,50,'shink-soft',{rx:8,st:'shink',sw:2})+T(825,222,'Central Gate',{s:13,f:'shink',a:'middle',w:800})+T(825,240,'中央改札',{s:12,f:'shink',a:'middle',w:800});
+  s+=R(900,206,90,40,'card',{rx:6,st:'shink',sw:1.5})+T(945,231,'🎫 machines',{s:12,a:'middle'});
+  s+=R(100,410,360,180,'keisei-soft',{rx:12,st:'keisei',sw:2})+T(280,450,'Keisei Ueno  京成上野',{s:18,w:800,f:'keisei',a:'middle'})+T(280,472,'Skyliner arrives underground',{s:12,f:'keisei',a:'middle'});
+  s+=gate(190,500,'g6');
+  s+=R(430,420,90,30,'walk-soft',{rx:6,st:'walk',sw:1.5})+T(475,440,'Main Exit',{s:12,f:'walk',a:'middle',w:800});
+  seed=5;for(let i=0;i<10;i++){const x=640+(i%5)*110,y=420+Math.floor(i/5)*95;s+=R(x,y,90,70,'city',{rx:4,op:.7});}
+  s+=T(860,600,'Ameyoko shops',{s:12,f:'muted',a:'middle'});
+  s+=P('M250 555 L470 470 L520 400 L560 340 L600 300 L700 262 L800 255','none',{st:'walk',sw:3,da:'2 10',op:.6});
+  s+=`<g transform="translate(1150,560)">${P('M0 -22 L8 4 L0 -2 L-8 4 Z','ink')}${T(0,20,'N',{s:13,a:'middle',w:800})}</g>`;
+  s+=R(30,560,170,36,'card',{rx:8,st:'line',sw:1})+T(115,584,'🚶 3–5 min walk',{s:14,a:'middle',w:800});
+  return s;},
+ init(){startAt(150,555,{s:.6});},
+ async play(b){
+  b(0);await walk([[219,555]]);await openGate('g6');await say('Skyliner ticket goes into the gate',1600);await walk([[250,555]]);
+  b(1);await walk([[470,470]]);await say('Main Exit',1200);
+  b(2);bg(say('Walk north · follow “JR / Shinkansen”',2200));await walk([[520,400],[560,340],[600,300]]);
+  b(3);await say('Shinobazu Exit 不忍口',1400);
+  b(4);await walk([[700,262],[762,258]]);await say('Central Gate — ticket machines right here',1800,'good');
+ }});
+
+/* 7 · tickets and two gates */
+SC.push({nav:'7 JR gates',title:'Collect tickets, pass two gates',time:'about 11:15–11:20',
+ intro:'Each person usually gets two tickets: a basic fare ticket (乗車券) and a Shinkansen ticket (特急券). Sometimes they print as one.',
+ beats:['Green reserved-seat machines: English → “Read QR code” → scan','Tickets print: 乗車券 + 特急券 for each person','Central Gate: both tickets in together, take both back','Shinkansen Transfer Gate on the right: both in again, both back','Escalator down to the Shinkansen platforms'],
+ notes:[['tip','Didn’t book? Buy here: Ueno → Karuizawa, next Asama/Hakutaka, reserved, 3 adults. Stuck? The staffed ticket office is next to the machines.']],
+ draw(){
+  let s=interior(520);
+  s+=csign(60,70,280,'shink','指定席券売機','Reserved-seat ticket machines');
+  [70,135,200].forEach(x=>s+=R(x,380,56,140,'#2e9e5b',{rx:6})+R(x+8,394,40,34,'#d8f5e4',{rx:3})+R(x+16,446,24,6,'#14532d',{rx:2}));
+  s+=R(290,410,150,110,'card',{rx:6,st:'floor2'})+T(365,440,'JR Ticket Office',{s:13,a:'middle',w:800})+T(365,458,'きっぷうりば',{s:12,a:'middle',f:'muted'})+C(365,488,9,'#f1c7a0');
+  s+=csign(500,70,200,'#3a3f48','中央改札','Central Gate');
+  s+=gate(530,450,'g7a');
+  s+=csign(800,70,250,'shink','新幹線乗換口','Shinkansen Transfer Gate');
+  s+=gate(840,450,'g7b');
+  s+=R(1050,380,150,140,'shink-soft',{rx:8})+T(1125,420,'↓ 新幹線',{s:20,f:'shink',a:'middle',w:800})+T(1125,444,'Shinkansen',{s:13,f:'shink',a:'middle',w:700})+T(1125,464,'B4F · 19–22',{s:13,f:'shink',a:'middle',w:700});
+  return s;},
+ init(){startAt(10,520,{s:.8});},
+ async play(b){
+  b(0);await walk([[160,520]]);await say('English → <b>Read QR code</b> → scan your screenshot',2200);
+  b(1);await Promise.all([pop(250,330,ticket(0,0)+`<text x="20" y="44" text-anchor="middle" style="font-size:12px;font-weight:800;fill:var(--ink)">乗車券</text>`,2000,1.7),pop(340,330,ticket(0,0)+`<text x="20" y="44" text-anchor="middle" style="font-size:12px;font-weight:800;fill:var(--shink)">特急券</text>`,2000,1.7)]);
+  b(2);await walk([[520,520]]);await openGate('g7a');await say('Both tickets in together · <b>take both back</b>',1800,'warn');await walk([[620,520]]);await closeGate('g7a');
+  b(3);await walk([[830,520]]);await openGate('g7b');await say('Again: both in, both back',1600,'warn');await walk([[930,520]]);await closeGate('g7b');
+  b(4);await walk([[1110,520],[1170,600]]);await partyFade(0,400);
+ }});
+
+/* 8 · down to B4F */
+SC.push({nav:'8 To B4F',title:'Down to platforms 19–20 (B4F)',time:'about 11:20–11:30 · ~10 min',
+ intro:'The Shinkansen platforms are four floors underground. The long escalators take a few minutes with bags.',
+ beats:['Long escalators down from 1F','B3F: ekiben, drinks, benches · check the departure board','Down again to B4F, platform 19 or 20'],
+ notes:[['tip','Buy an ekiben (station bento) and drinks on B3F — it’s lunchtime by Karuizawa.']],
+ draw(){
+  let s=R(0,0,1200,620,'wall2');
+  s+=R(0,0,1200,110,'wall')+R(0,110,1200,14,'slab');
+  s+=R(0,400,1200,14,'slab')+R(0,580,1200,40,'platform')+R(0,580,1200,5,'#e6c229');
+  [[16,40,'1F'],[16,200,'B1F–B2F'],[16,370,'B3F'],[16,552,'B4F']].forEach(([x,y,t])=>s+=R(x,y,90,26,'ink',{rx:6})+T(x+45,y+18,t,{s:12,f:'bg',a:'middle',w:800}));
+  const esc=(x1,y1,x2,y2)=>{let e=P(`M${x1} ${y1} L${x1+30} ${y1} L${x2+30} ${y2} L${x2} ${y2} Z`,'#b9bec6');for(let k=1;k<14;k++){const t=k/14;e+=L(x1+(x2-x1)*t,y1+(y2-y1)*t,x1+30+(x2-x1)*t,y1+(y2-y1)*t,'#8d939c',1.5);}return e+L(x1,y1-34,x2,y2-34,'#4a5260',5);};
+  s+=esc(220,110,600,255)+R(600,250,130,10,'slab')+esc(700,255,1000,400);
+  s+=esc(840,400,560,580);
+  s+=R(1030,300,150,100,'card',{rx:6,st:'floor2'})+T(1105,330,'駅弁 EKIBEN',{s:14,a:'middle',w:800})+T(1105,360,'🍱 🍵 🥤',{s:20,a:'middle'});
+  s+=R(980,214,200,60,'#111',{rx:6})+T(995,236,'11:42 あさま Asama 20',{s:12,f:'#7CFFB2',w:700})+T(995,256,'11:52 はくたか Hakutaka 19',{s:12,f:'#7CFFB2',w:700});
+  s+=csign(150,470,260,'shink','19 · 20  新幹線','→ Karuizawa direction',{hang:false});
+  return s;},
+ init(){startAt(60,110,{s:.62});},
+ async play(b){
+  b(0);await walk([[235,110]]);bg(say('Long escalators down',1500));await walk([[615,255],[715,255],[1015,400]],5200);
+  b(1);await walk([[1060,400]]);await say('Ekiben + drinks · check the board',2000);
+  b(2);await walk([[855,400]]);await walk([[575,580]],3000);await walk([[300,580]]);await say('B4F · platform 19 or 20',1600,'good');
+ }});
+
+/* 9 · board */
+SC.push({nav:'9 Board',title:'Board the right train',time:'about 11:30–11:45',
+ intro:'Trains start at Tokyo and only stop at Ueno briefly, so be lined up at your car before yours pulls in.',
+ beats:['Check the board: あさま Asama or はくたか Hakutaka','かがやき Kagayaki arrives — it skips Karuizawa, let it go','Your Asama arrives — line up at your car number on the floor','Board promptly; keep all tickets until Karuizawa'],
+ notes:[['warn','Never board a かがやき Kagayaki.'],['tip','Ticket reads like “6号車 12A” = car 6, row 12, seat A.']],
+ draw(){
+  let s=R(0,0,1200,620,'wall')+R(0,0,1200,30,'slab');
+  s+=R(380,44,440,126,'#0d0d0d',{rx:8});
+  s+=`<g id="rowK">${R(392,58,416,30,'#000',{rx:4})}${T(404,80,'11:38  かがやき Kagayaki   金沢   ✗',{s:16,f:'#ff8a80',w:700})}</g>`;
+  s+=`<g id="rowA">${R(392,92,416,30,'#000',{rx:4})}${T(404,114,'11:42  あさま Asama   長野   20',{s:16,f:'#7CFFB2',w:700})}</g>`;
+  s+=`<g id="rowH">${R(392,126,416,30,'#000',{rx:4})}${T(404,148,'11:52  はくたか Hakutaka   金沢   19',{s:16,f:'#7CFFB2',w:700})}</g>`;
+  s+=R(0,410,1200,120,'#3a3a3a',{op:.15});
+  s+=`<g id="kag" transform="translate(-1800,430)">${e7(5,'かがやき KAGAYAKI',false,10)}</g>`;
+  s+=`<g id="asa" transform="translate(-1800,430)">${e7(5,'あさま ASAMA',false,7)}</g>`;
+  s+=R(0,530,1200,90,'platform')+R(0,534,1200,7,'#e6c229');
+  [[456,'5号車'],[700,'6号車'],[1030,'7号車']].forEach(([x,t])=>s+=R(x-34,552,68,22,x===700?'shink':'card',{rx:4,st:'floor2',sw:1})+T(x,568,t,{s:12,w:800,a:'middle',f:x===700?'#ffffff':'ink'}));
+  return s;},
+ init(){startAt(40,600,{s:.8});},
+ async play(b){
+  b(0);await walk([[300,600]]);
+  const blink=(id,ms)=>{const g=el(id);return tween(ms,(t,p)=>g.style.opacity=(Math.floor(p*8)%2)?.35:1).then(()=>g.style.opacity=1);};
+  await Promise.all([blink('rowA',1600),say('Asama or Hakutaka ✓',1600,'good')]);
+  b(1);await Promise.all([blink('rowK',1200),moveX('kag',-1800,880,2800,eo,430)]);
+  await sayAt(740,420,'Kagayaki skips Karuizawa — <b>let it go</b>',2200,'warn');
+  await moveX('kag',880,2700,2200,ei,430);
+  b(2);await Promise.all([moveX('asa',-1800,880,3000,eo,430),walk([[700,600]])]);await say('Line up at your car number · 6号車',1700);
+  b(3);await partyFade(0,600);await wait(400);await moveX('asa',880,2700,2600,ei,430);
+ }});
+
+/* 10 · shinkansen ride */
+SC.push({nav:'10 Ride',title:'Shinkansen to Karuizawa',time:'about 11:45–12:45 · 60–70 min',
+ intro:'English announcements and screens name every stop. Karuizawa comes after Omiya and Takasaki.',
+ beats:['Ueno → Omiya','Omiya → Takasaki — Karuizawa is next','Tunnels and mountains on the climb','Karuizawa — get off, keep your tickets'],
+ notes:[['tip','Suitcases go in the space at the end of the car or behind the last row.']],
+ draw(){
+  let s=R(0,0,1200,620,'sky2');
+  let far=hills(-100,7000,360,50,'far',0.003)+`<g transform="translate(1250,0)">${P('M-260 360 L-40 140 L0 128 L40 140 L260 360 Z','#8f8a84',{op:.75})}${P('M-60 160 L-40 140 L0 128 L40 140 L60 160 Z','#ffffff',{op:.8})}${T(0,110,'Mt Asama',{s:14,f:'muted',a:'middle'})}</g>`;
+  s+=`<g id="far">${far}</g>`;
+  let st=R(-400,476,7000,160,'grass');
+  for(let x=-400;x<6600;x+=40) st+=R(x,482,22,6,'#8a8579',{op:.6});
+  seed=21;
+  for(let x=0;x<2600;x+=46){const h=50+rnd()*170;st+=R(x,476-h,40,h,rnd()<.5?'city':'city2');for(let y=476-h+10;y<466;y+=18)st+=R(x+6,y,8,8,'#ffffff',{op:.35})+R(x+24,y,8,8,'#ffffff',{op:.35});}
+  for(let x=2600;x<3900;x+=55){ if(rnd()<.45) st+=R(x,440,46,36,'#b9d98f',{op:.7}); else st+=P(`M${x} 476 V446 L${x+20} 430 L${x+40} 446 V476 Z`,'#d9c7a7'); }
+  for(let x=4000;x<6400;x+=34) st+=tree(x,476,.8+rnd()*.7,['#d9822b','#c0392b','#e0a526','#86b773'][Math.floor(rnd()*4)]);
+  st+=hills(4000,2400,470,90,'hill',0.006);
+  for(let x=4000;x<6400;x+=48) st+=tree(x+20,478,.7+rnd()*.5,['#d9822b','#c0392b','#e0a526','#a35c1f'][Math.floor(rnd()*4)]);
+  for(let x=-400;x<6600;x+=240) st+=L(x,330,x,476,'#8a8579',4)+L(x-12,338,x+12,338,'#8a8579',3);
+  [[600,'上野','Ueno'],[2100,'大宮','Omiya'],[3800,'高崎','Takasaki'],[5800,'軽井沢','Karuizawa']].forEach(([x,jp,en])=>st+=R(x-340,486,680,28,'platform')+R(x-340,486,680,4,'#e6c229')+stationBoard(x,jp,en,'#0f8a5f'));
+  s+=`<g id="strip">${st}</g>`;
+  s+=L(0,330,1200,330,'#6b6b6b',1.5,{op:.6})+L(0,477,1200,477,'#555',3);
+  s+=`<g id="train" transform="translate(600,386)">${e7(3,'あさま ASAMA',true)}</g>`;
+  let fr='';[[4300,320],[4800,260],[5200,240]].forEach(([x,w])=>fr+=R(x,0,w,620,'#14161a',{op:.92})+P(`M${x} 620 V360 Q${x} 300 ${x+40} 300 V620 Z`,'#5a5650')+P(`M${x+w} 620 V360 Q${x+w} 300 ${x+w-40} 300 V620 Z`,'#5a5650'));
+  s+=`<g id="front">${fr}</g>`;
+  return s;},
+ init(){startAt(-200,-200,{hidden:true});},
+ async play(b){
+  const strip=el('strip'),far=el('far'),tr=el('train'),fr=el('front');
+  const scroll=(x0,x1,ms)=>tween(ms,(t,p)=>{const x=x0+(x1-x0)*t;strip.setAttribute('transform',`translate(${x.toFixed(1)},0)`);fr.setAttribute('transform',`translate(${x.toFixed(1)},0)`);far.setAttribute('transform',`translate(${(x*.15).toFixed(1)},0)`);tr.setAttribute('transform',`translate(600,${(386+Math.sin(p*260)*.6).toFixed(2)})`);},io);
+  b(0);await scroll(0,-1500,5000);await sayAt(750,370,'Omiya',1200);
+  b(1);await scroll(-1500,-3200,5200);await sayAt(750,370,'Takasaki — Karuizawa is next',1700);
+  b(2);await scroll(-3200,-5200,6400);
+  b(3);await sayAt(750,370,'Karuizawa — get off · keep your tickets',2000,'good');
+ }});
+
+/* 11 · Karuizawa */
+SC.push({nav:'11 Karuizawa',title:'Arrive at Karuizawa',time:'about 12:45–13:30',
+ intro:'One set of exit gates, then choose North or South Exit.',
+ beats:['Off the train, up to the concourse','Exit gate: insert all tickets — it keeps them','Coin lockers if you want lunch before check-in','North Exit 北口 → car rental shops (~5 min) and town'],
+ notes:[['tip','South Exit 南口 is the Karuizawa Prince Shopping Plaza outlets.'],['tip','Tsuruya check-in is from 15:00.']],
+ draw(){
+  let s=`<defs><linearGradient id="kz" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--sky)"/><stop offset="1" stop-color="var(--sky2)"/></linearGradient></defs>`;
+  s+='<rect x="0" y="0" width="1200" height="620" style="fill:url(#kz)"/>';
+  s+=P('M560 400 L820 150 L860 140 L900 150 L1200 360 L1200 400 Z','#8f8a84',{op:.6})+P('M800 170 L820 150 L860 140 L900 150 L925 168 Z','#ffffff',{op:.8});
+  seed=31;for(let x=880;x<1200;x+=30) s+=tree(x,402,.6+rnd()*.5,['#d9822b','#c0392b','#e0a526','#86b773'][Math.floor(rnd()*4)]);
+  s+=R(0,330,520,290,'wall2');
+  s+=`<g transform="translate(210,452)">${e7(2,'',false)}</g>`;
+  s+=R(0,550,520,70,'platform')+R(0,553,520,6,'#e6c229');
+  s+=P('M360 560 L520 400 L560 400 L400 560 Z','#b9bec6');for(let k=1;k<10;k++){const t=k/10;s+=L(360+160*t,560-160*t,400+160*t,560-160*t,'#8d939c',1.5);}
+  s+=R(520,400,680,220,'wall')+L(520,400,1200,400,'floor2',3)+R(520,400,680,220,'floor',{op:.5});
+  s+=csign(600,250,180,'#3a3f48','改札','Exit gates');
+  s+=gate(640,330,'g11');
+  s+=R(760,330,70,70,'#7d8794',{rx:4});for(let r=0;r<3;r++)for(let c=0;c<2;c++)s+=R(766+c*32,336+r*21,26,17,'#aab4c0',{rx:2});
+  s+=T(795,322,'🔒 lockers',{s:12,a:'middle',w:700});
+  s+=csign(940,250,240,'walk','北口 North Exit →','Car rental · Town');
+  s+=R(980,470,200,110,'card',{rx:10,st:'line',sw:1})+T(1080,500,'南口 South Exit ↓',{s:14,a:'middle',w:800,f:'muted'})+T(1080,526,'🛍 Prince Shopping Plaza',{s:13,a:'middle',f:'muted'})+T(1080,546,'(outlets)',{s:12,a:'middle',f:'muted'});
+  s+=R(16,346,140,26,'ink',{rx:6})+T(86,364,'PLATFORM',{s:12,f:'bg',a:'middle',w:800});
+  return s;},
+ init(){startAt(140,560,{s:.75});},
+ async play(b){
+  b(0);await say('Welcome to Karuizawa!',1400,'good');await walk([[380,560],[540,400]],3200);
+  b(1);await walk([[660,400]]);await openGate('g11');await say('Gate keeps your tickets',1600);await walk([[740,400]]);await closeGate('g11');
+  b(2);await walk([[800,400]]);await say('Lockers here if you want lunch first',1600);
+  b(3);await walk([[950,400]]);await say('North Exit 北口 → car rental',1600);await walk([[1240,400]]);
+  el('banner').classList.add('show');
+ },
+ leave(){el('banner').classList.remove('show');}});
+
+/* ---------- runner + UI ---------- */
+let cur=0, prevLeave=null;
+const prog=$('#prog'), panel=$('#panel'), nextB=$('#next'), backB=$('#back'), cap=$('#caption');
+prog.innerHTML=SC.map((s,i)=>`<button data-i="${i}" title="${s.title}">${s.nav}</button>`).join('');
+prog.addEventListener('click',e=>{const i=e.target.dataset.i;if(i!=null)go(+i);});
+const strip=h=>h.replace(/<[^>]+>/g,'');
+function renderPanel(i){const s=SC[i];
+  panel.innerHTML=`<div class="stepno">${i===0?'Overview':`Step ${i} of ${SC.length-1}`}</div><h2>${s.title}</h2><span class="chip">${s.time}</span>
+  <p class="intro">${s.intro}</p><ol class="beats">${s.beats.map(b=>`<li>${b}</li>`).join('')}</ol>
+  ${s.notes.map(([k,t])=>`<div class="note ${k}">${t}</div>`).join('')}
+  <div class="legend"><span><i style="background:#e4572e"></i>You (▼)</span><span><i style="background:#2a9d8f"></i>Traveller 2</span><span><i style="background:#8f5bd6"></i>Traveller 3</span></div>`;}
+function beat(i){const lis=panel.querySelectorAll('ol.beats li');lis.forEach((li,k)=>{li.classList.toggle('on',k===i);li.classList.toggle('past',k<i);});
+  cap.innerHTML=`<b>Now:</b> ${strip(SC[cur].beats[i]||'')}`;}
+function go(i){
+  if(i<0||i>=SC.length) return;
+  run++; if(prevLeave) prevLeave(); prevLeave=SC[i].leave||null;
+  bwrap.innerHTML='';fxl.innerHTML='';
+  cur=i; renderPanel(i);
+  [...prog.children].forEach((b,k)=>{b.classList.toggle('on',k===i);b.classList.toggle('done',k<i);});
+  layer.innerHTML=SC[i].draw(); SC[i].init();
+  backB.disabled=i===0; nextB.textContent=i===0?'Start ▶':(i===SC.length-1?'Start over ↺':'Next ▶'); nextB.classList.remove('pulse');
+  const my=run;
+  SC[i].play(beat).then(()=>{if(my!==run)return;panel.querySelectorAll('ol.beats li').forEach(li=>{li.classList.remove('on');li.classList.add('past');});
+      cap.innerHTML=i===SC.length-1?'<b>Done.</b> Enjoy Karuizawa.':'<b>Done.</b> Press Next to continue.';nextB.classList.add('pulse');})
+    .catch(e=>{if(e!==CANCEL)console.error(e);});
+}
+nextB.onclick=()=>go(cur===SC.length-1?0:cur+1);
+backB.onclick=()=>go(cur-1);
+$('#replay').onclick=()=>go(cur);
+$('#speed').addEventListener('click',e=>{const s=e.target.dataset.s;if(!s)return;speed=+s;[...e.currentTarget.children].forEach(b=>b.classList.toggle('on',b===e.target));});
+document.addEventListener('keydown',e=>{if(e.target.tagName==='BUTTON'&&e.key===' ')e.preventDefault();
+  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();nextB.click();}else if(e.key==='ArrowLeft')go(cur-1);else if(e.key==='r'||e.key==='R')go(cur);});
+window.__walk={go,setSpeed:s=>speed=s,count:SC.length};
+go(0);
+})();
+</script>
+</body>
+</html>

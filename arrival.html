@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Narita to Karuizawa</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+:root{
+  --bg:#f6f4ef; --card:#ffffff; --ink:#1d1d1f; --muted:#6b6b70; --line:#e2dfd7;
+  --keisei:#1f5fbf; --keisei-soft:#e3ecfa;
+  --shink:#0f8a5f; --shink-soft:#dff3ea;
+  --jr:#c8322b; --jr-soft:#fbe5e3;
+  --walk:#d9822b; --walk-soft:#fbeedd;
+  --warn:#b42318; --warn-soft:#fdecea;
+  --floor:#efece5;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141416; --card:#1f1f22; --ink:#f2f2f3; --muted:#a0a0a8; --line:#34343a;
+    --keisei:#6aa1ff; --keisei-soft:#1c2a44;
+    --shink:#3fcf97; --shink-soft:#17332a;
+    --jr:#ff7a72; --jr-soft:#3a1f1d;
+    --walk:#f2a65a; --walk-soft:#3a2b1a;
+    --warn:#ff8a80; --warn-soft:#3a1f1d;
+    --floor:#29292e;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans JP",Roboto,sans-serif;
+  padding:0 16px calc(40px + env(safe-area-inset-bottom))}
+header{padding:28px 0 8px}
+h1{font-size:26px;line-height:1.15;margin:0 0 6px;letter-spacing:-.01em}
+.sub{color:var(--muted);font-size:14px;margin:0}
+nav{position:sticky;top:0;z-index:5;background:var(--bg);margin:0 -16px;padding:10px 16px;
+  display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line)}
+nav::-webkit-scrollbar{display:none}
+nav a{flex:none;text-decoration:none;color:var(--ink);font-size:13px;font-weight:600;
+  padding:6px 12px;border-radius:999px;background:var(--card);border:1px solid var(--line)}
+section{margin:22px 0}
+h2{font-size:20px;margin:0 0 4px;display:flex;align-items:center;gap:10px}
+.num{flex:none;width:28px;height:28px;border-radius:50%;display:inline-grid;place-items:center;
+  font-size:14px;color:#fff;background:var(--ink)}
+.meta{color:var(--muted);font-size:14px;margin:0 0 12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 14px;margin:12px 0}
+.card h3{font-size:15px;margin:0 0 8px}
+ol,ul{margin:0;padding-left:22px}
+li{margin:6px 0}
+li::marker{color:var(--muted);font-weight:600}
+.diagram{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px;margin:12px 0}
+.diagram svg{display:block;width:100%;height:auto}
+.cap{font-size:12px;color:var(--muted);margin:6px 4px 2px}
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:1px 8px;border-radius:6px;vertical-align:1px}
+.t-keisei{background:var(--keisei-soft);color:var(--keisei)}
+.t-shink{background:var(--shink-soft);color:var(--shink)}
+.t-walk{background:var(--walk-soft);color:var(--walk)}
+.t-jr{background:var(--jr-soft);color:var(--jr)}
+.alert{background:var(--warn-soft);color:var(--ink);border-left:4px solid var(--warn);
+  border-radius:10px;padding:10px 12px;margin:12px 0;font-size:15px}
+.alert b{color:var(--warn)}
+.tip{background:var(--shink-soft);border-left:4px solid var(--shink);border-radius:10px;padding:10px 12px;margin:12px 0;font-size:15px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+td.t{white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:600}
+.jp{font-family:"Hiragino Sans","Noto Sans JP",sans-serif;font-weight:700}
+.check label{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line)}
+.check label:last-child{border-bottom:0}
+.check input{width:20px;height:20px;margin-top:2px;flex:none;accent-color:var(--shink)}
+.check input:checked + span{color:var(--muted);text-decoration:line-through}
+.signs td:first-child{font-size:17px;white-space:nowrap}
+footer{color:var(--muted);font-size:12px;margin-top:28px}
+footer a{color:var(--muted)}
+/* svg text tokens */
+svg text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;fill:var(--ink)}
+svg .m{fill:var(--muted)}
+svg .b{font-weight:700}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Narita → Karuizawa</h1>
+  <p class="sub">Arrival day · Sat 7 Nov 2026 · 3 people · land 08:40</p>
+</header>
+
+<nav>
+  <a href="#overview">Overview</a>
+  <a href="#before">Before you fly</a>
+  <a href="#s1">1 Arrive</a>
+  <a href="#s2">2 Skyliner</a>
+  <a href="#s3">3 Book</a>
+  <a href="#s4">4 Ueno walk</a>
+  <a href="#s5">5 Board</a>
+  <a href="#s6">6 Karuizawa</a>
+  <a href="#planb">Plan B</a>
+</nav>
+
+<!-- ================= OVERVIEW ================= -->
+<section id="overview">
+  <h2>The whole journey</h2>
+  <p class="meta">Reach Karuizawa around 12:45–13:30, well before the 15:00 Tsuruya check-in.</p>
+
+  <div class="diagram">
+    <svg viewBox="0 0 340 600" role="img" aria-label="Journey overview from Narita to Karuizawa">
+      <!-- route line segments -->
+      <line x1="40" y1="40"  x2="40" y2="120" stroke="var(--walk)" stroke-width="5" stroke-dasharray="2 8" stroke-linecap="round"/>
+      <line x1="40" y1="120" x2="40" y2="200" stroke="var(--walk)" stroke-width="5" stroke-dasharray="2 8" stroke-linecap="round"/>
+      <line x1="40" y1="200" x2="40" y2="290" stroke="var(--keisei)" stroke-width="7"/>
+      <line x1="40" y1="290" x2="40" y2="380" stroke="var(--walk)" stroke-width="5" stroke-dasharray="2 8" stroke-linecap="round"/>
+      <line x1="40" y1="380" x2="40" y2="460" stroke="var(--walk)" stroke-width="5" stroke-dasharray="2 8" stroke-linecap="round"/>
+      <line x1="40" y1="460" x2="40" y2="560" stroke="var(--shink)" stroke-width="7"/>
+
+      <!-- stops -->
+      <g font-size="15">
+        <circle cx="40" cy="40" r="17" fill="var(--card)" stroke="var(--ink)" stroke-width="2"/>
+        <text x="40" y="46" text-anchor="middle" font-size="17">✈️</text>
+        <text x="72" y="36" class="b">Land at Narita</text>
+        <text x="72" y="55" font-size="13" class="m">08:40 · note your terminal</text>
+
+        <circle cx="40" cy="120" r="17" fill="var(--card)" stroke="var(--ink)" stroke-width="2"/>
+        <text x="40" y="126" text-anchor="middle" font-size="17">🛂</text>
+        <text x="72" y="116" class="b">Immigration, bags, customs</text>
+        <text x="72" y="135" font-size="13" class="m">60–80 min · out ~10:00</text>
+
+        <circle cx="40" cy="200" r="17" fill="var(--card)" stroke="var(--keisei)" stroke-width="3"/>
+        <text x="40" y="206" text-anchor="middle" font-size="17">🎫</text>
+        <text x="72" y="196" class="b">Down to B1F · Keisei (blue)</text>
+        <text x="72" y="215" font-size="13" class="m">buy Skyliner · 10–15 min</text>
+
+        <rect x="62" y="232" width="170" height="40" rx="8" fill="var(--keisei-soft)"/>
+        <text x="74" y="250" font-size="13" class="b" style="fill:var(--keisei)">🚆 Skyliner · 41–45 min</text>
+        <text x="74" y="265" font-size="12" style="fill:var(--keisei)">book Shinkansen on phone</text>
+
+        <circle cx="40" cy="290" r="17" fill="var(--card)" stroke="var(--keisei)" stroke-width="3"/>
+        <text x="40" y="296" text-anchor="middle" font-size="17">🚉</text>
+        <text x="72" y="286" class="b">Keisei Ueno (last stop)</text>
+        <text x="72" y="305" font-size="13" class="m">~11:05 · exit the gates</text>
+
+        <circle cx="40" cy="380" r="17" fill="var(--card)" stroke="var(--walk)" stroke-width="3"/>
+        <text x="40" y="386" text-anchor="middle" font-size="17">🚶</text>
+        <text x="72" y="376" class="b">Walk to JR Ueno</text>
+        <text x="72" y="395" font-size="13" class="m">3–5 min outside · collect tickets</text>
+
+        <circle cx="40" cy="460" r="17" fill="var(--card)" stroke="var(--shink)" stroke-width="3"/>
+        <text x="40" y="466" text-anchor="middle" font-size="17">⬇️</text>
+        <text x="72" y="456" class="b">Down to B4F, platform 19–20</text>
+        <text x="72" y="475" font-size="13" class="m">~10 min from Central Gate</text>
+
+        <rect x="62" y="492" width="200" height="40" rx="8" fill="var(--shink-soft)"/>
+        <text x="74" y="510" font-size="13" class="b" style="fill:var(--shink)">🚄 Asama / Hakutaka · 60–70 min</text>
+        <text x="74" y="525" font-size="12" style="fill:var(--shink)">never Kagayaki</text>
+
+        <circle cx="40" cy="560" r="19" fill="var(--shink)"/>
+        <text x="40" y="567" text-anchor="middle" font-size="18">🏔️</text>
+        <text x="72" y="556" class="b">Karuizawa</text>
+        <text x="72" y="575" font-size="13" class="m">~12:45–13:30</text>
+      </g>
+    </svg>
+    <div class="cap">
+      <span class="tag t-walk">- - walk</span>
+      <span class="tag t-keisei">Skyliner</span>
+      <span class="tag t-shink">Shinkansen</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <table>
+      <tr><th>Step</th><th>Time</th><th>Takes</th></tr>
+      <tr><td>Land at Narita</td><td class="t">08:40</td><td>—</td></tr>
+      <tr><td>Immigration, bags, customs</td><td class="t">–10:00</td><td>60–80 min</td></tr>
+      <tr><td>Buy Skyliner, go to platform</td><td class="t">–10:15</td><td>10–15 min</td></tr>
+      <tr><td>Skyliner to Keisei Ueno</td><td class="t">~11:05</td><td>41–45 min</td></tr>
+      <tr><td>Walk, tickets, down to platform</td><td class="t">~11:30</td><td>20–25 min</td></tr>
+      <tr><td>Shinkansen to Karuizawa</td><td class="t">~12:45</td><td>60–70 min</td></tr>
+    </table>
+    <p class="cap">Per person, approx.: Skyliner ¥2,580 (≈¥2,300 online) · Shinkansen Ueno–Karuizawa reserved ≈¥6,000.</p>
+  </div>
+</section>
+
+<!-- ================= BEFORE ================= -->
+<section id="before">
+  <h2>Before you fly</h2>
+  <p class="meta">Do these in Singapore. Ticks are saved on this phone.</p>
+  <div class="card check" id="checklist">
+    <label><input type="checkbox" data-k="vjw"><span><b>Visit Japan Web</b> for all 3 people. Screenshot each immigration and customs QR.</span></label>
+    <label><input type="checkbox" data-k="jre"><span><b>JR-EAST Train Reservation</b> account created, card saved. Don't book yet.</span></label>
+    <label><input type="checkbox" data-k="esim"><span><b>Japan eSIM</b> installed, so you can book on the Skyliner.</span></label>
+    <label><input type="checkbox" data-k="sky"><span><i>Optional:</i> Skyliner vouchers online (saves ≈¥280 each).</span></label>
+    <label><input type="checkbox" data-k="suica"><span><i>Optional:</i> Suica in Apple Wallet for konbini and lockers.</span></label>
+    <label><input type="checkbox" data-k="cash"><span>Some yen cash, or plan to use the 7-Eleven ATM at arrivals.</span></label>
+    <label><input type="checkbox" data-k="bag"><span>Any suitcase over 160 cm (L+W+H)? It needs a special Shinkansen seat (Step 3).</span></label>
+  </div>
+</section>
+
+<!-- ================= STEP 1 ================= -->
+<section id="s1">
+  <h2><span class="num">1</span>Plane to arrivals hall</h2>
+  <p class="meta">60–80 min · don't commit to a train until you're through</p>
+  <div class="card"><ol>
+    <li><b>Note your terminal</b> (T1, T2 or T3). Station names: "Narita Airport Terminal 1" or "Airport Terminal 2·3".</li>
+    <li>Follow yellow <b>Arrivals / <span class="jp">到着</span></b> signs, then Immigration.</li>
+    <li><b>Immigration:</b> foreign passport lane, Visit Japan Web QR ready, fingerprints + photo.</li>
+    <li><b>Baggage claim:</b> screens list carousels by flight number.</li>
+    <li><b>Customs:</b> scan the customs QR at the e-gate.</li>
+    <li><b>Arrivals lobby (1F):</b> toilets, 7-Eleven ATM, konbini. Grab water and a snack.</li>
+  </ol></div>
+</section>
+
+<!-- ================= STEP 2 ================= -->
+<section id="s2">
+  <h2><span class="num">2</span>Skyliner to Keisei Ueno</h2>
+  <p class="meta">About 1 hour including tickets</p>
+
+  <div class="diagram">
+    <svg viewBox="0 0 340 330" role="img" aria-label="Narita airport: arrivals lobby down to the Keisei Skyliner on B1F">
+      <!-- floors -->
+      <rect x="6" y="20" width="328" height="92" rx="10" fill="var(--floor)"/>
+      <text x="16" y="40" font-size="12" class="b m">1F · ARRIVALS LOBBY</text>
+      <rect x="6" y="140" width="328" height="182" rx="10" fill="var(--floor)"/>
+      <text x="16" y="160" font-size="12" class="b m">B1F · RAILWAYS</text>
+
+      <!-- start -->
+      <rect x="20" y="54" width="104" height="44" rx="8" fill="var(--card)" stroke="var(--line)"/>
+      <text x="72" y="73" text-anchor="middle" font-size="12" class="b">Exit customs</text>
+      <text x="72" y="89" text-anchor="middle" font-size="11" class="m">🧳 ATM · konbini</text>
+
+      <!-- walk to escalator -->
+      <path d="M124 76 H220" stroke="var(--walk)" stroke-width="4" stroke-dasharray="2 7" stroke-linecap="round" fill="none"/>
+      <rect x="220" y="54" width="100" height="44" rx="8" fill="var(--card)" stroke="var(--walk)" stroke-width="2"/>
+      <text x="270" y="72" text-anchor="middle" font-size="12" class="b">Signs: Railways</text>
+      <text x="270" y="88" text-anchor="middle" font-size="12" class="jp">鉄道 ↓</text>
+
+      <!-- down -->
+      <path d="M270 98 V176" stroke="var(--walk)" stroke-width="4" stroke-dasharray="2 7" stroke-linecap="round" fill="none"/>
+      <text x="280" y="140" font-size="11" class="m">escalator</text>
+
+      <!-- JR wrong -->
+      <rect x="20" y="176" width="128" height="58" rx="8" fill="var(--jr-soft)" stroke="var(--jr)"/>
+      <text x="84" y="198" text-anchor="middle" font-size="12" class="b" style="fill:var(--jr)">JR · red signs</text>
+      <text x="84" y="214" text-anchor="middle" font-size="11" style="fill:var(--jr)">Narita Express</text>
+      <text x="84" y="228" text-anchor="middle" font-size="11" class="b" style="fill:var(--jr)">✗ not today</text>
+
+      <!-- Keisei right -->
+      <rect x="192" y="176" width="134" height="58" rx="8" fill="var(--keisei-soft)" stroke="var(--keisei)" stroke-width="2"/>
+      <text x="259" y="198" text-anchor="middle" font-size="12" class="b" style="fill:var(--keisei)">KEISEI · blue signs</text>
+      <text x="259" y="214" text-anchor="middle" font-size="11" style="fill:var(--keisei)">Skyliner machines</text>
+      <text x="259" y="228" text-anchor="middle" font-size="11" style="fill:var(--keisei)">or counter ✓</text>
+
+      <!-- gate -->
+      <path d="M259 234 V256" stroke="var(--walk)" stroke-width="4" stroke-dasharray="2 7" stroke-linecap="round"/>
+      <rect x="192" y="256" width="134" height="28" rx="6" fill="var(--card)" stroke="var(--line)"/>
+      <text x="259" y="275" text-anchor="middle" font-size="12" class="b">🎫 Gate · take ticket back</text>
+      <path d="M259 284 V298" stroke="var(--walk)" stroke-width="4" stroke-dasharray="2 7" stroke-linecap="round"/>
+
+      <!-- platform / train -->
+      <rect x="20" y="298" width="306" height="18" rx="9" fill="var(--keisei)"/>
+      <text x="173" y="311" text-anchor="middle" font-size="11" class="b" style="fill:#fff">SKYLINER → Nippori → Keisei Ueno (last stop)</text>
+    </svg>
+    <p class="cap">Schematic. Layout differs between terminals; follow the blue Keisei signs.</p>
+  </div>
+
+  <div class="card"><ol>
+    <li>Buy at the blue <b>Skyliner machines</b> or the <b>Skyliner &amp; Keisei Information Center</b>. Cards accepted. Ask: <i>"Skyliner to Ueno, three people, next train, seats together."</i></li>
+    <li>Online voucher? Scan its QR at the Skyliner machine and pick a train.</li>
+    <li>Insert your ticket at the gate and <b>take it back</b>. You need it to exit at Ueno.</li>
+    <li>Board your car number. Big bags go in racks at the end of each car.</li>
+  </ol></div>
+  <div class="alert"><b>Wrong-train trap:</b> cheaper Keisei trains (Access Express, Limited Express) leave from the same area and are much slower. Board only a train marked <b>Skyliner</b>.</div>
+  <div class="alert"><b>Don't get off at Nippori.</b> Stay on to Keisei Ueno, the last stop.</div>
+</section>
+
+<!-- ================= STEP 3 ================= -->
+<section id="s3">
+  <h2><span class="num">3</span>Book the Shinkansen on the Skyliner</h2>
+  <p class="meta">Use the 40-min ride to lock in 3 seats together</p>
+  <div class="card"><ol>
+    <li>Open <b>JR-EAST Train Reservation</b> and log in.</li>
+    <li>From <b>Ueno <span class="jp">上野</span></b> to <b>Karuizawa <span class="jp">軽井沢</span></b>, Sat 7 Nov, 3 adults. Leave <b>at least 20 min</b> after your Skyliner arrives.</li>
+    <li>Pick <span class="tag t-shink">あさま Asama</span> or <span class="tag t-shink">はくたか Hakutaka</span>. Never <span class="tag t-jr">かがやき Kagayaki</span>.</li>
+    <li>Ordinary car, <b>reserved seat <span class="jp">指定席</span></b>, three seats side by side.</li>
+    <li>Suitcase over 160 cm? Reserve a "seat with oversized baggage area" for that person.</li>
+    <li>Choose <b>paper tickets</b>. You collect them at a green JR East machine at JR Ueno.</li>
+    <li>Paper-ticket booking closes <b>6 min</b> before departure. Screenshot the confirmation QR.</li>
+  </ol></div>
+  <div class="tip">No signal, or card rejected? Just buy at the machines by the JR Ueno Central Gate. A rejected card doesn't mean the train is full.</div>
+</section>
+
+<!-- ================= STEP 4 ================= -->
+<section id="s4">
+  <h2><span class="num">4</span>Keisei Ueno → Shinkansen platform</h2>
+  <p class="meta">20–25 min with bags · two separate stations, then four floors down</p>
+
+  <div class="card"><h3>Part A · Street walk (3–5 min)</h3>
+  <div class="diagram" style="margin:6px 0 0;border:0;padding:0">
+    <svg viewBox="0 0 340 380" role="img" aria-label="Walking route from Keisei Ueno station to JR Ueno Central Gate">
+      <!-- north arrow -->
+      <g transform="translate(312,30)">
+        <path d="M0 -14 L6 4 L0 0 L-6 4 Z" fill="var(--ink)"/>
+        <text x="0" y="18" text-anchor="middle" font-size="11" class="b">N</text>
+      </g>
+
+      <!-- park -->
+      <rect x="6" y="20" width="110" height="200" rx="12" fill="var(--shink-soft)"/>
+      <text x="61" y="110" text-anchor="middle" font-size="12" class="b" style="fill:var(--shink)">Ueno Park</text>
+      <text x="61" y="126" text-anchor="middle" font-size="11" style="fill:var(--shink)">(up the hill)</text>
+
+      <!-- JR Ueno building -->
+      <rect x="150" y="30" width="150" height="150" rx="10" fill="var(--card)" stroke="var(--ink)" stroke-width="2"/>
+      <text x="225" y="54" text-anchor="middle" font-size="14" class="b">JR Ueno</text>
+      <text x="225" y="70" text-anchor="middle" font-size="11" class="m">big JR station</text>
+
+      <!-- avoid park exit -->
+      <rect x="150" y="84" width="70" height="26" rx="6" fill="var(--warn-soft)" stroke="var(--warn)"/>
+      <text x="185" y="101" text-anchor="middle" font-size="10" class="b" style="fill:var(--warn)">✗ Park Exit</text>
+
+      <!-- Shinobazu exit -->
+      <rect x="146" y="140" width="82" height="30" rx="6" fill="var(--walk-soft)" stroke="var(--walk)" stroke-width="2"/>
+      <text x="187" y="154" text-anchor="middle" font-size="11" class="b" style="fill:var(--walk)">Shinobazu Exit</text>
+      <text x="187" y="166" text-anchor="middle" font-size="10" class="jp" style="fill:var(--walk)">不忍口</text>
+
+      <!-- central gate -->
+      <rect x="236" y="128" width="58" height="44" rx="6" fill="var(--shink-soft)" stroke="var(--shink)" stroke-width="2"/>
+      <text x="265" y="146" text-anchor="middle" font-size="11" class="b" style="fill:var(--shink)">Central</text>
+      <text x="265" y="159" text-anchor="middle" font-size="11" class="b" style="fill:var(--shink)">Gate</text>
+      <text x="265" y="170" text-anchor="middle" font-size="9" class="jp" style="fill:var(--shink)">中央改札</text>
+
+      <!-- inside path -->
+      <path d="M228 155 H236" stroke="var(--walk)" stroke-width="4" stroke-dasharray="2 6" stroke-linecap="round"/>
+
+      <!-- ticket machines -->
+      <rect x="236" y="186" width="80" height="34" rx="6" fill="var(--card)" stroke="var(--shink)"/>
+      <text x="276" y="201" text-anchor="middle" font-size="10" class="b">🎫 Green JR</text>
+      <text x="276" y="214" text-anchor="middle" font-size="10" class="b">machines</text>
+      <path d="M265 172 V186" stroke="var(--shink)" stroke-width="2"/>
+
+      <!-- street -->
+      <rect x="120" y="190" width="18" height="170" fill="var(--floor)"/>
+      <text x="129" y="300" font-size="10" class="m" transform="rotate(-90 129 300)" text-anchor="middle">street</text>
+
+      <!-- Keisei Ueno -->
+      <rect x="6" y="280" width="108" height="80" rx="10" fill="var(--keisei-soft)" stroke="var(--keisei)" stroke-width="2"/>
+      <text x="60" y="304" text-anchor="middle" font-size="13" class="b" style="fill:var(--keisei)">Keisei Ueno</text>
+      <text x="60" y="320" text-anchor="middle" font-size="10" class="jp" style="fill:var(--keisei)">京成上野</text>
+      <text x="60" y="340" text-anchor="middle" font-size="10" style="fill:var(--keisei)">Skyliner arrives</text>
+      <text x="60" y="353" text-anchor="middle" font-size="10" style="fill:var(--keisei)">(underground)</text>
+
+      <!-- start marker: main exit -->
+      <circle cx="114" cy="290" r="7" fill="var(--walk)"/>
+      <text x="150" y="276" font-size="11" class="b" style="fill:var(--walk)">Main Exit</text>
+      <text x="150" y="290" font-size="10" class="m">left of the gates</text>
+
+      <!-- walking route -->
+      <path d="M114 290 C140 290 140 250 150 230 C165 200 180 185 187 170" stroke="var(--walk)" stroke-width="5" stroke-dasharray="2 8" stroke-linecap="round" fill="none"/>
+      <text x="164" y="240" font-size="12" class="b" style="fill:var(--walk)">🚶 3–5 min</text>
+      <text x="164" y="255" font-size="11" class="m">walk north, follow</text>
+      <text x="164" y="268" font-size="11" class="m">"JR / Shinkansen"</text>
+    </svg>
+    <p class="cap">Schematic, not to scale. Signs in English are everywhere on this walk.</p>
+  </div>
+  <ol style="margin-top:8px">
+    <li>Insert your Skyliner ticket at the Keisei gate (it keeps it).</li>
+    <li>Take the <b>Main Exit</b>, left of the gates.</li>
+    <li>Walk north to JR Ueno, entering by the <b>Shinobazu Exit</b> side.</li>
+    <li>Head to the <b>Central Gate <span class="jp">中央改札</span></b>. Avoid the Park and Iriya Exits (upstairs, longer).</li>
+  </ol></div>
+
+  <div class="card"><h3>Part B · Tickets at the green machines</h3>
+  <div class="diagram" style="margin:6px 0 0;border:0;padding:0">
+    <svg viewBox="0 0 340 170" role="img" aria-label="Two tickets inserted together at the ticket gate">
+      <!-- tickets -->
+      <g transform="translate(10,22)">
+        <rect width="120" height="48" rx="6" fill="var(--card)" stroke="var(--ink)"/>
+        <text x="10" y="20" font-size="13" class="jp">乗車券</text>
+        <text x="10" y="38" font-size="11" class="m">basic fare</text>
+      </g>
+      <g transform="translate(22,82)">
+        <rect width="120" height="48" rx="6" fill="var(--shink-soft)" stroke="var(--shink)"/>
+        <text x="10" y="20" font-size="13" class="jp" style="fill:var(--shink)">特急券</text>
+        <text x="10" y="38" font-size="11" style="fill:var(--shink)">Shinkansen + seat</text>
+      </g>
+      <text x="16" y="155" font-size="11" class="m">each person, sometimes printed as one</text>
+      <!-- arrow -->
+      <path d="M152 76 H200" stroke="var(--ink)" stroke-width="2.5" marker-end="url(#ah)"/>
+      <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="var(--ink)"/></marker></defs>
+      <text x="176" y="66" text-anchor="middle" font-size="11" class="b">both</text>
+      <text x="176" y="96" text-anchor="middle" font-size="11" class="b">together</text>
+      <!-- gate -->
+      <rect x="210" y="40" width="40" height="80" rx="6" fill="var(--floor)" stroke="var(--line)"/>
+      <rect x="290" y="40" width="40" height="80" rx="6" fill="var(--floor)" stroke="var(--line)"/>
+      <rect x="218" y="56" width="24" height="5" rx="2" fill="var(--ink)"/>
+      <text x="270" y="86" text-anchor="middle" font-size="18">↑</text>
+      <text x="270" y="140" text-anchor="middle" font-size="11" class="b">take both back</text>
+      <text x="270" y="155" text-anchor="middle" font-size="11" class="m">at every gate</text>
+    </svg>
+  </div>
+  <ol style="margin-top:8px">
+    <li>At the <b>green JR East reserved-seat machines <span class="jp">指定席券売機</span></b> by the Central Gate, tap <b>English</b>.</li>
+    <li>Booked? "Read QR code" or "Pick up tickets", then scan your screenshot.</li>
+    <li>Not booked? Buy: Ueno → Karuizawa, next Asama/Hakutaka, reserved, 3 adults.</li>
+    <li>Stuck? The staffed ticket office is right beside the Central Gate.</li>
+  </ol></div>
+
+  <div class="card"><h3>Part C · Down to the platform (~10 min)</h3>
+  <div class="diagram" style="margin:6px 0 0;border:0;padding:0">
+    <svg viewBox="0 0 340 330" role="img" aria-label="Vertical route inside JR Ueno from the Central Gate down to Shinkansen platforms 19 and 20 on B4F">
+      <!-- floor bands -->
+      <rect x="6" y="14" width="328" height="80" rx="8" fill="var(--floor)"/>
+      <text x="16" y="32" font-size="12" class="b m">1F</text>
+      <rect x="6" y="104" width="328" height="44" rx="8" fill="var(--floor)" opacity=".55"/>
+      <text x="16" y="130" font-size="12" class="b m">B1–B2</text>
+      <rect x="6" y="158" width="328" height="70" rx="8" fill="var(--floor)"/>
+      <text x="16" y="176" font-size="12" class="b m">B3F</text>
+      <rect x="6" y="238" width="328" height="84" rx="8" fill="var(--floor)"/>
+      <text x="16" y="256" font-size="12" class="b m">B4F</text>
+
+      <!-- 1F gates -->
+      <rect x="50" y="42" width="96" height="40" rx="6" fill="var(--card)" stroke="var(--ink)"/>
+      <text x="98" y="60" text-anchor="middle" font-size="11" class="b">① Central Gate</text>
+      <text x="98" y="74" text-anchor="middle" font-size="10" class="jp m">中央改札</text>
+      <path d="M146 62 H180" stroke="var(--walk)" stroke-width="4" stroke-dasharray="2 6" stroke-linecap="round"/>
+      <text x="163" y="54" text-anchor="middle" font-size="10" class="m">turn right</text>
+      <rect x="180" y="38" width="146" height="48" rx="6" fill="var(--shink-soft)" stroke="var(--shink)" stroke-width="2"/>
+      <text x="253" y="56" text-anchor="middle" font-size="11" class="b" style="fill:var(--shink)">② Shinkansen</text>
+      <text x="253" y="69" text-anchor="middle" font-size="11" class="b" style="fill:var(--shink)">Transfer Gate</text>
+      <text x="253" y="81" text-anchor="middle" font-size="9" class="jp" style="fill:var(--shink)">新幹線乗換口</text>
+
+      <!-- escalators -->
+      <path d="M253 86 L253 108 L210 150 L210 170" stroke="var(--walk)" stroke-width="4" stroke-dasharray="2 6" stroke-linecap="round" fill="none"/>
+      <text x="262" y="124" font-size="11" class="b" style="fill:var(--walk)">⬇ long escalators</text>
+
+      <!-- B3F shops -->
+      <rect x="70" y="170" width="250" height="48" rx="6" fill="var(--card)" stroke="var(--line)"/>
+      <text x="195" y="190" text-anchor="middle" font-size="11" class="b">③ Shops · ekiben · benches</text>
+      <text x="195" y="206" text-anchor="middle" font-size="10" class="m">check the departure board here</text>
+
+      <path d="M210 218 V262" stroke="var(--walk)" stroke-width="4" stroke-dasharray="2 6" stroke-linecap="round"/>
+      <text x="220" y="246" font-size="11" class="b" style="fill:var(--walk)">⬇ to your platform</text>
+
+      <!-- platforms -->
+      <rect x="40" y="262" width="286" height="22" rx="4" fill="var(--shink)"/>
+      <text x="183" y="277" text-anchor="middle" font-size="11" class="b" style="fill:#fff">④ Platform 19 / 20 → Karuizawa</text>
+      <rect x="40" y="290" width="286" height="24" rx="4" fill="var(--card)" stroke="var(--line)"/>
+      <text x="183" y="306" text-anchor="middle" font-size="10" class="m">platforms 21–22 go elsewhere — check the board</text>
+    </svg>
+  </div>
+  <ol style="margin-top:8px">
+    <li>Feed both tickets into the <b>Central Gate</b>, take both back.</li>
+    <li>The <b>Shinkansen Transfer Gate</b> is on your right just inside. Tickets in again, take them back.</li>
+    <li>Ride the long escalators down. <b>B3F</b> has ekiben, drinks and benches.</li>
+    <li>Continue down to <b>B4F, platform 19 or 20</b> as the board shows.</li>
+  </ol></div>
+</section>
+
+<!-- ================= STEP 5 ================= -->
+<section id="s5">
+  <h2><span class="num">5</span>Board the right train</h2>
+  <p class="meta">The train starts at Tokyo and stops at Ueno only briefly — be lined up first</p>
+
+  <div class="diagram">
+    <svg viewBox="0 0 340 230" role="img" aria-label="How to find your car number on the Shinkansen platform">
+      <!-- departure board -->
+      <rect x="10" y="10" width="320" height="64" rx="8" fill="#111"/>
+      <text x="22" y="32" font-size="12" style="fill:#7CFFB2" class="b">11:42  あさま Asama  長野 Nagano</text>
+      <text x="22" y="50" font-size="12" style="fill:#7CFFB2">11:52  はくたか Hakutaka  金沢 Kanazawa</text>
+      <text x="22" y="66" font-size="12" style="fill:#ff9b9b">12:04  かがやき Kagayaki ✗ skips Karuizawa</text>
+
+      <!-- train -->
+      <rect x="10" y="98" width="320" height="44" rx="22" fill="var(--card)" stroke="var(--shink)" stroke-width="2"/>
+      <g font-size="11" class="b">
+        <line x1="74" y1="98" x2="74" y2="142" stroke="var(--line)"/>
+        <line x1="138" y1="98" x2="138" y2="142" stroke="var(--line)"/>
+        <line x1="202" y1="98" x2="202" y2="142" stroke="var(--line)"/>
+        <line x1="266" y1="98" x2="266" y2="142" stroke="var(--line)"/>
+        <text x="42" y="124" text-anchor="middle">4</text>
+        <text x="106" y="124" text-anchor="middle">5</text>
+        <rect x="140" y="100" width="60" height="40" fill="var(--shink-soft)"/>
+        <text x="170" y="124" text-anchor="middle" style="fill:var(--shink)">6 ← you</text>
+        <text x="234" y="124" text-anchor="middle">7</text>
+        <text x="298" y="124" text-anchor="middle">8</text>
+      </g>
+
+      <!-- platform floor -->
+      <rect x="10" y="150" width="320" height="22" rx="4" fill="var(--floor)"/>
+      <rect x="150" y="153" width="40" height="16" rx="3" fill="var(--shink)"/>
+      <text x="170" y="165" text-anchor="middle" font-size="10" class="b" style="fill:#fff">6号車</text>
+      <text x="170" y="192" text-anchor="middle" font-size="18">🧍🧍🧍</text>
+      <text x="170" y="216" text-anchor="middle" font-size="11" class="m">queue at your car number painted on the floor</text>
+    </svg>
+    <p class="cap">Example board and car only — your times, car and seat are on your ticket.</p>
+  </div>
+
+  <div class="card"><ol>
+    <li>Check the board: <span class="tag t-shink">あさま Asama</span> or <span class="tag t-shink">はくたか Hakutaka</span>. If it says <span class="tag t-jr">かがやき Kagayaki</span>, don't board.</li>
+    <li>Your ticket reads like <b>"6<span class="jp">号車</span> 12A"</b> = car 6, row 12, seat A.</li>
+    <li>Queue at your car's floor marking. Board promptly when doors open.</li>
+    <li>Small bags overhead; suitcases at the car end or behind the last row.</li>
+    <li>English announcements name each stop. Karuizawa comes after Omiya and Takasaki, about 60–70 min.</li>
+    <li><b>Keep all tickets</b> — the Karuizawa exit gate needs them.</li>
+  </ol></div>
+</section>
+
+<!-- ================= STEP 6 ================= -->
+<section id="s6">
+  <h2><span class="num">6</span>Arriving at Karuizawa</h2>
+  <p class="meta">One set of gates, then North or South Exit</p>
+
+  <div class="diagram">
+    <svg viewBox="0 0 340 260" role="img" aria-label="Karuizawa station exits">
+      <!-- north side -->
+      <rect x="10" y="10" width="320" height="70" rx="10" fill="var(--walk-soft)"/>
+      <text x="170" y="34" text-anchor="middle" font-size="13" class="b" style="fill:var(--walk)">NORTH EXIT <tspan class="jp">北口</tspan></text>
+      <text x="170" y="52" text-anchor="middle" font-size="11">🚗 car rental shops (≈5 min walk)</text>
+      <text x="170" y="68" text-anchor="middle" font-size="11">town · Kyu-Karuizawa direction</text>
+
+      <path d="M170 80 V100" stroke="var(--walk)" stroke-width="4" stroke-dasharray="2 6" stroke-linecap="round"/>
+
+      <!-- station -->
+      <rect x="60" y="100" width="220" height="60" rx="10" fill="var(--card)" stroke="var(--ink)" stroke-width="2"/>
+      <text x="170" y="122" text-anchor="middle" font-size="13" class="b">Karuizawa Station</text>
+      <text x="170" y="140" text-anchor="middle" font-size="11" class="m">🎫 exit gate keeps your tickets</text>
+      <text x="170" y="154" text-anchor="middle" font-size="11" class="m">🔒 coin lockers inside</text>
+
+      <path d="M170 160 V180" stroke="var(--line)" stroke-width="4" stroke-dasharray="2 6" stroke-linecap="round"/>
+
+      <!-- south -->
+      <rect x="10" y="180" width="320" height="70" rx="10" fill="var(--floor)"/>
+      <text x="170" y="206" text-anchor="middle" font-size="13" class="b m">SOUTH EXIT <tspan class="jp">南口</tspan></text>
+      <text x="170" y="226" text-anchor="middle" font-size="11" class="m">🛍️ Karuizawa Prince Shopping Plaza</text>
+      <text x="170" y="242" text-anchor="middle" font-size="11" class="m">(outlets)</text>
+    </svg>
+  </div>
+  <div class="tip">Drop bags in a locker and grab lunch if you like — Tsuruya check-in is 15:00.</div>
+</section>
+
+<!-- ================= PLAN B ================= -->
+<section id="planb">
+  <h2>If things go wrong</h2>
+  <p class="meta">Both trains run often — the worst case is usually a 30–60 min delay</p>
+  <div class="card">
+    <table>
+      <tr><th>Problem</th><th>Do this</th></tr>
+      <tr><td>Immigration 90+ min</td><td>Take a later Skyliner (every 20–40 min). Book the Shinkansen only once you're on it.</td></tr>
+      <tr><td>Skyliner full for an hour</td><td>Take the Narita Express (JR, red) to Tokyo Station; board the Shinkansen there, platforms 20–23.</td></tr>
+      <tr><td>No 3 seats together</td><td>Take the next Asama/Hakutaka, or book the Green Car.</td></tr>
+      <tr><td>Missed your booked train</td><td>Go to the ticket office. Reserved tickets usually work in unreserved cars of a later train the same day — confirm there.</td></tr>
+      <tr><td>Lost in Ueno</td><td>Follow green "Shinkansen" signs, or ask: <i>"Shinkansen wa doko desu ka?"</i></td></tr>
+    </table>
+  </div>
+
+  <div class="card signs">
+    <h3>Signs to recognise</h3>
+    <table>
+      <tr><td class="jp">京成上野</td><td>Keisei Ueno (Skyliner station)</td></tr>
+      <tr><td class="jp">上野</td><td>Ueno (JR station)</td></tr>
+      <tr><td class="jp">軽井沢</td><td>Karuizawa</td></tr>
+      <tr><td class="jp">新幹線</td><td>Shinkansen</td></tr>
+      <tr><td class="jp">中央改札</td><td>Central Gate</td></tr>
+      <tr><td class="jp">新幹線乗換口</td><td>Shinkansen Transfer Gate</td></tr>
+      <tr><td class="jp">指定席 / 自由席</td><td>Reserved / unreserved seat</td></tr>
+      <tr><td class="jp">号車</td><td>Car number</td></tr>
+      <tr><td class="jp">あさま・はくたか</td><td>Asama / Hakutaka — stop at Karuizawa ✓</td></tr>
+      <tr><td class="jp">かがやき</td><td>Kagayaki — skips Karuizawa ✗</td></tr>
+    </table>
+  </div>
+</section>
+
+<footer>
+  Fares and times approximate as of Oct 2026; diagrams are schematic. Sources:
+  <a href="https://www.keisei.co.jp/keisei/tetudou/skyliner/us/skyliner/purchase.php">Keisei</a> ·
+  <a href="https://livejapan.com/th/article-a0004375/">LIVE JAPAN</a> ·
+  <a href="https://www.japan-bullettrain.com/zh-tw/articles/blog/ueno-shinkansen-boarding">Japan Bullet Train (Ueno)</a> ·
+  <a href="https://www.uenostation.com/ueno-station-map-finding-your-way/">Ueno Station guide</a> ·
+  <a href="https://www.jreast.co.jp/multi/en/ticket/eticket.html">JR East</a>
+</footer>
+
+<script>
+(function(){
+  var KEY='nrt-kzw-checklist';
+  var state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
+  var boxes=document.querySelectorAll('#checklist input[type=checkbox]');
+  boxes.forEach(function(b){
+    if(state[b.dataset.k]) b.checked=true;
+    b.addEventListener('change',function(){
+      state[b.dataset.k]=b.checked;
+      try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){}
+    });
+  });
+})();
+</script>
+</body>
+</html>
