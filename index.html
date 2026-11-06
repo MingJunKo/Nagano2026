@@ -91,6 +91,7 @@ td.r{text-align:right;font-family:var(--mono);white-space:nowrap}
 .pill.ok{background:var(--ok);color:#fff}
 .pill.now{background:var(--out);color:#fff}
 .pill[hidden]{display:none}
+#m-cash td.n{width:72px}
 .chk{display:grid;grid-template-columns:28px 1fr;gap:10px;padding:12px;border-top:1px solid var(--line);align-items:start;cursor:pointer}
 .chk:first-child{border-top:0}
 .chk input{width:22px;height:22px;margin:1px 0 0;accent-color:var(--ok)}
@@ -151,8 +152,8 @@ td.r{text-align:right;font-family:var(--mono);white-space:nowrap}
 .run-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
 .run-h h2{margin-bottom:4px}
 
-nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:10;display:grid;grid-template-columns:repeat(5,1fr);background:var(--bar);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
-nav.tabs button{font:inherit;background:none;border:0;color:var(--muted);padding:8px 2px 8px;font-size:11.5px;font-weight:600;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:10;display:grid;grid-template-columns:repeat(6,1fr);background:var(--bar);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+nav.tabs button{font:inherit;background:none;border:0;color:var(--muted);padding:8px 1px 8px;font-size:11px;font-weight:600;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px}
 nav.tabs svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 nav.tabs button[aria-current="page"]{color:var(--out)}
 button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--back);outline-offset:2px}
@@ -382,7 +383,7 @@ svg text{font-family:var(--sans)}
       <div class="note"><b>From your emails</b><ul>
         <li><b>Breakfast is included</b> both mornings.</li>
         <li>Show photo ID <b>and a credit card</b> at check-in.</li>
-        <li>They ask for your arrival time in advance. Email <a href="mailto:lavigne@okcs.co.jp">lavigne@okcs.co.jp</a> to say about 17:00 on Mon 9 Nov, before dinner at Denenshi.</li>
+        <li>They ask for your arrival time in advance. You're telling them <b>16:00–17:00</b> on Mon 9 Nov (<a href="mailto:lavigne@okcs.co.jp">lavigne@okcs.co.jp</a>).</li>
         <li>Accommodation tax is paid at the property.</li>
       </ul></div>
       <p><small>Standard room, 2 nights. Free parking. No onsen, so use Happo Onsen. Near the Echoland restaurants.</small></p>
@@ -414,7 +415,7 @@ svg text{font-family:var(--sans)}
     <div class="stay-body">
       <div class="io"><div><span>Check-in</span><b>Fri 13 Nov, from 16:00</b><br><small>self check-in</small></div><div><span>Check-out</span><b>Sun 15 Nov, 10:00</b><br><small>late = double cleaning fee</small></div></div>
       <p class="addr">Okubo, Shinjuku · 4 min walk from Higashi-Shinjuku Station</p>
-      <div class="rule" style="margin:0 0 10px"><p style="margin:0"><b>Before 13 Nov: register all 3 guests online.</b> The host's message asks every guest to enter their details on the property's My Page before the check-in date. At the tablet you'll then verify your identity by video call.</p></div>
+      <p style="margin:0 0 10px"><span class="pill ok">All 3 guests pre-registered</span> At the tablet you'll verify your identity by video call.</p>
       <p><small>Brand new: the property opens in November 2026. Triple room, 2-tier bunk (D type), 17.9 m², max 5. No parking. Shoes off at the door. Keep it quiet, because neighbours have complained. Keep all rubbish inside the room, sorted into burnables and bottles/cans/PET, and don't use the building's bins. Lock up and switch off the heater and AC whenever you go out. Empty the fridge before check-out.</small></p>
       <div class="links"><a class="btn" href="https://maps.app.goo.gl/ukbpzSx6tP3nA3B9A" target="_blank" rel="noopener">Map</a></div>
     </div>
@@ -685,6 +686,73 @@ svg text{font-family:var(--sans)}
   </section>
 </div>
 
+<!-- ===================== PAGE: MEALS & CASH ===================== -->
+<div class="page" id="money" hidden>
+  <div class="chips" aria-label="Jump to section">
+    <a href="#m-meals">Meals</a><a href="#m-gaps">Gaps</a><a href="#m-cash">Cash by day</a><a href="#m-total">How much</a>
+  </div>
+
+  <section id="m-meals">
+    <h2>Meals at each stay</h2>
+    <p>What comes with each room, plus the dinners you've booked. "Breakfast" means the next morning, before you check out.</p>
+    <div class="tbl"><table>
+      <tr><th>Night</th><th>Breakfast</th><th>Dinner</th></tr>
+      <tr><td><b>Sat 7</b><br><small>Tsuruya</small></td><td><span class="pill">Not included</span><br><small>Bookable at the desk</small></td><td><span class="pill">Out</span><br><small>Nothing booked yet</small></td></tr>
+      <tr><td><b>Sun 8</b><br><small>Futabaya</small></td><td><span class="pill">None</span><br><small>Konbini or café</small></td><td><span class="pill ok">Booked</span><br><small>Wagyu Sukiyaki Soshiji, ¥8,800</small></td></tr>
+      <tr><td><b>Mon 9</b><br><small>La Vigne</small></td><td><span class="pill ok">Included</span></td><td><span class="pill ok">Booked</span><br><small>Denenshi 18:30, ~¥5,980</small></td></tr>
+      <tr><td><b>Tue 10</b><br><small>La Vigne</small></td><td><span class="pill ok">Included</span></td><td><span class="pill">Out</span><br><small>Echoland</small></td></tr>
+      <tr><td><b>Wed 11</b><br><small>Miyama Ouan</small></td><td><span class="pill ok">Included</span></td><td><span class="pill ok">Included</span><br><small>Kaiseki, in by 18:00</small></td></tr>
+      <tr><td><b>Thu 12</b><br><small>Miyama Ouan</small></td><td><span class="pill ok">Included</span></td><td><span class="pill ok">Included</span><br><small>Kaiseki</small></td></tr>
+      <tr><td><b>Fri 13</b><br><small>Tomori</small></td><td><span class="pill">None</span><br><small>Konbini or café</small></td><td><span class="pill ok">Booked</span><br><small>Sushi Hanaoka 20:30, ¥16,500</small></td></tr>
+      <tr><td><b>Sat 14</b><br><small>Tomori</small></td><td><span class="pill">None</span><br><small>Before your flight</small></td><td><span class="pill ok">Booked</span><br><small>Yoroniku 17:45</small></td></tr>
+    </table></div>
+    <p style="margin-top:10px"><small><b>Lunch on Kamikochi day:</b> ask Miyama Ouan at check-in about a packed lunch. Otherwise eat at Tokusawa, or Kamonjigoya near Myojin (charcoal-grilled char).</small></p>
+  </section>
+
+  <section id="m-gaps">
+    <h2>Gaps to fill</h2>
+    <div class="card"><ul>
+      <li><b>Sat 7, dinner in Karuizawa.</b> Nothing is booked yet. Kyu-Karuizawa Ginza empties in the evening, and some places close early, so pick somewhere at lunch.</li>
+      <li><b>Sun 8, breakfast.</b> Book it at Tsuruya when you check in, or grab bakery breakfast on Ginza St.</li>
+      <li><b>Mon 9, Sat 14 and Sun 15, breakfasts.</b> Konbini, or a café near the hotel.</li>
+    </ul></div>
+  </section>
+
+  <section id="m-cash">
+    <h2>Where you'll need cash</h2>
+    <p><span class="pill urgent">Cash</span> cash only or safest &nbsp; <span class="pill">Ask</span> check whether they take cards &nbsp; <span class="pill ok">Card</span> cards usually accepted</p>
+    <div class="tbl"><table>
+      <tr><th>Day</th><th>What · about how much</th></tr>
+      <tr><td class="n">Sat 7</td><td><span class="pill urgent">Cash</span> Tsuruya city tax, paid at the property<br><small class="mono">few hundred ¥ pp</small></td></tr>
+      <tr><td class="n"></td><td><span class="pill ok">Card</span> Car balance at Nissan pick-up</td></tr>
+      <tr><td class="n">Sun 8</td><td><span class="pill urgent">Cash</span> Ōtaki no Yu (ticket machine), Kusatsu onsen tax if charged<br><small class="mono">~¥1,000 pp</small></td></tr>
+      <tr><td class="n"></td><td><span class="pill">Ask</span> Soshiji sukiyaki dinner<br><small class="mono">¥8,800 pp</small></td></tr>
+      <tr><td class="n">Mon 9</td><td><span class="pill urgent">Cash</span> Jigokudani Monkey Park, Zenkoji<br><small class="mono">¥800 + ¥500 pp</small></td></tr>
+      <tr><td class="n"></td><td><span class="pill urgent">Cash</span> La Vigne accommodation tax, paid at the property<br><small class="mono">few hundred ¥ pp</small></td></tr>
+      <tr><td class="n"></td><td><span class="pill">Ask</span> Denenshi dinner<br><small class="mono">~¥5,980 pp</small></td></tr>
+      <tr><td class="n">Tue 10</td><td><span class="pill urgent">Cash</span> Happo Onsen day use<br><small class="mono">¥650–1,000 pp</small></td></tr>
+      <tr><td class="n"></td><td><span class="pill ok">Card</span> Iwatake gondola<br><small class="mono">¥2,900 pp</small></td></tr>
+      <tr><td class="n">Wed 11</td><td><span class="pill ok">Card</span> Shinhotaka Ropeway<br><small class="mono">~¥3,000 pp</small></td></tr>
+      <tr><td class="n"></td><td><span class="pill urgent">Cash</span> Miyama Ouan onsen + accommodation tax (2 nights)<br><small class="mono">¥2,700 total</small></td></tr>
+      <tr><td class="n">Thu 12</td><td><span class="pill urgent">Cash</span> Kamikochi bus, Myojin Pond entry, ¥100 toilet tips, lunch<br><small class="mono">~¥5,000 pp</small></td></tr>
+      <tr><td class="n">Fri 13</td><td><span class="pill ok">Card</span> Fuel before the car return</td></tr>
+      <tr><td class="n"></td><td><span class="pill">Ask</span> Sushi Hanaoka, paid at the venue<br><small class="mono">¥16,500 pp</small></td></tr>
+      <tr><td class="n">Sat 14</td><td><span class="pill ok">Card</span> Yoroniku and Tokyo shopping, mostly cards</td></tr>
+      <tr><td class="n">Any day</td><td><span class="pill urgent">Cash</span> Small cafés, countryside lunches, shrines, vending machines, the restaurants around Hirayu<br><small class="mono">buffer</small></td></tr>
+    </table></div>
+    <p style="margin-top:8px"><small>Hirayu restaurants are cash only, according to Miyama Ouan's booking notes. Prices are from the trip sheet and booking emails; small entry fees may have changed.</small></p>
+  </section>
+
+  <section id="m-total">
+    <h2>How much cash</h2>
+    <div class="facts">
+      <div class="fact"><b>~¥30,000</b><span>cash-only fees, taxes and entries for 3</span></div>
+      <div class="fact"><b>+ ~¥95,000</b><span>if Soshiji, Denenshi and Hanaoka all want cash</span></div>
+    </div>
+    <p style="margin-top:10px">Your <b>¥150,000</b> covers both, with about ¥25,000 left for cafés, konbini and countryside lunches. If any of the three dinners are cash only, top up at a 7-Eleven ATM, which takes foreign cards and runs 24 hours.</p>
+  </section>
+</div>
+
 <!-- ===================== PAGE: INFO ===================== -->
 <div class="page" id="info" hidden>
   <div class="chips" aria-label="Jump to section">
@@ -694,8 +762,7 @@ svg text{font-family:var(--sans)}
   <section id="i-now">
     <h2>Do before you fly</h2>
     <div class="card" style="border-left:5px solid var(--warn)"><ul>
-      <li><b>Tomori: register all 3 guests</b> on the property's My Page (link in the Airbnb chat and on Check-in › Tomori), before 13 Nov.</li>
-      <li><b>La Vigne:</b> email lavigne@okcs.co.jp with your arrival time (about 17:00, Mon 9 Nov).</li>
+      <li><b>La Vigne:</b> send the arrival-time email (16:00–17:00). The draft is in your Gmail.</li>
       <li><b>Miyama Ouan:</b> tell them about any dietary needs by Mon 9 Nov.</li>
       <li><b>Visit Japan Web.</b> Register all three passports and screenshot the QR codes.</li>
       <li><b>Narita Express on Sun 15 Nov.</b> Book seats for the ~12:30 train from Shinjuku. Leave the Day 1 trains to buy on the day.</li>
@@ -714,8 +781,8 @@ svg text{font-family:var(--sans)}
       <label class="chk"><input type="checkbox" data-k="breakfast"><span><b>Miyama Ouan: 07:00 breakfast + packed lunch on Thu 12 Nov</b><small>Ask at check-in on Wed</small></span></label>
       <label class="chk"><input type="checkbox" data-k="tsuruya"><span><b>Tsuruya: message about the futon layout and dropping bags before 15:00</b></span></label>
       <label class="chk"><input type="checkbox" data-k="tomori" checked disabled><span><b>Tomori: door code and Wi-Fi saved</b><small>In Check-in › Tomori</small></span></label>
-      <label class="chk"><input type="checkbox" data-k="tomorireg"><span><b>Tomori: all 3 guests registered on My Page</b><small>Must be done before 13 Nov</small></span></label>
-      <label class="chk"><input type="checkbox" data-k="lavignearr"><span><b>La Vigne: arrival time emailed</b><small>lavigne@okcs.co.jp</small></span></label>
+      <label class="chk"><input type="checkbox" data-k="tomorireg" checked disabled><span><b>Tomori: all 3 guests registered on My Page</b><small>Done</small></span></label>
+      <label class="chk"><input type="checkbox" data-k="lavignearr"><span><b>La Vigne: arrival time emailed (16:00–17:00)</b><small>The draft is in your Gmail</small></span></label>
       <label class="chk"><input type="checkbox" data-k="cards"><span><b>Check card acceptance</b><small>Sushi Hanaoka, Yoroniku, Denenshi</small></span></label>
     </div>
     <h3>Documents and phone</h3>
@@ -746,6 +813,7 @@ svg text{font-family:var(--sans)}
       <div class="fact"><b>¥150,000</b><span>cash for the 3 of us</span></div>
       <div class="fact"><b>≈ S$1,220</b><span>at ~¥123 per S$1</span></div>
     </div>
+    <p style="margin-top:10px"><a href="#" data-goto="money" class="btn">See where you'll need cash</a></p>
     <p style="margin-top:10px">Use a card wherever possible and keep the cash for buses, onsen, shrines, small restaurants and countryside shops. Top up at 7-Eleven ATMs. Carry ¥100 coins and ¥1,000 notes on Kamikochi day.</p>
   </section>
 
@@ -828,6 +896,7 @@ svg text{font-family:var(--sans)}
   <button data-tab="stays" aria-current="false"><svg viewBox="0 0 24 24"><path d="M3 20V8l9-5 9 5v12"/><path d="M9 20v-6h6v6"/></svg>Check-in</button>
   <button data-tab="kamikochi" aria-current="false"><svg viewBox="0 0 24 24"><path d="M2 19 8 8l4 6 3-4 7 9z"/><circle cx="17" cy="5" r="2"/></svg>Kamikochi</button>
   <button data-tab="runs" aria-current="false"><svg viewBox="0 0 24 24"><circle cx="14" cy="4" r="2"/><path d="m6 21 4-6 3 2 1 4M9 11l2-4 4 2 3 3M11 7l-4 1-2 3"/></svg>Runs</button>
+  <button data-tab="money" aria-current="false"><svg viewBox="0 0 24 24"><path d="M6 4l6 8 6-8M12 12v8M8 13h8M8 16.5h8"/></svg>Meals &amp; ¥</button>
   <button data-tab="info" aria-current="false"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>Info</button>
 </nav>
 
