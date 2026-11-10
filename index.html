@@ -781,7 +781,7 @@ svg text{font-family:var(--sans)}
 
 <!-- ===================== PAGE: SHOPPING ===================== -->
 <div class="page" id="shop" hidden>
-  <div class="chips" aria-label="Jump to stop"><a href="#sh-plan">Plan</a><a href="#sh-tsuruya">Tsuruya</a><a href="#sh-aeon">Aeon</a><a href="#sh-711">7-Eleven</a><a href="#sh-isetan">Isetan</a><a href="#sh-bic">Bic Camera</a><a href="#sh-taka">Takashimaya</a><a href="#sh-3coins">3COINS</a><a href="#sh-daiso">Daiso</a><a href="#sh-online">Online</a><a href="#sh-acoop">Bought</a></div>
+  <div class="chips" aria-label="Jump to stop"><a href="#sh-plan">Plan</a><a href="#sh-big">Big Hakuba</a><a href="#sh-tsuruya">Tsuruya</a><a href="#sh-aeon">Aeon</a><a href="#sh-711">7-Eleven</a><a href="#sh-isetan">Isetan</a><a href="#sh-bic">Bic Camera</a><a href="#sh-taka">Takashimaya</a><a href="#sh-3coins">3COINS</a><a href="#sh-daiso">Daiso</a><a href="#sh-online">Online</a><a href="#sh-acoop">Bought</a></div>
   <section id="sh-plan">
   <h2>The shopping plan</h2>
   <p class="lead">Go stop by stop. Tick each item as it goes in the basket; ticks save on this phone. Tap a photo to enlarge it.</p>
@@ -789,6 +789,7 @@ svg text{font-family:var(--sans)}
   <div class="tbl"><table>
     <tr><th>When</th><th>Where · what</th></tr>
     <tr><td class="n">Tue 10</td><td><span class="pill ok">Done</span> <b>A-Coop Hakuba</b><br><small>Momoya garlic, Rokusuke salt, Frugra, strawberry Thunder, maple Frugra</small></td></tr>
+    <tr><td class="n">Today</td><td><a href="#sh-big"><b>Big supermarket, Hakuba</b></a><br><small>Marutomo katsuo, kizami + shio konbu, hijiki, Black Thunder butter; maybe Frugra BT, Horinishi, wakame</small></td></tr>
     <tr><td class="n">Today</td><td><span class="pill urgent">Online</span> <b>SuMALL + maitake</b><br><small>Sumo face pack, Gin no Hikari maitake</small></td></tr>
     <tr><td class="n">Fri 13<br>9:45</td><td><a href="#sh-tsuruya"><b>Tsuruya Hotaka</b></a><br><small>3 Tsuruya items, Marutomo katsuo, kizami + shio konbu, hijiki, wakame, Frugra BT, Horinishi</small></td></tr>
     <tr><td class="n">Fri 13<br>11:00</td><td><a href="#sh-aeon"><b>Aeon Mall Matsumoto</b></a><br><small>Topvalu Hidaka konbu</small></td></tr>
@@ -800,7 +801,41 @@ svg text{font-family:var(--sans)}
   </table></div>
   <p style="margin-top:8px"><small>Saturday is all walkable around Shinjuku station; budget about 3 hrs. Yoroniku is 17:45.</small></p>
 </section>
-  <section id="sh-tsuruya" class="stop ">
+  <section id="sh-big" class="stop ">
+  <div class="stop-h"><div class="when">Tue 10 Nov · today</div><h3>Big supermarket, Hakuba</h3><p class="how">Everyday items you can clear before Friday. Ticking one here also ticks it under Tsuruya and the other stops.</p></div>
+  
+  <div class="items"><label class="it"><input type="checkbox" data-s="marutomo">
+  <button class="it-img" type="button"><img src="shop/marutomo.jpg" alt="Marutomo hana katsuo, value bag" loading="lazy"></button>
+  <span class="it-t"><b>Marutomo hana katsuo, value bag</b><span class="jp">マルトモ 花かつお 徳用</span><small>Likely. Bonito flakes shelf, red bag.</small></span>
+</label><label class="it"><input type="checkbox" data-s="kizami">
+  <button class="it-img" type="button"><img src="shop/kizami.jpg" alt="Kizami konbu (shredded kelp), domestic" loading="lazy"></button>
+  <span class="it-t"><b>Kizami konbu (shredded kelp), domestic</b><span class="jp">国内産 きざみ昆布 16g</span><small>Likely. Dried seaweed shelf.</small></span>
+</label><label class="it"><input type="checkbox" data-s="hijiki">
+  <button class="it-img" type="button"><img src="shop/hijiki.jpg" alt="Hagoromo hijiki pouch" loading="lazy"></button>
+  <span class="it-t"><b>Hagoromo hijiki pouch</b><span class="jp">はごろも 国産ひじき 65g</span><small>Likely. Canned / retort aisle near Sea-Chicken tuna, not dried goods.</small></span>
+</label><label class="it"><input type="checkbox" data-s="bt-butter">
+  <button class="it-img" type="button"><img src="shop/bt-butter.jpg" alt="Black Thunder French fermented butter" loading="lazy"></button>
+  <span class="it-t"><b>Black Thunder French fermented butter</b><span class="jp">至福のブラックサンダー フランス発酵バター</span><small>Likely. Snack aisle.</small></span>
+</label><label class="it"><input type="checkbox" data-s="kurakon">
+  <button class="it-img" type="button"><img src="shop/kurakon.jpg" alt="Kurakon shio konbu" loading="lazy"></button>
+  <span class="it-t"><b>Kurakon shio konbu</b><span class="jp">くらこん 塩こんぶ</span><small>Likely. Near the furikake. Not Fujikko.</small></span>
+</label><label class="it"><input type="checkbox" data-s="frugra-bt">
+  <button class="it-img" type="button"><img src="shop/frugra-bt.jpg" alt="Frugra Black Thunder 530g" loading="lazy"></button>
+  <span class="it-t"><b>Frugra Black Thunder 530g</b> <span class="pill ">Maybe</span><span class="jp">フルグラ ブラックサンダー味</span><small>Maybe. Limited run, cereal aisle.</small></span>
+</label><label class="it"><input type="checkbox" data-s="horinishi">
+  <button class="it-img" type="button"><img src="shop/horinishi.jpg" alt="Horinishi outdoor spice (white + red)" loading="lazy"></button>
+  <span class="it-t"><b>Horinishi outdoor spice (white + red)</b> <span class="pill ">Maybe</span><span class="jp">ほりにし / ほりにし 辛口</span><small>Maybe. Spice shelf.</small></span>
+</label><label class="it"><input type="checkbox" data-s="wakame">
+  <button class="it-img" type="button"><img src="shop/wakame.jpg" alt="Natural dried wakame" loading="lazy"></button>
+  <span class="it-t"><b>Natural dried wakame</b> <span class="pill ">Maybe</span><span class="jp">天然 乾燥わかめ（国産）</span><small>Maybe. Any 天然 domestic wakame is fine.</small></span>
+</label><label class="it"><input type="checkbox" data-s="ninben">
+  <button class="it-img" type="button"><img src="shop/ninben.jpg" alt="Ninben honkarebushi 80g" loading="lazy"></button>
+  <span class="it-t"><b>Ninben honkarebushi 80g</b> <span class="pill ">Maybe</span><span class="jp">にんべん 本枯鰹節 花削り 80g</span><small>Maybe, if they carry premium katsuobushi.</small></span>
+</label><label class="it"><input type="checkbox" data-s="pluseau">
+  <button class="it-img" type="button"><img src="shop/pluseau.jpg" alt="plus eau Point Repair, Super Hard" loading="lazy"></button>
+  <span class="it-t"><b>plus eau Point Repair, Super Hard</b> <span class="pill ">Maybe</span><span class="jp">プリュスオー ポイントリペア スーパーハード</span><small>Maybe, only if there is a cosmetics / drug corner.</small></span>
+</label></div>
+</section><section id="sh-tsuruya" class="stop ">
   <div class="stop-h"><div class="when">Fri 13 Nov · ~9:45</div><h3>Tsuruya Hotaka (ツルヤ 穂高店)</h3><p class="how">Leave Hirayu ~8:30, about 1 hr 15 by car via Route 158 → 147. Opens 9:30. Allow 30–40 min. <b>Closed Wed 11 Nov.</b> Then ~30 min to Matsumoto.</p></div>
   <p class="note"><b>Show staff a photo:</b> これはありますか？ <i>koh-reh wah ah-ree-mass-kah?</i> — "Do you have this?"</p>
   <div class="items"><label class="it"><input type="checkbox" data-s="dashi-silver">
@@ -1144,13 +1179,14 @@ svg text{font-family:var(--sans)}
   [].slice.call(document.querySelectorAll('.shots button')).forEach(function(b){
     b.addEventListener('click',function(){var im=b.querySelector('img');lbImg.src=im.src;lbImg.alt=im.alt;lb.classList.add('open');lb.scrollTop=0;document.getElementById('lbClose').focus();});
   });
-  /* shopping list */
+  /* shopping list: one key can appear at several stops; ticks stay in sync, count unique items */
   var sh=[].slice.call(document.querySelectorAll('.it input[data-s]'));
-  function shopCount(){var n=sh.filter(function(c){return c.checked}).length;document.getElementById('shopN').textContent=n;document.getElementById('shopT').textContent=sh.length;document.getElementById('shopBar').style.width=(100*n/sh.length)+'%';}
+  function same(k){return sh.filter(function(c){return c.dataset.s===k})}
+  function shopCount(){var all={},got={};sh.forEach(function(c){all[c.dataset.s]=1;if(c.checked)got[c.dataset.s]=1});var n=Object.keys(got).length,t=Object.keys(all).length;document.getElementById('shopN').textContent=n;document.getElementById('shopT').textContent=t;document.getElementById('shopBar').style.width=(100*n/t)+'%';}
   sh.forEach(function(c){
     var v=S.get('shop_'+c.dataset.s);
     c.checked=v===null?c.dataset.def==='1':v==='1';
-    c.addEventListener('change',function(){S.set('shop_'+c.dataset.s,c.checked?'1':'0');shopCount()});
+    c.addEventListener('change',function(){S.set('shop_'+c.dataset.s,c.checked?'1':'0');same(c.dataset.s).forEach(function(o){o.checked=c.checked});shopCount()});
   });
   shopCount();
   [].slice.call(document.querySelectorAll('button.it-img')).forEach(function(b){
