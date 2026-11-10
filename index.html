@@ -152,8 +152,33 @@ td.r{text-align:right;font-family:var(--mono);white-space:nowrap}
 .run-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
 .run-h h2{margin-bottom:4px}
 
-nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:10;display:grid;grid-template-columns:repeat(6,1fr);background:var(--bar);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
-nav.tabs button{font:inherit;background:none;border:0;color:var(--muted);padding:8px 1px 8px;font-size:11px;font-weight:600;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px}
+/* shopping */
+.progress{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:0 0 12px}
+.progress b{font-family:var(--mono);font-size:22px}
+.progress .bar{height:8px;border-radius:99px;background:var(--chip);margin-top:6px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.stop{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.stop.done{opacity:.85}
+.stop-h{padding:13px 14px 4px;background:linear-gradient(180deg,var(--chip),transparent)}
+.stop-h .when{font-size:12.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--out)}
+.stop.done .when{color:var(--ok)}
+.stop-h h3{font-family:var(--serif);font-size:21px;font-weight:600;margin:3px 0 4px;line-height:1.2}
+.stop .how{font-size:14.5px;margin:0 0 8px}
+.stop>.note,.stop>.how,.stop>.card{margin:0 14px 10px}
+.items{border-top:1px solid var(--line)}
+.it{display:grid;grid-template-columns:26px 84px 1fr;gap:10px;align-items:start;padding:11px 14px;border-top:1px solid var(--line);cursor:pointer}
+.it:first-child{border-top:0}
+.it input{width:22px;height:22px;margin:4px 0 0;accent-color:var(--ok)}
+.it-img{border:1px solid var(--line);border-radius:8px;padding:0;background:#fff;overflow:hidden;width:84px;height:84px;cursor:zoom-in}
+.it-img img{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block}
+.it-img.noimg{display:grid;place-items:center;font-size:11px;color:var(--muted);background:var(--chip);cursor:default}
+.it-t b{font-weight:600}
+.it-t .jp{display:block;font-size:14px;color:var(--muted);margin-top:1px}
+.it-t small{display:block;font-size:13.5px;margin-top:3px}
+.it input:checked ~ .it-t{opacity:.5;text-decoration:line-through}
+.it input:checked ~ .it-img{opacity:.5}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:10;display:grid;grid-template-columns:repeat(7,1fr);background:var(--bar);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+nav.tabs button{font:inherit;background:none;border:0;color:var(--muted);padding:8px 0 8px;font-size:10.5px;font-weight:600;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px}
 nav.tabs svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 nav.tabs button[aria-current="page"]{color:var(--out)}
 button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--back);outline-offset:2px}
@@ -754,6 +779,162 @@ svg text{font-family:var(--sans)}
   </section>
 </div>
 
+<!-- ===================== PAGE: SHOPPING ===================== -->
+<div class="page" id="shop" hidden>
+  <div class="chips" aria-label="Jump to stop"><a href="#sh-plan">Plan</a><a href="#sh-tsuruya">Tsuruya</a><a href="#sh-aeon">Aeon</a><a href="#sh-711">7-Eleven</a><a href="#sh-isetan">Isetan</a><a href="#sh-taka">Takashimaya</a><a href="#sh-3coins">3COINS</a><a href="#sh-daiso">Daiso</a><a href="#sh-online">Online</a><a href="#sh-acoop">Bought</a></div>
+  <section id="sh-plan">
+  <h2>The shopping plan</h2>
+  <p class="lead">Go stop by stop. Tick each item as it goes in the basket; ticks save on this phone. Tap a photo to enlarge it.</p>
+  <div class="progress"><b id="shopN">0</b><span> of <span id="shopT">0</span> bought</span><div class="bar"><i id="shopBar"></i></div></div>
+  <div class="tbl"><table>
+    <tr><th>When</th><th>Where · what</th></tr>
+    <tr><td class="n">Tue 10</td><td><span class="pill ok">Done</span> <b>A-Coop Hakuba</b><br><small>Momoya garlic, Rokusuke salt, Frugra, strawberry Thunder, maple Frugra</small></td></tr>
+    <tr><td class="n">Today</td><td><span class="pill urgent">Online</span> <b>SuMALL + maitake</b><br><small>Sumo face pack, Gin no Hikari maitake</small></td></tr>
+    <tr><td class="n">Fri 13<br>9:45</td><td><a href="#sh-tsuruya"><b>Tsuruya Hotaka</b></a><br><small>3 Tsuruya items, shio konbu, hijiki, wakame, Frugra BT, Horinishi</small></td></tr>
+    <tr><td class="n">Fri 13<br>11:00</td><td><a href="#sh-aeon"><b>Aeon Mall Matsumoto</b></a><br><small>Topvalu Hidaka konbu</small></td></tr>
+    <tr><td class="n">Fri 13<br>eve</td><td><a href="#sh-711"><b>7-Eleven</b></a> + <a href="#sh-donki"><b>Don Quijote</b></a><br><small>Nori, Black Thunder bars, any Tsuruya misses</small></td></tr>
+    <tr><td class="n">Sat 14<br>10:00</td><td><a href="#sh-isetan"><b>Isetan B1</b></a><br><small>Rausu, Hidaka, Rishiri konbu, Ninben, chasen, Tenryu</small></td></tr>
+    <tr><td class="n">Sat 14<br>11:15</td><td><a href="#sh-taka"><b>Takashimaya</b></a><br><small>Kinokuniya Rishiri konbu, Funbaruzu</small></td></tr>
+    <tr><td class="n">Sat 14<br>12:00</td><td><a href="#sh-3coins"><b>3COINS</b></a> + <a href="#sh-daiso"><b>Daiso</b></a><br><small>Duffle, comb, Kaki no Tane Thunder</small></td></tr>
+  </table></div>
+  <p style="margin-top:8px"><small>Saturday is all walkable around Shinjuku station; budget about 2.5 hrs. Yoroniku is 17:45.</small></p>
+</section>
+  <section id="sh-tsuruya" class="stop ">
+  <div class="stop-h"><div class="when">Fri 13 Nov · ~9:45</div><h3>Tsuruya Hotaka (ツルヤ 穂高店)</h3><p class="how">Leave Hirayu ~8:30, about 1 hr 15 by car via Route 158 → 147. Opens 9:30. Allow 30–40 min. <b>Closed Wed 11 Nov.</b> Then ~30 min to Matsumoto.</p></div>
+  <p class="note"><b>Show staff a photo:</b> これはありますか？ <i>koh-reh wah ah-ree-mass-kah?</i> — "Do you have this?"</p>
+  <div class="items"><label class="it"><input type="checkbox" data-s="dashi-silver">
+  <button class="it-img" type="button"><img src="shop/dashi-silver.jpg" alt="Tsuruya dashi pack, SILVER" loading="lazy"></button>
+  <span class="it-t"><b>Tsuruya dashi pack, SILVER</b><span class="jp">燻し昔づくり かつおと根昆布のだしパック</span><small>Tsuruya-only. Top priority.</small></span>
+</label><label class="it"><input type="checkbox" data-s="dashi-gold">
+  <button class="it-img" type="button"><img src="shop/tsuruya-set.jpg" alt="Tsuruya dashi pack, GOLD" loading="lazy"></button>
+  <span class="it-t"><b>Tsuruya dashi pack, GOLD</b><span class="jp">燻し昔づくり かつおと昆布と椎茸の合せだしパック</span><small>Tsuruya-only. Gold pouch, left in photo.</small></span>
+</label><label class="it"><input type="checkbox" data-s="hanakatsuo">
+  <button class="it-img" type="button"><img src="shop/tsuruya-set.jpg" alt="Tsuruya hana katsuo" loading="lazy"></button>
+  <span class="it-t"><b>Tsuruya hana katsuo</b><span class="jp">燻し昔づくり 花かつお</span><small>Tsuruya-only. Clear bag, right in photo.</small></span>
+</label><label class="it"><input type="checkbox" data-s="kurakon">
+  <button class="it-img" type="button"><img src="shop/kurakon.jpg" alt="Kurakon shio konbu" loading="lazy"></button>
+  <span class="it-t"><b>Kurakon shio konbu</b><span class="jp">くらこん 塩こんぶ</span><small>Not Fujikko. Furikake / dried seaweed shelf.</small></span>
+</label><label class="it"><input type="checkbox" data-s="hijiki">
+  <button class="it-img" type="button"><img src="shop/hijiki.jpg" alt="Hagoromo hijiki pouch" loading="lazy"></button>
+  <span class="it-t"><b>Hagoromo hijiki pouch</b><span class="jp">はごろも 国産ひじき 65g</span><small>Ready-to-eat pouch. Canned/retort aisle near Sea-Chicken tuna. Backup: ヤマナカ 戻さず使える芽ひじき.</small></span>
+</label><label class="it"><input type="checkbox" data-s="wakame">
+  <button class="it-img" type="button"><img src="shop/wakame.jpg" alt="Natural Ise-shima dried wakame" loading="lazy"></button>
+  <span class="it-t"><b>Natural Ise-shima dried wakame</b><span class="jp">天然 伊勢志摩産 乾燥わかめ</span><small>Dried seaweed shelf. Any 天然 domestic wakame is fine.</small></span>
+</label><label class="it"><input type="checkbox" data-s="frugra-bt">
+  <button class="it-img" type="button"><img src="shop/frugra-bt.jpg" alt="Frugra Black Thunder 530g" loading="lazy"></button>
+  <span class="it-t"><b>Frugra Black Thunder 530g</b><span class="jp">フルグラ ブラックサンダー味</span><small>Limited. Black bag, cereal aisle. Backup: Don Quijote.</small></span>
+</label><label class="it"><input type="checkbox" data-s="horinishi">
+  <button class="it-img" type="button"><img src="shop/horinishi.jpg" alt="Horinishi outdoor spice (white + red)" loading="lazy"></button>
+  <span class="it-t"><b>Horinishi outdoor spice (white + red)</b><span class="jp">ほりにし / ほりにし 辛口</span><small>Spice shelf. Gold truffle one too if seen.</small></span>
+</label></div>
+</section><section id="sh-aeon" class="stop ">
+  <div class="stop-h"><div class="when">Fri 13 Nov · ~11:00</div><h3>Aeon Mall Matsumoto (イオンモール松本)</h3><p class="how">Near Matsumoto station; park there or on the way to the car drop. 15–20 min. Azusa 38 leaves 14:50.</p></div>
+  <p class="how"><small>Also a backup for Kurakon, hijiki or wakame if Tsuruya was out.</small></p>
+  <div class="items"><label class="it"><input type="checkbox" data-s="topvalu">
+  <button class="it-img" type="button"><img src="shop/topvalu-hidaka.jpg" alt="Topvalu Hidaka konbu" loading="lazy"></button>
+  <span class="it-t"><b>Topvalu Hidaka konbu</b><span class="jp">トップバリュ 天然日高昆布 25g</span><small>Purple pack, Aeon own brand. Dried goods aisle.</small></span>
+</label></div>
+</section><section id="sh-711" class="stop ">
+  <div class="stop-h"><div class="when">Fri 13 Nov · evening</div><h3>7-Eleven near Tomori</h3><p class="how">Any 7-Eleven; there are several within a few minutes' walk of the Airbnb.</p></div>
+  
+  <div class="items"><label class="it"><input type="checkbox" data-s="nori">
+  <button class="it-img" type="button"><img src="shop/nori.jpg" alt="7-Eleven yaki nori, 10 sheets" loading="lazy"></button>
+  <span class="it-t"><b>7-Eleven yaki nori, 10 sheets</b><span class="jp">セブンプレミアム 焼のり</span><small>Near the onigiri / dried food shelf.</small></span>
+</label><label class="it"><input type="checkbox" data-s="bt-butter">
+  <button class="it-img" type="button"><img src="shop/bt-butter.jpg" alt="Black Thunder French fermented butter" loading="lazy"></button>
+  <span class="it-t"><b>Black Thunder French fermented butter</b><span class="jp">至福のブラックサンダー フランス発酵バター</span><small>Single bar, snack shelf.</small></span>
+</label><label class="it"><input type="checkbox" data-s="bt-straw">
+  <button class="it-img" type="button"><img src="shop/bt-strawberry.jpg" alt="Strawberry &amp;amp; choc chip Thunder (new single bar)" loading="lazy"></button>
+  <span class="it-t"><b>Strawberry &amp; choc chip Thunder (new single bar)</b> <span class="pill ">Optional</span><span class="jp">いちごチョコ&amp;チップのサンダー</span><small>Optional: you already have the strawberry mini-bar bag. This is the new 3 Nov single bar.</small></span>
+</label></div>
+</section><section id="sh-donki" class="stop ">
+  <div class="stop-h"><div class="when">Fri 13 Nov · evening</div><h3>Don Quijote Shinjuku</h3><p class="how">10–15 min walk from Okubo (Kabukicho side). Open late.</p></div>
+  <p class="card" style="margin:0"><b>Backup stop only.</b> Pick up anything Tsuruya didn't have: Frugra Black Thunder, Horinishi, Kurakon shio konbu, Hagoromo hijiki, Black Thunder bars.</p>
+  <div class="items"></div>
+</section><section id="sh-isetan" class="stop ">
+  <div class="stop-h"><div class="when">Sat 14 Nov · 10:00</div><h3>Isetan Shinjuku, B1 food hall</h3><p class="how">JR Okubo → Shinjuku (2 min) + 8 min walk, or ~20 min walk. Opens 10:00. Allow 45 min.</p></div>
+  <p class="note">Ask: <b>茶道具はどこですか？</b> <i>sah-doh-goo wah doh-koh dess-kah?</i> — "Where are the tea utensils?"</p>
+  <div class="items"><label class="it"><input type="checkbox" data-s="rausu">
+  <button class="it-img" type="button"><img src="shop/rausu.jpg" alt="Rausu konbu (Isetan Mitsukoshi The Food)" loading="lazy"></button>
+  <span class="it-t"><b>Rausu konbu (Isetan Mitsukoshi The Food)</b><span class="jp">ISETAN MITSUKOSHI THE FOOD 羅臼昆布</span><small>Their own brand, dried goods / grocery corner.</small></span>
+</label><label class="it"><input type="checkbox" data-s="qi-hidaka">
+  <button class="it-img" type="button"><img src="shop/qi-hidaka.jpg" alt="Natural Hidaka konbu (不二 label)" loading="lazy"></button>
+  <span class="it-t"><b>Natural Hidaka konbu (不二 label)</b><span class="jp">天然日高昆布</span><small>Queen's Isetan item; same maker as the Rishiri. Ask staff if not on shelf.</small></span>
+</label><label class="it"><input type="checkbox" data-s="rishiri-fuji">
+  <button class="it-img" type="button"><img src="shop/rishiri-fuji.jpg" alt="Rishiri konbu (不二の昆布)" loading="lazy"></button>
+  <span class="it-t"><b>Rishiri konbu (不二の昆布)</b><span class="jp">利尻昆布 不二の昆布</span><small>Same shelf as the Hidaka.</small></span>
+</label><label class="it"><input type="checkbox" data-s="ninben">
+  <button class="it-img" type="button"><img src="shop/ninben.jpg" alt="Ninben honkarebushi 80g" loading="lazy"></button>
+  <span class="it-t"><b>Ninben honkarebushi 80g</b><span class="jp">にんべん 本枯鰹節 花削り 80g</span><small>Katsuobushi shelf.</small></span>
+</label><label class="it"><input type="checkbox" data-s="chasen">
+  <button class="it-img" type="button"><img src="shop/chasen.jpg" alt="Takayama chasen (tea whisk)" loading="lazy"></button>
+  <span class="it-t"><b>Takayama chasen (tea whisk)</b><span class="jp">高山茶筌 久保左文</span><small>Tea utensils (茶道具) floor; ask the info desk. Any 高山茶筌 is the same craft if this maker isn't there.</small></span>
+</label><label class="it"><input type="checkbox" data-s="tenryu">
+  <button class="it-img" type="button"><img src="shop/tenryu.jpg" alt="Tenryu sweet soy sauce" loading="lazy"></button>
+  <span class="it-t"><b>Tenryu sweet soy sauce</b> <span class="pill ">Long shot</span><span class="jp">ヨシビシ 天龍 醤油</span><small>Long shot: Kyushu-style, no Tokyo stockist found. Check soy shelf, else order online.</small></span>
+</label></div>
+</section><section id="sh-taka" class="stop ">
+  <div class="stop-h"><div class="when">Sat 14 Nov · ~11:15</div><h3>Takashimaya Times Square: Kinokuniya + Hands</h3><p class="how">~10 min walk south from Isetan, across the south exit. Kinokuniya is in the Takashimaya food floor; Hands is in the same building.</p></div>
+  
+  <div class="items"><label class="it"><input type="checkbox" data-s="rishiri-kino">
+  <button class="it-img" type="button"><img src="shop/rishiri-kino.jpg" alt="Kinokuniya natural Rishiri konbu" loading="lazy"></button>
+  <span class="it-t"><b>Kinokuniya natural Rishiri konbu</b><span class="jp">紀ノ国屋 天然利尻昆布</span><small>Green Kinokuniya label. Backup: Kinokuniya entrée in Lumine 2, 1F.</small></span>
+</label><label class="it"><input type="checkbox" data-s="funbaruzu">
+  <button class="it-img" type="button"><img src="shop/funbaruzu.jpg" alt="Funbaruzu Cinnamoroll posture pal" loading="lazy"></button>
+  <span class="it-t"><b>Funbaruzu Cinnamoroll posture pal</b><span class="jp">ふんばるず シナモロール</span><small>Hands character goods. If none, try Loft, or Kiddy Land Harajuku (4 min by Yamanote).</small></span>
+</label></div>
+</section><section id="sh-3coins" class="stop ">
+  <div class="stop-h"><div class="when">Sat 14 Nov · ~12:00</div><h3>3COINS, Shinjuku</h3><p class="how">Several in the station buildings; search "3COINS 新宿" in Maps for the closest. Buy the duffle first and pack into it.</p></div>
+  
+  <div class="items"><label class="it"><input type="checkbox" data-s="duffle">
+  <button class="it-img" type="button"><img src="shop/duffle.jpg" alt="3COINS foldable clear duffle bag" loading="lazy"></button>
+  <span class="it-t"><b>3COINS foldable clear duffle bag</b><span class="jp">3COINS 折りたたみボストンバッグ</span><small>~¥660.</small></span>
+</label><label class="it"><input type="checkbox" data-s="comb">
+  <button class="it-img" type="button"><img src="shop/comb.jpg" alt="and us metal comb" loading="lazy"></button>
+  <span class="it-t"><b>and us metal comb</b><span class="jp">and us メタルコーム</span><small>¥2,200. Often sells out; ask staff if not on the shelf.</small></span>
+</label></div>
+</section><section id="sh-daiso" class="stop ">
+  <div class="stop-h"><div class="when">Sat 14 Nov · any time</div><h3>Daiso (or Seria / CanDo)</h3><p class="how">Any 100-yen shop; search "ダイソー 新宿" in Maps.</p></div>
+  
+  <div class="items"><label class="it"><input type="checkbox" data-s="kaki-thunder">
+  <button class="it-img" type="button"><img src="shop/kaki-thunder.jpg" alt="Kaki no Tane Thunder" loading="lazy"></button>
+  <span class="it-t"><b>Kaki no Tane Thunder</b><span class="jp">柿の種サンダー</span><small>100-yen-shop item. Sweets aisle.</small></span>
+</label></div>
+</section><section id="sh-online" class="stop muted-stop">
+  <div class="stop-h"><div class="when">Order online today</div><h3>Online orders</h3><p class="how">Can't be bought in person on this trip.</p></div>
+  
+  <div class="items"><label class="it"><input type="checkbox" data-s="sumo">
+  <div class="it-img noimg">No photo</div>
+  <span class="it-t"><b>Fujinokawa sumo face pack</b> <span class="pill urgent">Online</span><span class="jp">藤ノ川なりきりフェイスパック</span><small>SuMALL (sumo association shop). Ryogoku's shop is weekdays 10:00–15:00 only, which you'll miss. Order and check delivery reaches Tomori by Sat 14, else ship home.</small></span>
+</label><label class="it"><input type="checkbox" data-s="maitake">
+  <button class="it-img" type="button"><img src="shop/maitake.jpg" alt="Gin no Hikari dried maitake" loading="lazy"></button>
+  <span class="it-t"><b>Gin no Hikari dried maitake</b> <span class="pill urgent">Online</span><span class="jp">銀の光 乾燥まいたけ</span><small>Suzuki Maitake-en, Gunma. Sold online or in Gunma.</small></span>
+</label><label class="it"><input type="checkbox" data-s="frugra-ball">
+  <button class="it-img" type="button"><img src="shop/frugra-ball.jpg" alt="Frugra Ball, ichigo milk" loading="lazy"></button>
+  <span class="it-t"><b>Frugra Ball, ichigo milk</b> <span class="pill ">Likely gone</span><span class="jp">フルグラボール いちごみるく味</span><small>Probably gone: due to stop selling in September. Grab only if you see it.</small></span>
+</label></div>
+</section><section id="sh-acoop" class="stop done">
+  <div class="stop-h"><div class="when">✓ Done · Tue 10 Nov</div><h3>A-Coop, Hakuba</h3><p class="how">Already bought here.</p></div>
+  
+  <div class="items"><label class="it"><input type="checkbox" data-s="momoya" data-def="1">
+  <button class="it-img" type="button"><img src="shop/momoya.jpg" alt="Momoya garlic in oil, 230g" loading="lazy"></button>
+  <span class="it-t"><b>Momoya garlic in oil, 230g</b><span class="jp">桃屋 きざみにんにく お徳用</span><small>¥582. Glass: wrap in clothes, keep upright.</small></span>
+</label><label class="it"><input type="checkbox" data-s="rokusuke" data-def="1">
+  <button class="it-img" type="button"><img src="shop/rokusuke.jpg" alt="Rokusuke salt, white" loading="lazy"></button>
+  <span class="it-t"><b>Rokusuke salt, white</b><span class="jp">ろく助 塩 白塩 130g</span><small>¥927.</small></span>
+</label><label class="it"><input type="checkbox" data-s="frugra" data-def="1">
+  <button class="it-img" type="button"><img src="shop/got-frugra.jpg" alt="Calbee Frugra 700g" loading="lazy"></button>
+  <span class="it-t"><b>Calbee Frugra 700g</b><span class="jp">カルビー フルグラ 700g</span><small>¥970.</small></span>
+</label><label class="it"><input type="checkbox" data-s="bt-straw-bag" data-def="1">
+  <button class="it-img" type="button"><img src="shop/got-strawberry.jpg" alt="Strawberry Thunder mini bars" loading="lazy"></button>
+  <span class="it-t"><b>Strawberry Thunder mini bars</b><span class="jp">いちごのサンダー ミニバー 113g</span><small>Bag of minis.</small></span>
+</label><label class="it"><input type="checkbox" data-s="frugra-maple" data-def="1">
+  <button class="it-img" type="button"><img src="shop/got-maple.jpg" alt="Frugra sweet potato &amp;amp; apple maple" loading="lazy"></button>
+  <span class="it-t"><b>Frugra sweet potato &amp; apple maple</b><span class="jp">フルグラ おさつとりんごのメープル味</span><small>Extra, limited edition.</small></span>
+</label></div>
+</section>
+</div>
+
 <!-- ===================== PAGE: INFO ===================== -->
 <div class="page" id="info" hidden>
   <div class="chips" aria-label="Jump to section">
@@ -897,6 +1078,7 @@ svg text{font-family:var(--sans)}
   <button data-tab="kamikochi" aria-current="false"><svg viewBox="0 0 24 24"><path d="M2 19 8 8l4 6 3-4 7 9z"/><circle cx="17" cy="5" r="2"/></svg>Kamikochi</button>
   <button data-tab="runs" aria-current="false"><svg viewBox="0 0 24 24"><circle cx="14" cy="4" r="2"/><path d="m6 21 4-6 3 2 1 4M9 11l2-4 4 2 3 3M11 7l-4 1-2 3"/></svg>Runs</button>
   <button data-tab="money" aria-current="false"><svg viewBox="0 0 24 24"><path d="M6 4l6 8 6-8M12 12v8M8 13h8M8 16.5h8"/></svg>Meals &amp; ¥</button>
+  <button data-tab="shop" aria-current="false"><svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>Shop</button>
   <button data-tab="info" aria-current="false"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>Info</button>
 </nav>
 
@@ -941,6 +1123,18 @@ svg text{font-family:var(--sans)}
   var lb=document.getElementById('lb'),lbImg=document.getElementById('lbImg');
   [].slice.call(document.querySelectorAll('.shots button')).forEach(function(b){
     b.addEventListener('click',function(){var im=b.querySelector('img');lbImg.src=im.src;lbImg.alt=im.alt;lb.classList.add('open');lb.scrollTop=0;document.getElementById('lbClose').focus();});
+  });
+  /* shopping list */
+  var sh=[].slice.call(document.querySelectorAll('.it input[data-s]'));
+  function shopCount(){var n=sh.filter(function(c){return c.checked}).length;document.getElementById('shopN').textContent=n;document.getElementById('shopT').textContent=sh.length;document.getElementById('shopBar').style.width=(100*n/sh.length)+'%';}
+  sh.forEach(function(c){
+    var v=S.get('shop_'+c.dataset.s);
+    c.checked=v===null?c.dataset.def==='1':v==='1';
+    c.addEventListener('change',function(){S.set('shop_'+c.dataset.s,c.checked?'1':'0');shopCount()});
+  });
+  shopCount();
+  [].slice.call(document.querySelectorAll('button.it-img')).forEach(function(b){
+    b.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();var im=b.querySelector('img');lbImg.src=im.src;lbImg.alt=im.alt;lb.classList.add('open');lb.scrollTop=0;document.getElementById('lbClose').focus();});
   });
   function closeLb(){lb.classList.remove('open')}
   document.getElementById('lbClose').addEventListener('click',closeLb);
