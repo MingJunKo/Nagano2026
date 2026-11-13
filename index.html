@@ -788,16 +788,17 @@ svg text{font-family:var(--sans)}
   <div class="progress"><b id="shopN">0</b><span> of <span id="shopT">0</span> bought</span><div class="bar"><i id="shopBar"></i></div></div>
   <div class="tbl"><table>
     <tr><th>When</th><th>Where · what</th></tr>
-    <tr><td class="n">Top 5</td><td><span class="pill urgent">Priority</span> <a href="#sh-top"><b>A's top 5</b></a><br><small>Duffle first, then hair mascara, ReFa, Wpc. umbrella, airport furikake + ROYCE'</small></td></tr>
+    <tr><td class="n">Top 5</td><td><span class="pill urgent">Priority</span> <a href="#sh-top"><b>A's top 5</b></a><br><small>Done: duffle, hair mascara. Left: ReFa, Wpc. umbrella, Muji drying stick, airport furikake + ROYCE'</small></td></tr>
     <tr><td class="n">Tue 10</td><td><span class="pill ok">Done</span> <b>Hakuba</b><br><small>Momoya garlic, Rokusuke salt, Frugra, Frugra Black Thunder, Marutomo katsuo, Thunder bars, maple Frugra</small></td></tr>
     <tr><td class="n">Today</td><td><span class="pill urgent">Online</span> <b>SuMALL + maitake</b><br><small>Sumo face pack, maitake, Kimikura matcha (Kyogoku matcha is Kyoto-only)</small></td></tr>
     <tr><td class="n">Fri 13<br>10:15</td><td><span class="pill ok">Done</span> <a href="#sh-tsuruya"><b>Tsuruya Nagisa, Matsumoto</b></a><br><small>3 Tsuruya items, kizami + shio konbu, hijiki, wakame, Horinishi, cheese bites; from her reels, item by item: Yawataya spices and pastes, miso and koji, milk jam, honey, kinako, MSG, sesame oils, lard</small></td></tr>
     <tr><td class="n">Fri 13<br>11:30</td><td><a href="#sh-aeon"><b>Aeon Mall Matsumoto</b></a><br><small>Topvalu Hidaka konbu</small></td></tr>
-    <tr><td class="n">Fri 13<br>eve</td><td><a href="#sh-3coins"><b>3COINS</b></a> first, then <a href="#sh-donki"><b>Don Quijote</b></a> + <a href="#sh-711"><b>7-Eleven</b></a><br><small>Duffle, then plus eau hair mascara (top 5); Bioré, nori and Tsuruya misses only if there's room</small></td></tr>
+    <tr><td class="n">Fri 13<br>eve</td><td><span class="pill ok">Done</span> <a href="#sh-3coins"><b>3COINS</b></a> first, then <a href="#sh-donki"><b>Don Quijote</b></a> + <a href="#sh-711"><b>7-Eleven</b></a><br><small>Duffle, then plus eau hair mascara (top 5); Bioré, nori and Tsuruya misses only if there's room</small></td></tr>
     <tr><td class="n">Sat 14<br>10:00</td><td><a href="#sh-isetan"><b>Isetan B1</b></a><br><small>Rausu, Hidaka, Rishiri konbu, Ninben, chasen, Tenryu; from her reels: dashi, salts, soy sauces, beef tallow</small></td></tr>
     <tr><td class="n">Sat 14<br>10:50</td><td><a href="#sh-bic"><b>Bic Camera East Exit</b></a><br><small>ReFa shower head (bring passport for tax refund)</small></td></tr>
+    <tr><td class="n">Sat 14<br>11:20</td><td><b>MUJI Lumine 2, 6F</b> (opens 11:00)<br><small>Bottle drying stick ¥990</small></td></tr>
     <tr><td class="n">Sat 14<br>11:45</td><td><a href="#sh-taka"><b>Takashimaya</b></a><br><small>Wpc. umbrella at Hands (top 5); Kinokuniya Rishiri konbu, Funbaruzu</small></td></tr>
-    <tr><td class="n">Sat 14<br>12:30</td><td><a href="#sh-daiso"><b>Daiso</b></a> + 3COINS extras<br><small>UV face mask, comb, Kaki no Tane Thunder, if there's room</small></td></tr>
+    <tr><td class="n">Sat 14<br>12:30</td><td><a href="#sh-daiso"><b>Daiso</b></a> + 3COINS extras<br><small>UV face mask, Kaki no Tane Thunder, if there's room</small></td></tr>
     <tr><td class="n">Sun 15<br>~14:00</td><td><b>Narita T1 South, after passport control</b><br><small>Airport furikake + ROYCE' (top 5)</small></td></tr>
   </table></div>
   <p style="margin-top:8px"><small>Saturday is all walkable around Shinjuku station; budget about 3 hrs. Yoroniku is 17:45.</small></p>
@@ -805,10 +806,10 @@ svg text{font-family:var(--sans)}
 </section>
 <section id="sh-top" class="stop">
   <div class="stop-h"><div class="when">A's top 5 · luggage is limited</div><h3>Buy these first</h3><p class="how">If space runs out, these win over everything else on the list. Ticking here also ticks the same item at its stop.</p></div>
-  <div class="items"><label class="it"><input type="checkbox" data-s="duffle">
+  <div class="items"><label class="it"><input type="checkbox" data-s="duffle" data-def="1">
   <button class="it-img" type="button"><img src="shop/duffle.jpg" alt="Step 0: 3COINS clear duffle bag" loading="lazy"></button>
   <span class="it-t"><b>Step 0: 3COINS clear duffle bag</b> <span class="pill urgent">First</span><span class="jp">3COINS 折りたたみボストンバッグ</span><small>Tonight, first stop. Buy it, pack today's haul into it, then see how much room is left before buying anything else.</small></span>
-</label><label class="it"><input type="checkbox" data-s="pluseau">
+</label><label class="it"><input type="checkbox" data-s="pluseau" data-def="1">
   <button class="it-img" type="button"><img src="shop/pluseau.jpg" alt="1. plus eau hair mascara, Super Hard" loading="lazy"></button>
   <span class="it-t"><b>1. plus eau hair mascara, Super Hard</b> <span class="pill urgent">Top 5</span><span class="jp">プリュスオー ポイントリペア スーパーハード</span><small>Tonight at Don Quijote (cosmetics floor), or any Matsumoto Kiyoshi / Loft. Tiny, so it always fits.</small></span>
 </label><label class="it"><input type="checkbox" data-s="refa">
@@ -817,6 +818,9 @@ svg text{font-family:var(--sans)}
 </label><label class="it"><input type="checkbox" data-s="umbrella">
   <button class="it-img" type="button"><img src="shop/umbrella.jpg" alt="3. Wpc. UNNURELLA mini umbrella" loading="lazy"></button>
   <span class="it-t"><b>3. Wpc. UNNURELLA mini umbrella</b> <span class="pill urgent">Top 5</span><span class="jp">Wpc. アンヌレラ ミニ 折りたたみ傘</span><small>MINI 60 (UN003, auto, 265g) or MINI 55 (UN002, manual, lighter). Sat at Hands in Takashimaya Times Square (umbrella section), right after Bic. Backup: Loft, or the umbrella floor at Isetan / Takashimaya. Ask: アンヌレラはありますか？</small></span>
+</label><label class="it"><input type="checkbox" data-s="muji-stick">
+  <button class="it-img" type="button"><img src="shop/muji-stick.jpg" alt="Muji bottle drying stick" loading="lazy"></button>
+  <span class="it-t"><b>6. Muji bottle drying stick</b> <span class="pill urgent">New</span><span class="jp">無印良品 ボトル乾燥スティック</span><small>¥990, porous ceramic, tiny. Sat at MUJI Lumine Shinjuku, Lumine 2 6F (11:00–21:00), right by JR Shinjuku south exit, on your way to Takashimaya. Kitchen / bottle section. Ask: ボトル乾燥スティックはありますか？</small></span>
 </label><label class="it"><input type="checkbox" data-s="furikake">
   <div class="it-img noimg">No photo</div>
   <span class="it-t"><b>4. Furikake at the airport</b> <span class="pill urgent">Top 5</span><span class="jp">ふりかけ（成田空港）</span><small>Sun at Narita T1 South (your ANA flight), after passport control: Fa-So-La souvenir shops. Ask her if she means a specific one.</small></span>
@@ -974,10 +978,10 @@ svg text{font-family:var(--sans)}
 </section><section id="sh-donki" class="stop ">
   <div class="stop-h"><div class="when">Fri 13 Nov · evening</div><h3>Don Quijote Shinjuku</h3><p class="how">10–15 min walk from Okubo (Kabukicho side). Open late.</p></div>
   <p class="card" style="margin:0"><b>Also a backup stop.</b> Pick up anything Tsuruya didn't have: Frugra Black Thunder, Horinishi, Kurakon shio konbu, Hagoromo hijiki, Black Thunder bars.</p>
-  <div class="items"><label class="it"><input type="checkbox" data-s="biore">
+  <div class="items"><label class="it"><input type="checkbox" data-s="biore" data-def="1">
   <button class="it-img" type="button"><img src="shop/biore.jpg" alt="Bioré deep clay face wash" loading="lazy"></button>
   <span class="it-t"><b>Bioré deep clay face wash</b><span class="jp">ビオレ 角栓崩壊ブースト洗浄 ディープクレイ洗顔</span><small>Skincare aisle, ~¥1,237. Also at any drugstore (Matsumoto Kiyoshi, Sundrug).</small></span>
-</label><label class="it"><input type="checkbox" data-s="pluseau">
+</label><label class="it"><input type="checkbox" data-s="pluseau" data-def="1">
   <button class="it-img" type="button"><img src="shop/pluseau.jpg" alt="plus eau Point Repair, Super Hard" loading="lazy"></button>
   <span class="it-t"><b>plus eau Point Repair, Super Hard</b><span class="jp">プリュスオー ポイントリペア スーパーハード</span><small>Hair mascara for flyaways, purple tube. Cosmetics floor. Also at drugstores (Matsumoto Kiyoshi, Sundrug) and Loft.</small></span>
 </label></div>
@@ -1080,13 +1084,13 @@ svg text{font-family:var(--sans)}
 </section><section id="sh-3coins" class="stop ">
   <div class="stop-h"><div class="when">Fri 13 Nov · tonight, first stop</div><h3>3COINS, Shinjuku</h3><p class="how">Several in the station buildings; search "3COINS 新宿" in Maps for the closest. Buy the duffle first and pack into it.</p></div>
   
-  <div class="items"><label class="it"><input type="checkbox" data-s="duffle">
+  <div class="items"><label class="it"><input type="checkbox" data-s="duffle" data-def="1">
   <button class="it-img" type="button"><img src="shop/duffle.jpg" alt="3COINS foldable clear duffle bag" loading="lazy"></button>
   <span class="it-t"><b>3COINS foldable clear duffle bag</b><span class="jp">3COINS 折りたたみボストンバッグ</span><small>~¥660.</small></span>
 </label><label class="it"><input type="checkbox" data-s="uv-mask">
   <button class="it-img" type="button"><img src="shop/uv-mask.jpg" alt="3COINS UV cooling full face mask" loading="lazy"></button>
   <span class="it-t"><b>3COINS UV cooling full face mask</b><span class="jp">3COINS UVクーリング フルフェイスマスク</span><small>White mesh face cover in a clear pack. New item; ask staff if not out.</small></span>
-</label><label class="it"><input type="checkbox" data-s="comb">
+</label><label class="it"><input type="checkbox" data-s="comb" data-def="1">
   <button class="it-img" type="button"><img src="shop/comb.jpg" alt="and us metal comb" loading="lazy"></button>
   <span class="it-t"><b>and us metal comb</b><span class="jp">and us メタルコーム</span><small>¥2,200. Often sells out; ask staff if not on the shelf.</small></span>
 </label></div>
@@ -1100,9 +1104,9 @@ svg text{font-family:var(--sans)}
 </section><section id="sh-online" class="stop muted-stop">
   <div class="stop-h"><div class="when">Order online today</div><h3>Online orders</h3><p class="how">Can't be bought in person on this trip.</p></div>
   
-  <div class="items"><label class="it"><input type="checkbox" data-s="sumo">
+  <div class="items"><label class="it"><input type="checkbox" data-s="sumo" data-def="1">
   <div class="it-img noimg">No photo</div>
-  <span class="it-t"><b>Fujinokawa sumo face pack</b> <span class="pill urgent">Online</span><span class="jp">藤ノ川なりきりフェイスパック</span><small>SuMALL (sumo association shop). Ryogoku's shop is weekdays 10:00–15:00 only, which you'll miss. Order and check delivery reaches Tomori by Sat 14, else ship home.</small></span>
+  <span class="it-t"><b>Fujinokawa sumo face pack</b> <span class="pill urgent">Online</span><span class="jp">藤ノ川なりきりフェイスパック</span><small>Swapped: bought Crayon Shin-chan "narikiri" CICA face packs (Macao / Joma) instead.</small></span>
 </label><label class="it"><input type="checkbox" data-s="kyogoku">
   <button class="it-img" type="button"><img src="shop/kyogoku.jpg" alt="Ippodo matcha &quot;Kyogoku no Mukashi&quot; 20g" loading="lazy"></button>
   <span class="it-t"><b>Ippodo matcha "Kyogoku no Mukashi" 20g</b> <span class="pill urgent">Kyoto only</span><span class="jp">一保堂 京極の昔（京都限定）</span><small>Kyoto-only: sold at Ippodo's Kyoto shops, not in Tokyo. Closest option is Ippodo Tokyo Marunouchi (near Tokyo stn, ~20 min on the Chuo line) for another Ippodo matcha such as 雲門の昔. Check with her first.</small></span>
