@@ -159,7 +159,7 @@ td.r{text-align:right;font-family:var(--mono);white-space:nowrap}
 .progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
 .stop{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
 .stop.done{opacity:.85}
-.stop.alldone .items::after{content:"✓ All bought here";display:block;padding:12px 14px;color:var(--ok);font-weight:600}
+.stop.alldone .items::after{content:"✓ Done here";display:block;padding:12px 14px;color:var(--ok);font-weight:600}
 .stop.alldone .items:has(.it:not([hidden]))::after{content:none}
 .stop-h{padding:13px 14px 4px;background:linear-gradient(180deg,var(--chip),transparent)}
 .stop-h .when{font-size:12.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--out)}
@@ -787,14 +787,14 @@ svg text{font-family:var(--sans)}
   <section id="sh-plan">
   <h2>The shopping plan</h2>
   <p class="lead">Go stop by stop. Tick each item as it goes in the basket; ticks save on this phone. Tap a photo to enlarge it.</p>
-  <div class="progress"><b id="shopN">0</b><span> of <span id="shopT">0</span> bought</span><div class="bar"><i id="shopBar"></i></div></div>
+  <div class="progress"><b id="shopN">0</b><span> bought · </span><b id="shopM">0</b><span> missed · </span><b id="shopL">0</b><span> to go <small>(of <span id="shopT">0</span>)</small></span><div class="bar"><i id="shopBar"></i></div></div>
   <div class="tbl"><table>
     <tr><th>When</th><th>Where · what</th></tr>
     <tr><td class="n">Top 5</td><td><span class="pill urgent">Priority</span> <a href="#sh-top"><b>A's top 5</b></a><br><small>Done: duffle, hair mascara, ReFa, Wpc. umbrella. Left: Muji drying stick, airport furikake + ROYCE'</small></td></tr>
     <tr><td class="n">Tue 10</td><td><span class="pill ok">Done</span> <b>Hakuba</b><br><small>Momoya garlic, Rokusuke salt, Frugra, Frugra Black Thunder, Marutomo katsuo, Thunder bars, maple Frugra</small></td></tr>
     <tr><td class="n">Today</td><td><span class="pill urgent">Online</span> <b>SuMALL + maitake</b><br><small>Sumo face pack, maitake, Kimikura matcha (Kyogoku matcha is Kyoto-only)</small></td></tr>
-    <tr><td class="n">Fri 13<br>10:15</td><td><span class="pill ok">Done</span> <a href="#sh-tsuruya"><b>Tsuruya Nagisa, Matsumoto</b></a><br><small>3 Tsuruya items, kizami + shio konbu, hijiki, wakame, Horinishi, cheese bites; from her reels, item by item: Yawataya spices and pastes, miso and koji, milk jam, honey, kinako, MSG, sesame oils, lard</small></td></tr>
-    <tr><td class="n">Fri 13<br>11:30</td><td><a href="#sh-aeon"><b>Aeon Mall Matsumoto</b></a><br><small>Topvalu Hidaka konbu</small></td></tr>
+    <tr><td class="n">Fri 13<br>10:15</td><td><span class="pill ok">Done</span> <span class="pill">Some missed</span> <a href="#sh-tsuruya"><b>Tsuruya Nagisa, Matsumoto</b></a><br><small>3 Tsuruya items, kizami + shio konbu, hijiki, wakame, Horinishi, cheese bites; from her reels, item by item: Yawataya spices and pastes, miso and koji, milk jam, honey, kinako, MSG, sesame oils, lard</small></td></tr>
+    <tr><td class="n">Fri 13<br>11:30</td><td><span class="pill">Missed</span> <a href="#sh-aeon"><b>Aeon Mall Matsumoto</b></a><br><small>Topvalu Hidaka konbu</small></td></tr>
     <tr><td class="n">Fri 13<br>eve</td><td><span class="pill ok">Done</span> <a href="#sh-3coins"><b>3COINS</b></a> first, then <a href="#sh-donki"><b>Don Quijote</b></a> + <a href="#sh-711"><b>7-Eleven</b></a><br><small>Duffle, then plus eau hair mascara (top 5); Bioré, nori and Tsuruya misses only if there's room</small></td></tr>
     <tr><td class="n">Sat 14<br>10:00</td><td><span class="pill ok">Done</span> <a href="#sh-isetan"><b>Isetan B1</b></a><br><small>Rausu, Hidaka, Rishiri konbu, Ninben, chasen, Tenryu; from her reels: dashi, salts, soy sauces, beef tallow</small></td></tr>
     <tr><td class="n">Sat 14<br>10:50</td><td><span class="pill ok">Done</span> <a href="#sh-bic"><b>Bic Camera East Exit</b></a><br><small>ReFa shower head (bring passport for tax refund)</small></td></tr>
@@ -853,13 +853,13 @@ svg text{font-family:var(--sans)}
 </label><label class="it"><input type="checkbox" data-s="wakame" data-def="1">
   <button class="it-img" type="button"><img src="shop/wakame.jpg" alt="Natural Ise-shima dried wakame" loading="lazy"></button>
   <span class="it-t"><b>Natural Ise-shima dried wakame</b><span class="jp">天然 伊勢志摩産 乾燥わかめ</span><small>Dried seaweed shelf. Any 天然 domestic wakame is fine.</small></span>
-</label><label class="it"><input type="checkbox" data-s="kizami">
+</label><label class="it"><input type="checkbox" data-s="kizami" data-miss="1">
   <button class="it-img" type="button"><img src="shop/kizami.jpg" alt="Kizami konbu (shredded kelp), domestic" loading="lazy"></button>
   <span class="it-t"><b>Kizami konbu (shredded kelp), domestic</b><span class="jp">国内産 きざみ昆布 16g</span><small>Dried seaweed shelf. A-Coop had one at ¥322 if you pass again.</small></span>
 </label><label class="it"><input type="checkbox" data-s="horinishi" data-def="1">
   <button class="it-img" type="button"><img src="shop/horinishi.jpg" alt="Horinishi outdoor spice (white + red)" loading="lazy"></button>
   <span class="it-t"><b>Horinishi outdoor spice (white + red)</b><span class="jp">ほりにし / ほりにし 辛口</span><small>Got white original + red 辛口 at Isetan.</small></span>
-</label><label class="it"><input type="checkbox" data-s="cheese">
+</label><label class="it"><input type="checkbox" data-s="cheese" data-miss="1">
   <button class="it-img" type="button"><img src="shop/cheese.jpg" alt="Natori smoked cheese bites, value bag" loading="lazy"></button>
   <span class="it-t"><b>Natori smoked cheese bites, value bag</b><span class="jp">なとり お徳用 チーズスモーク 135g</span><small>Otsumami / snack aisle near the beer. Backup: Don Quijote or any supermarket.</small></span>
 </label></div>
@@ -879,7 +879,7 @@ svg text{font-family:var(--sans)}
 </label><label class="it"><input type="checkbox" data-s="r-sansho" data-def="1">
   <button class="it-img" type="button"><img src="shop/r-sansho.jpg" alt="Sansho pepper powder" loading="lazy"></button>
   <span class="it-t"><b>Sansho pepper powder</b> <span class="pill ">Her reel</span><span class="jp">山椒粉</span><small>Got Hara Ryokaku 粉山椒 at Isetan.</small></span>
-</label><label class="it"><input type="checkbox" data-s="r-ume">
+</label><label class="it"><input type="checkbox" data-s="r-ume" data-miss="1">
   <button class="it-img" type="button"><img src="shop/r-ume.jpg" alt="Ume (plum) shichimi" loading="lazy"></button>
   <span class="it-t"><b>Ume (plum) shichimi</b> <span class="pill ">Her reel</span><span class="jp">梅 七味</span><small>One of the flavoured tins. Check the label for 梅.</small></span>
 </label><label class="it"><input type="checkbox" data-s="r-garam" data-def="1">
@@ -891,19 +891,19 @@ svg text{font-family:var(--sans)}
 </label><label class="it"><input type="checkbox" data-s="r-yuzu-paste" data-def="1">
   <button class="it-img" type="button"><img src="shop/r-yuzu-paste.jpg" alt="Yuzu pepper paste" loading="lazy"></button>
   <span class="it-t"><b>Yuzu pepper paste</b> <span class="pill ">Her reel</span><span class="jp">ゆず胡椒 (瓶)</span><small>Got 山星島崎 ゆずこしょう (boxed) at Isetan.</small></span>
-</label><label class="it"><input type="checkbox" data-s="r-perilla-paste">
+</label><label class="it"><input type="checkbox" data-s="r-perilla-paste" data-miss="1">
   <button class="it-img" type="button"><img src="shop/r-perilla-paste.jpg" alt="Perilla (shiso) pepper paste" loading="lazy"></button>
   <span class="it-t"><b>Perilla (shiso) pepper paste</b> <span class="pill ">Her reel</span><span class="jp">しそ 唐辛子 (瓶)</span><small>Jar.</small></span>
-</label><label class="it"><input type="checkbox" data-s="r-sansho-paste">
+</label><label class="it"><input type="checkbox" data-s="r-sansho-paste" data-miss="1">
   <button class="it-img" type="button"><img src="shop/r-sansho-paste.jpg" alt="Sansho pepper paste" loading="lazy"></button>
   <span class="it-t"><b>Sansho pepper paste</b> <span class="pill ">Her reel</span><span class="jp">山椒 (瓶)</span><small>Jar.</small></span>
-</label><label class="it"><input type="checkbox" data-s="r-szechuan">
+</label><label class="it"><input type="checkbox" data-s="r-szechuan" data-miss="1">
   <button class="it-img" type="button"><img src="shop/r-szechuan.jpg" alt="Pickled Szechuan peppers" loading="lazy"></button>
   <span class="it-t"><b>Pickled Szechuan peppers</b> <span class="pill ">Her reel</span><span class="jp">花椒 (瓶)</span><small>Jar.</small></span>
-</label><label class="it"><input type="checkbox" data-s="r-redpepper-paste">
+</label><label class="it"><input type="checkbox" data-s="r-redpepper-paste" data-miss="1">
   <button class="it-img" type="button"><img src="shop/r-redpepper-paste.jpg" alt="Red pepper paste" loading="lazy"></button>
   <span class="it-t"><b>Red pepper paste</b> <span class="pill ">Her reel</span><span class="jp">唐辛子 (瓶)</span><small>Jar.</small></span>
-</label><label class="it"><input type="checkbox" data-s="r-ginger-onion">
+</label><label class="it"><input type="checkbox" data-s="r-ginger-onion" data-miss="1">
   <button class="it-img" type="button"><img src="shop/r-ginger-onion.jpg" alt="Ginger &amp; green onion sauce" loading="lazy"></button>
   <span class="it-t"><b>Ginger &amp; green onion sauce</b> <span class="pill ">Her reel</span><span class="jp">ねぎ生姜</span><small>Jar, centre of photo.</small></span>
 </label></div>
@@ -911,33 +911,33 @@ svg text{font-family:var(--sans)}
   <div class="items"><label class="it"><input type="checkbox" data-s="r-shiokoji" data-def="1">
   <button class="it-img" type="button"><img src="shop/r-shiokoji.jpg" alt="Salt koji" loading="lazy"></button>
   <span class="it-t"><b>Salt koji</b> <span class="pill ">Her reel</span><span class="jp">塩麹</span><small>White squeeze pouches.</small></span>
-</label><label class="it"><input type="checkbox" data-s="r-shoyukoji">
+</label><label class="it"><input type="checkbox" data-s="r-shoyukoji" data-miss="1">
   <button class="it-img" type="button"><img src="shop/r-shoyukoji.jpg" alt="Soy sauce koji" loading="lazy"></button>
   <span class="it-t"><b>Soy sauce koji</b> <span class="pill ">Her reel</span><span class="jp">しょうゆ麹</span><small>Brown pouch, red label.</small></span>
-</label><label class="it"><input type="checkbox" data-s="r-whitekoji">
+</label><label class="it"><input type="checkbox" data-s="r-whitekoji" data-miss="1">
   <button class="it-img" type="button"><img src="shop/r-whitekoji.jpg" alt="White koji" loading="lazy"></button>
   <span class="it-t"><b>White koji</b> <span class="pill ">Her reel</span><span class="jp">白糀</span><small>Tall white pouch, top right.</small></span>
-</label><label class="it"><input type="checkbox" data-s="r-manyo">
+</label><label class="it"><input type="checkbox" data-s="r-manyo" data-miss="1">
   <button class="it-img" type="button"><img src="shop/r-manyo.jpg" alt="Manyō no Sato miso (red, aged)" loading="lazy"></button>
   <span class="it-t"><b>Manyō no Sato miso (red, aged)</b> <span class="pill ">Her reel</span><span class="jp">万葉の里</span><small>Dark miso, left.</small></span>
-</label><label class="it"><input type="checkbox" data-s="r-yukimusume">
+</label><label class="it"><input type="checkbox" data-s="r-yukimusume" data-miss="1">
   <button class="it-img" type="button"><img src="shop/r-yukimusume.jpg" alt="Yukimusume miso" loading="lazy"></button>
   <span class="it-t"><b>Yukimusume miso</b> <span class="pill ">Her reel</span><span class="jp">雪娘</span><small>Pale Shinshu miso, centre.</small></span>
-</label><label class="it"><input type="checkbox" data-s="r-aodaizu">
+</label><label class="it"><input type="checkbox" data-s="r-aodaizu" data-miss="1">
   <button class="it-img" type="button"><img src="shop/r-aodaizu.jpg" alt="Blue soybean miso" loading="lazy"></button>
   <span class="it-t"><b>Blue soybean miso</b> <span class="pill ">Her reel</span><span class="jp">青大豆みそ</span><small>Green-label pack.</small></span>
 </label><label class="it"><input type="checkbox" data-s="r-barley" data-def="1">
   <button class="it-img" type="button"><img src="shop/r-barley.jpg" alt="Tamazukuri miso" loading="lazy"></button>
   <span class="it-t"><b>Tamazukuri miso (her reel calls one of these barley miso)</b> <span class="pill ">Her reel</span><span class="jp">玉造りみそ / 麦みそ</span><small>Got Choko Nagasaki 麦みそ at Isetan.</small></span>
-</label><label class="it"><input type="checkbox" data-s="r-choju">
+</label><label class="it"><input type="checkbox" data-s="r-choju" data-miss="1">
   <button class="it-img" type="button"><img src="shop/r-choju.jpg" alt="Long-aged miso" loading="lazy"></button>
   <span class="it-t"><b>Long-aged miso</b> <span class="pill ">Her reel</span><span class="jp">長熟</span><small>Dark vacuum pack, bottom right.</small></span>
 </label></div>
   <h4 class="sub">Sweet things (her reel)</h4><p class="how" style="margin:0 0 6px"><small>Jam / honey shelf and the baking aisle.</small></p>
-  <div class="items"><label class="it"><input type="checkbox" data-s="r-milkjam">
+  <div class="items"><label class="it"><input type="checkbox" data-s="r-milkjam" data-miss="1">
   <button class="it-img" type="button"><img src="shop/r-milkjam.jpg" alt="Milk jam" loading="lazy"></button>
   <span class="it-t"><b>Milk jam</b> <span class="pill ">Her reel</span><span class="jp">ミルクジャム</span><small>Small jars. Tsuruya makes its own too.</small></span>
-</label><label class="it"><input type="checkbox" data-s="r-honey">
+</label><label class="it"><input type="checkbox" data-s="r-honey" data-miss="1">
   <button class="it-img" type="button"><img src="shop/r-honey.jpg" alt="Wisteria honey" loading="lazy"></button>
   <span class="it-t"><b>Wisteria honey</b> <span class="pill ">Her reel</span><span class="jp">藤の花はちみつ</span><small>Pale golden jars.</small></span>
 </label><label class="it"><input type="checkbox" data-s="r-kinako-roasted" data-def="1">
@@ -948,23 +948,23 @@ svg text{font-family:var(--sans)}
   <span class="it-t"><b>Classic kinako powder</b> <span class="pill ">Her reel</span><span class="jp">きな粉</span><small>Brown-label bag.</small></span>
 </label></div>
   <h4 class="sub">Pantry basics (her reel)</h4><p class="how" style="margin:0 0 6px"><small>Regular supermarket items. If any are missing, Don Quijote tonight or Isetan B1 on Saturday will have them.</small></p>
-  <div class="items"><label class="it"><input type="checkbox" data-s="r-msg">
+  <div class="items"><label class="it"><input type="checkbox" data-s="r-msg" data-miss="1">
   <button class="it-img" type="button"><img src="shop/r-msg.jpg" alt="Ajinomoto MSG, panda shaker" loading="lazy"></button>
   <span class="it-t"><b>Ajinomoto MSG, panda shaker</b> <span class="pill ">Her reel</span><span class="jp">味の素 (パンダ)</span><small>Seasoning aisle.</small></span>
-</label><label class="it"><input type="checkbox" data-s="r-sesame-first">
+</label><label class="it"><input type="checkbox" data-s="r-sesame-first" data-miss="1">
   <button class="it-img" type="button"><img src="shop/r-sesame-first.jpg" alt="First-press sesame oil" loading="lazy"></button>
   <span class="it-t"><b>First-press sesame oil</b> <span class="pill ">Her reel</span><span class="jp">一番搾り ごま油</span><small>Oil aisle.</small></span>
-</label><label class="it"><input type="checkbox" data-s="r-sesame-ev">
+</label><label class="it"><input type="checkbox" data-s="r-sesame-ev" data-miss="1">
   <button class="it-img" type="button"><img src="shop/r-sesame-ev.jpg" alt="Extra virgin sesame oil" loading="lazy"></button>
   <span class="it-t"><b>Extra virgin sesame oil</b> <span class="pill ">Her reel</span><span class="jp">エキストラバージン ごま油</span><small>Oil aisle. Small amber bottle with a red cap.</small></span>
-</label><label class="it"><input type="checkbox" data-s="r-lard">
+</label><label class="it"><input type="checkbox" data-s="r-lard" data-miss="1">
   <button class="it-img" type="button"><img src="shop/r-lard.jpg" alt="Lard (she labelled it duck lard)" loading="lazy"></button>
   <span class="it-t"><b>Lard (she labelled it duck lard)</b> <span class="pill ">Her reel</span><span class="jp">ラード</span><small>Squeeze pouch, oil / butter aisle.</small></span>
 </label></div>
 </section><section id="sh-aeon" class="stop ">
   <div class="stop-h"><div class="when">Fri 13 Nov · ~11:00</div><h3>Aeon Mall Matsumoto (イオンモール松本)</h3><p class="how">Near Matsumoto station; park there or on the way to the car drop. 15–20 min. Azusa 38 leaves 14:50.</p></div>
   <p class="how"><small>Also a backup for Kurakon, hijiki or wakame if Tsuruya was out.</small></p>
-  <div class="items"><label class="it"><input type="checkbox" data-s="topvalu">
+  <div class="items"><label class="it"><input type="checkbox" data-s="topvalu" data-miss="1">
   <button class="it-img" type="button"><img src="shop/topvalu-hidaka.jpg" alt="Topvalu Hidaka konbu" loading="lazy"></button>
   <span class="it-t"><b>Topvalu Hidaka konbu</b><span class="jp">トップバリュ 天然日高昆布 25g</span><small>Purple pack, Aeon own brand. Dried goods aisle.</small></span>
 </label></div>
@@ -1006,9 +1006,9 @@ svg text{font-family:var(--sans)}
 </label><label class="it"><input type="checkbox" data-s="chasen">
   <button class="it-img" type="button"><img src="shop/chasen.jpg" alt="Takayama chasen (tea whisk)" loading="lazy"></button>
   <span class="it-t"><b>Takayama chasen (tea whisk)</b><span class="jp">高山茶筌 久保左文</span><small>Tea utensils (茶道具) floor; ask the info desk. Any 高山茶筌 is the same craft if this maker isn't there.</small></span>
-</label><label class="it"><input type="checkbox" data-s="tenryu">
+</label><label class="it"><input type="checkbox" data-s="tenryu" data-miss="1">
   <button class="it-img" type="button"><img src="shop/tenryu.jpg" alt="Tenryu sweet soy sauce" loading="lazy"></button>
-  <span class="it-t"><b>Tenryu sweet soy sauce</b> <span class="pill ">Long shot</span><span class="jp">ヨシビシ 天龍 醤油</span><small>Long shot: Kyushu-style, no Tokyo stockist found. Check soy shelf, else order online.</small></span>
+  <span class="it-t"><b>Tenryu sweet soy sauce</b> <span class="pill ">Long shot</span><span class="jp">ヨシビシ 天龍 醤油</span><small>Isetan B1 had no stock. Order online, or skip.</small></span>
 </label></div>
   <h4 class="sub">Dashi (her reel)</h4><p class="how" style="margin:0 0 6px"><small>B1 dried goods / dashi corner. Tsuruya&#x27;s own dashi packs are already on Friday&#x27;s list.</small></p>
   <div class="items"><label class="it"><input type="checkbox" data-s="r-taidashi">
@@ -1129,6 +1129,9 @@ svg text{font-family:var(--sans)}
   <button class="it-img" type="button"><img src="shop/frugra-ball.jpg" alt="Frugra Ball, ichigo milk" loading="lazy"></button>
   <span class="it-t"><b>Frugra Ball, ichigo milk</b> <span class="pill ">Likely gone</span><span class="jp">フルグラボール いちごみるく味</span><small>Probably gone: due to stop selling in September. Grab only if you see it.</small></span>
 </label></div>
+</section><section id="sh-missed" class="stop muted-stop">
+  <div class="stop-h"><div class="when">✗ Missed · <span id="missN">0</span> items</div><h3>Couldn't find / out of stock</h3><p class="how">Not found at Tsuruya or Aeon in Matsumoto, plus Tenryu soy (no stock at Isetan). If you spot one by chance, tick it and it moves to Bought.</p></div>
+  <div class="items" id="missedList"></div>
 </section><section id="sh-acoop" class="stop done">
   <div class="stop-h"><div class="when">✓ Bought · <span id="boughtN">0</span> items</div><h3>Already in the bag</h3><p class="how">Everything you tick moves down here automatically. Untick to send it back to its stop.</p></div>
   
@@ -1352,23 +1355,25 @@ svg text{font-family:var(--sans)}
   /* shopping list: one key can appear at several stops; ticks stay in sync, count unique items */
   var sh=[].slice.call(document.querySelectorAll('.it input[data-s]'));
   function same(k){return sh.filter(function(c){return c.dataset.s===k})}
-  function shopCount(){var all={},got={};sh.forEach(function(c){all[c.dataset.s]=1;if(c.checked)got[c.dataset.s]=1});var n=Object.keys(got).length,t=Object.keys(all).length;document.getElementById('shopN').textContent=n;document.getElementById('shopT').textContent=t;document.getElementById('shopBar').style.width=(100*n/t)+'%';}
+  function shopCount(){var all={},got={},ms={};sh.forEach(function(c){var k=c.dataset.s;all[k]=1;if(c.checked)got[k]=1;else if(c.dataset.miss==='1')ms[k]=1});var n=Object.keys(got).length,t=Object.keys(all).length,m=Object.keys(ms).filter(function(k){return !got[k]}).length;document.getElementById('shopN').textContent=n;document.getElementById('shopM').textContent=m;document.getElementById('shopL').textContent=t-n-m;document.getElementById('shopT').textContent=t;document.getElementById('shopBar').style.width=(100*(n+m)/t)+'%';}
   sh.forEach(function(c){
     var v=S.get('shop_'+c.dataset.s);
     c.checked=v===null?c.dataset.def==='1':v==='1';
     c.addEventListener('change',function(){S.set('shop_'+c.dataset.s,c.checked?'1':'0');same(c.dataset.s).forEach(function(o){o.checked=c.checked});shopCount();arrange()});
   });
   /* move bought items to the Bought list at the bottom (one copy per item); untick sends it back */
-  var bl=document.getElementById('boughtList');
+  var bl=document.getElementById('boughtList'),ml=document.getElementById('missedList');
   sh.forEach(function(c){var l=c.closest('.it');l._home=l.parentNode;l._ph=document.createComment('it');l.parentNode.insertBefore(l._ph,l);});
   function arrange(){
     var shown={};
     sh.forEach(function(c){var l=c.closest('.it'),k=c.dataset.s;
       if(c.checked){ if(!shown[k]){shown[k]=1;l.hidden=false;if(l.parentNode!==bl)bl.appendChild(l);} else {l.hidden=true;} }
+      else if(c.dataset.miss==='1'){ if(!shown[k]){shown[k]=1;l.hidden=false;if(l.parentNode!==ml)ml.appendChild(l);} else {l.hidden=true;} }
       else { l.hidden=false; if(l.parentNode===bl||l.parentNode!==l._home){l._ph.parentNode.insertBefore(l,l._ph.nextSibling);} }
     });
-    [].slice.call(document.querySelectorAll('#shop .stop')).forEach(function(st){if(st.id==='sh-acoop'||st.id==='sh-top')return;var its=st.querySelectorAll('.items .it');var vis=[].filter.call(its,function(x){return !x.hidden&&x.parentNode&&x.closest('.stop')===st});st.classList.toggle('alldone',its.length>0&&vis.length===0||(st.querySelector('.items')&&!st.querySelector('.items .it')&&!!st.querySelector('.items')));});
+    [].slice.call(document.querySelectorAll('#shop .stop')).forEach(function(st){if(st.id==='sh-acoop'||st.id==='sh-top'||st.id==='sh-missed')return;var its=st.querySelectorAll('.items .it');var vis=[].filter.call(its,function(x){return !x.hidden&&x.parentNode&&x.closest('.stop')===st});st.classList.toggle('alldone',its.length>0&&vis.length===0||(st.querySelector('.items')&&!st.querySelector('.items .it')&&!!st.querySelector('.items')));});
     document.getElementById('boughtN').textContent=bl.querySelectorAll('.it:not([hidden])').length;
+    document.getElementById('missN').textContent=ml.querySelectorAll('.it:not([hidden])').length;
   }
   shopCount();arrange();
   [].slice.call(document.querySelectorAll('button.it-img')).forEach(function(b){
