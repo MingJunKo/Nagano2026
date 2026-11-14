@@ -159,6 +159,8 @@ td.r{text-align:right;font-family:var(--mono);white-space:nowrap}
 .progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
 .stop{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
 .stop.done{opacity:.85}
+.stop.alldone .items::after{content:"✓ All bought here";display:block;padding:12px 14px;color:var(--ok);font-weight:600}
+.stop.alldone .items:has(.it:not([hidden]))::after{content:none}
 .stop-h{padding:13px 14px 4px;background:linear-gradient(180deg,var(--chip),transparent)}
 .stop-h .when{font-size:12.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--out)}
 .stop.done .when{color:var(--ok)}
@@ -781,7 +783,7 @@ svg text{font-family:var(--sans)}
 
 <!-- ===================== PAGE: SHOPPING ===================== -->
 <div class="page" id="shop" hidden>
-  <div class="chips" aria-label="Jump to stop"><a href="#sh-plan">Plan</a><a href="#sh-top">Top 5</a><a href="#sh-tsuruya">Tsuruya</a><a href="#sh-aeon">Aeon</a><a href="#sh-711">7-Eleven</a><a href="#sh-isetan">Isetan</a><a href="#sh-bic">Bic Camera</a><a href="#sh-taka">Takashimaya</a><a href="#sh-3coins">3COINS</a><a href="#sh-daiso">Daiso</a><a href="#sh-online">Online</a><a href="#sh-acoop">Bought</a></div>
+  <div class="chips" aria-label="Jump to stop"><a href="#sh-plan">Plan</a><a href="#sh-top">Top 5</a><a href="#sh-tsuruya">Tsuruya</a><a href="#sh-aeon">Aeon</a><a href="#sh-711">7-Eleven</a><a href="#sh-isetan">Isetan</a><a href="#sh-bic">Bic Camera</a><a href="#sh-taka">Takashimaya</a><a href="#sh-3coins">3COINS</a><a href="#sh-daiso">Daiso</a><a href="#sh-online">Online</a><a href="#sh-yodo">Yodobashi</a><a href="#sh-acoop">Bought</a></div>
   <section id="sh-plan">
   <h2>The shopping plan</h2>
   <p class="lead">Go stop by stop. Tick each item as it goes in the basket; ticks save on this phone. Tap a photo to enlarge it.</p>
@@ -797,6 +799,7 @@ svg text{font-family:var(--sans)}
     <tr><td class="n">Sat 14<br>10:00</td><td><span class="pill ok">Done</span> <a href="#sh-isetan"><b>Isetan B1</b></a><br><small>Rausu, Hidaka, Rishiri konbu, Ninben, chasen, Tenryu; from her reels: dashi, salts, soy sauces, beef tallow</small></td></tr>
     <tr><td class="n">Sat 14<br>10:50</td><td><span class="pill ok">Done</span> <a href="#sh-bic"><b>Bic Camera East Exit</b></a><br><small>ReFa shower head (bring passport for tax refund)</small></td></tr>
     <tr><td class="n">Sat 14<br>11:20</td><td><b>MUJI Lumine 2, 6F</b> (opens 11:00)<br><small>Bottle drying stick ¥990</small></td></tr>
+    <tr><td class="n">Sat 14<br>~14:00</td><td><a href="#sh-yodo"><b>Yodobashi West</b></a><br><small>PATAP bookmark (friend)</small></td></tr>
     <tr><td class="n">Sat 14<br>11:45</td><td><a href="#sh-taka"><b>Takashimaya</b></a><br><small>Wpc. umbrella at Hands (top 5); Kinokuniya Rishiri konbu, Funbaruzu</small></td></tr>
     <tr><td class="n">Sat 14<br>12:30</td><td><a href="#sh-daiso"><b>Daiso</b></a> + 3COINS extras<br><small>UV face mask, Kaki no Tane Thunder, if there's room</small></td></tr>
     <tr><td class="n">Sun 15<br>~14:00</td><td><b>Narita T1 South, after passport control</b><br><small>Airport furikake + ROYCE' (top 5)</small></td></tr>
@@ -1081,8 +1084,14 @@ svg text{font-family:var(--sans)}
   <button class="it-img" type="button"><img src="shop/funbaruzu.jpg" alt="Funbaruzu Cinnamoroll posture pal" loading="lazy"></button>
   <span class="it-t"><b>Funbaruzu Cinnamoroll posture pal</b><span class="jp">ふんばるず シナモロール</span><small>Hands character goods. If none, try Loft, or Kiddy Land Harajuku (4 min by Yamanote).</small></span>
 </label></div>
+</section><section id="sh-yodo" class="stop">
+  <div class="stop-h"><div class="when">Sat 14 Nov · ~14:00</div><h3>Yodobashi Camera Shinjuku West Main Store</h3><p class="how">West exit, ~10 min walk from Lumine / Takashimaya. Open till 22:00. Stationery corner.</p></div>
+  <div class="items"><label class="it"><input type="checkbox" data-s="patap">
+  <button class="it-img" type="button"><img src="shop/patap.jpg" alt="Nakabayashi PATAP bookmark" loading="lazy"></button>
+  <span class="it-t"><b>Nakabayashi PATAP flip-clip bookmark (blue)</b> <span class="pill">For your friend</span><span class="jp">ナカバヤシ パタップ しおり</span><small>Silicone flap + steel clip. S$14 in Singapore, a few hundred yen here. Ask: パタップのしおりはありますか？</small></span>
+</label></div>
 </section><section id="sh-3coins" class="stop ">
-  <div class="stop-h"><div class="when">Fri 13 Nov · tonight, first stop</div><h3>3COINS, Shinjuku</h3><p class="how">Several in the station buildings; search "3COINS 新宿" in Maps for the closest. Buy the duffle first and pack into it.</p></div>
+  <div class="stop-h"><div class="when">If there's room</div><h3>3COINS, Shinjuku</h3><p class="how">Several in the station buildings; search "3COINS 新宿" in Maps.</p></div>
   
   <div class="items"><label class="it"><input type="checkbox" data-s="duffle" data-def="1">
   <button class="it-img" type="button"><img src="shop/duffle.jpg" alt="3COINS foldable clear duffle bag" loading="lazy"></button>
@@ -1121,9 +1130,9 @@ svg text{font-family:var(--sans)}
   <span class="it-t"><b>Frugra Ball, ichigo milk</b> <span class="pill ">Likely gone</span><span class="jp">フルグラボール いちごみるく味</span><small>Probably gone: due to stop selling in September. Grab only if you see it.</small></span>
 </label></div>
 </section><section id="sh-acoop" class="stop done">
-  <div class="stop-h"><div class="when">✓ Bought so far</div><h3>Already in the bag</h3><p class="how">A-Coop and the big supermarket in Hakuba.</p></div>
+  <div class="stop-h"><div class="when">✓ Bought · <span id="boughtN">0</span> items</div><h3>Already in the bag</h3><p class="how">Everything you tick moves down here automatically. Untick to send it back to its stop.</p></div>
   
-  <div class="items"><label class="it"><input type="checkbox" data-s="momoya" data-def="1">
+  <div class="items" id="boughtList"><label class="it"><input type="checkbox" data-s="momoya" data-def="1">
   <button class="it-img" type="button"><img src="shop/momoya.jpg" alt="Momoya garlic in oil, 230g" loading="lazy"></button>
   <span class="it-t"><b>Momoya garlic in oil, 230g</b><span class="jp">桃屋 きざみにんにく お徳用</span><small>¥582. Glass: wrap in clothes, keep upright.</small></span>
 </label><label class="it"><input type="checkbox" data-s="rokusuke" data-def="1">
@@ -1347,9 +1356,21 @@ svg text{font-family:var(--sans)}
   sh.forEach(function(c){
     var v=S.get('shop_'+c.dataset.s);
     c.checked=v===null?c.dataset.def==='1':v==='1';
-    c.addEventListener('change',function(){S.set('shop_'+c.dataset.s,c.checked?'1':'0');same(c.dataset.s).forEach(function(o){o.checked=c.checked});shopCount()});
+    c.addEventListener('change',function(){S.set('shop_'+c.dataset.s,c.checked?'1':'0');same(c.dataset.s).forEach(function(o){o.checked=c.checked});shopCount();arrange()});
   });
-  shopCount();
+  /* move bought items to the Bought list at the bottom (one copy per item); untick sends it back */
+  var bl=document.getElementById('boughtList');
+  sh.forEach(function(c){var l=c.closest('.it');l._home=l.parentNode;l._ph=document.createComment('it');l.parentNode.insertBefore(l._ph,l);});
+  function arrange(){
+    var shown={};
+    sh.forEach(function(c){var l=c.closest('.it'),k=c.dataset.s;
+      if(c.checked){ if(!shown[k]){shown[k]=1;l.hidden=false;if(l.parentNode!==bl)bl.appendChild(l);} else {l.hidden=true;} }
+      else { l.hidden=false; if(l.parentNode===bl||l.parentNode!==l._home){l._ph.parentNode.insertBefore(l,l._ph.nextSibling);} }
+    });
+    [].slice.call(document.querySelectorAll('#shop .stop')).forEach(function(st){if(st.id==='sh-acoop'||st.id==='sh-top')return;var its=st.querySelectorAll('.items .it');var vis=[].filter.call(its,function(x){return !x.hidden&&x.parentNode&&x.closest('.stop')===st});st.classList.toggle('alldone',its.length>0&&vis.length===0||(st.querySelector('.items')&&!st.querySelector('.items .it')&&!!st.querySelector('.items')));});
+    document.getElementById('boughtN').textContent=bl.querySelectorAll('.it:not([hidden])').length;
+  }
+  shopCount();arrange();
   [].slice.call(document.querySelectorAll('button.it-img')).forEach(function(b){
     b.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();var im=b.querySelector('img');lbImg.src=im.src;lbImg.alt=im.alt;lb.classList.add('open');lb.scrollTop=0;document.getElementById('lbClose').focus();});
   });
